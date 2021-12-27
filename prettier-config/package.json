@@ -1,0 +1,11 @@
+{
+  "name": "@sungryeol/prettier-config",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/rabelais88/sungryeol",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}

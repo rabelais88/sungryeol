@@ -1,0 +1,10 @@
+{
+  "name": "@sungryeol/eslint-config",
+  "version": "1.0.0",
+  "main": ".eslintrc.js",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}

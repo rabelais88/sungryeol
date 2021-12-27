@@ -1,0 +1,14 @@
+{
+  "name": "@sungryeol/typescript-config",
+  "version": "1.0.0",
+  "main": "tsconfig.json",
+  "files": [
+    "tsconfig.json"
+  ],
+  "repository": "https://github.com/rabelais88/sungryeol",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}

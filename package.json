@@ -1,0 +1,28 @@
+{
+  "name": "sungryeol",
+  "version": "1.0.0",
+  "description": "everything about Sungryeol",
+  "main": "index.js",
+  "repository": "https://github.com/rabelais88",
+  "author": "Sungryeol Park",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@parcel/packager-ts": "^2.0.1",
+    "@parcel/transformer-typescript-types": "^2.0.1",
+    "oao": "^2.0.2",
+    "typescript": ">=3.0.0"
+  },
+  "workspaces": [
+    "app-portfolio-2021",
+    "lib",
+    "eslint-config",
+    "prettier-config",
+    "typescript-config"
+  ],
+  "scripts": {
+    "bootstrap": "oao bootstrap",
+    "status": "oao status",
+    "clean": "oao clean"
+  }
+}
