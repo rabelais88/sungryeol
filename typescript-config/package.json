@@ -1,6 +1,6 @@
 {
   "name": "@sungryeol/typescript-config",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "tsconfig.json",
   "files": [
     "tsconfig.json"
