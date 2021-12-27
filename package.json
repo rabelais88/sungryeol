@@ -24,6 +24,7 @@
     "bootstrap": "oao bootstrap",
     "status": "oao status",
     "clean": "oao clean",
-    "pub": "oao publish"
+    "pub": "oao publish",
+    "build": "oao run-script build"
   }
 }
