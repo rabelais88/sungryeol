@@ -1,6 +1,8 @@
 {
   "editor.formatOnSave": true,
   "editor.renderWhitespace": "all",
+  // settings for multiple language is not supported yet
+  // these settings are must for auto format & save
   "[javascript]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"

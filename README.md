@@ -6,9 +6,10 @@
 
 - npm identity가 필요하므로 반드시 빌드와 배포는 yarn 대신 아래 빌드 커맨드로 진행할 것
 
-# build & publish libs
+# build & publish libraries
 
 ```sh
 (project root)$ yarn build
+(proejct root)$ npm login
 (project root)$ npx oao publish
 ```

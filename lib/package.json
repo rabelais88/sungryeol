@@ -16,7 +16,8 @@
   "scripts": {
     "lint": "eslint",
     "format": "prettier",
-    "build": "parcel build"
+    "build": "parcel build",
+    "test": "jest"
   },
   "dependencies": {
     "@sungryeol/eslint-config": "^1.0.4",
@@ -24,8 +25,11 @@
     "@sungryeol/typescript-config": "^1.0.4"
   },
   "devDependencies": {
+    "@types/jest": "^27.0.3",
     "eslint": "^8.5.0",
+    "jest": "^27.4.5",
     "parcel": "^2.0.1",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "ts-jest": "^27.1.2"
   }
 }
