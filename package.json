@@ -24,7 +24,7 @@
     "bootstrap": "oao bootstrap",
     "status": "oao status",
     "clean": "oao clean",
-    "pub": "oao publish",
+    "pub": "echo 'for publishing, check readme.md'",
     "build": "oao run-script build"
   }
 }

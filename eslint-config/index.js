@@ -1,3 +1,3 @@
 module.exports = {
-  excludedFiles: ["dist/*", ".next/"],
+  ignorePatterns: ["dist/**/*", ".next/**/*"],
 };
