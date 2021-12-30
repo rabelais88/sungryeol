@@ -1,3 +1,3 @@
 module.exports = {
-  eslintIgnore: ["dist/*", ".next/"],
+  excludedFiles: ["dist/*", ".next/"],
 };

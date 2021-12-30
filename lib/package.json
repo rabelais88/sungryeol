@@ -17,7 +17,7 @@
   "scripts": {
     "lint": "eslint",
     "format": "prettier",
-    "build": "parcel build",
+    "build": "parcel build --no-cache",
     "test": "jest"
   },
   "dependencies": {
