@@ -1,7 +1,7 @@
 {
   "name": "@sungryeol/eslint-config",
   "version": "1.0.4",
-  "main": ".eslintrc.js",
+  "main": "index.js",
   "license": "MIT",
   "private": false,
   "publishConfig": {

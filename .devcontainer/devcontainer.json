@@ -27,17 +27,17 @@
   "extensions": ["golang.Go"],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": ["3000:3000"],
+  "forwardPorts": [3000],
 
   // Use 'postCreateCommand' to run commands after the container is created.
   // "postCreateCommand": "go version",
 
   // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   // "remoteUser": "vscode",
-  "mounts": [
-    "src=try-node-node_modules,target=${containerWorkspaceFolder}/app-portfolio-2021/node_modules,type=volume",
-    "src=try-node-node_modules,target=${containerWorkspaceFolder}/app-portfolio-2021/.next,type=volume",
-    "src=try-node-node_modules,target=${containerWorkspaceFolder}/lib/node_modules,type=volume",
-    "src=try-node-node_modules,target=${containerWorkspaceFolder}/lib/dist,type=volume"
-  ],
+  // "mounts": [
+  //   "src=try-node-node_modules,target=${containerWorkspaceFolder}/app-portfolio-2021/node_modules,type=volume",
+  //   "src=try-node-node_modules,target=${containerWorkspaceFolder}/app-portfolio-2021/.next,type=volume",
+  //   "src=try-node-node_modules,target=${containerWorkspaceFolder}/lib/node_modules,type=volume",
+  //   "src=try-node-node_modules,target=${containerWorkspaceFolder}/lib/dist,type=volume"
+  // ],
 }
