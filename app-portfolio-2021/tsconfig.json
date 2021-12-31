@@ -1,9 +1,5 @@
 {
   "extends": "@sungryeol/typescript-config/tsconfig.json",
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "references": [
-    {
-      "path": "../lib"
-    }
-  ]
+  "paths": { "@sungryeol/lib": ["../../lib/src"] }
 }
