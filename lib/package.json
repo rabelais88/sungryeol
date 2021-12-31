@@ -4,9 +4,9 @@
   "repository": "https://github.com/rabelais88/sungryeol",
   "license": "MIT",
   "main": "./dist/index.js",
-  "exports": {
-    ".": "./dist"
-  },
+  "files": [
+    "dist"
+  ],
   "type": "commonjs",
   "typings": "./dist/index.d.ts",
   "source": "./src/index.ts",
