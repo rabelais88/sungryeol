@@ -9,5 +9,6 @@
     "types": ["@types/jest", "node"],
     "typeRoots": ["./types"],
     "incremental": false
-  }
+  },
+  "files": ["src"]
 }
