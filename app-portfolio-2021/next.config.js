@@ -13,6 +13,7 @@ const nextConfig = {
       ...config.resolve.alias,
       '@sungryeol/lib': require.resolve('@sungryeol/lib'),
     };
+    return config;
   },
 };
 

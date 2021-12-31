@@ -7,5 +7,12 @@
     "**/*.js",
     "**/*.jsx",
     "**/*.json"
-  ]
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@sungryeol/lib": ["../lib/src/index"],
+      "@sungryeol/lib/*": ["../lib/src/*"]
+    }
+  }
 }
