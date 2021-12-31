@@ -7,8 +7,7 @@
   "files": [
     "dist"
   ],
-  "type": "commonjs",
-  "typings": "./dist/index.d.ts",
+  "types": "./dist/index.d.ts",
   "source": "./src/index.ts",
   "private": false,
   "publishConfig": {
