@@ -3,12 +3,13 @@
   "version": "1.0.9",
   "repository": "https://github.com/rabelais88/sungryeol",
   "license": "MIT",
-  "main": "./dist/index.js",
+  "main": "dist/index.js",
   "files": [
-    "dist"
+    "dist/**/*",
+    "dist/*"
   ],
-  "types": "./dist/index.d.ts",
-  "source": "./src/index.ts",
+  "types": "dist/index.d.ts",
+  "source": "src/index.ts",
   "private": false,
   "publishConfig": {
     "access": "public"
