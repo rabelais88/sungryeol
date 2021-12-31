@@ -1,8 +1,14 @@
 {
   "extends": "@sungryeol/typescript-config/tsconfig.json",
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.json"
+  ],
   "compilerOptions": {
-    "incremental": false,
     "paths": {
       "@sungryeol/lib": ["../lib/src/index"],
       "@sungryeol/lib/*": ["../lib/src/*"]
