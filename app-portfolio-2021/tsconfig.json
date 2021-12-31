@@ -11,8 +11,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@sungryeol/lib": ["../lib/dist/index"],
-      "@sungryeol/lib/*": ["../lib/dist/*"]
+      "@sungryeol/lib": ["../lib/src/index"],
+      "@sungryeol/lib/*": ["../lib/src/*"]
     }
   }
 }
