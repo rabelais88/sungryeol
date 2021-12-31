@@ -1,6 +1,6 @@
 {
   "name": "@sungryeol/lib",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "repository": "https://github.com/rabelais88/sungryeol",
   "license": "MIT",
   "main": "dist/index.js",
@@ -20,9 +20,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "@sungryeol/eslint-config": "^1.0.10",
-    "@sungryeol/prettier-config": "^1.0.10",
-    "@sungryeol/typescript-config": "^1.0.10"
+    "@sungryeol/eslint-config": "^1.0.11",
+    "@sungryeol/prettier-config": "^1.0.11",
+    "@sungryeol/typescript-config": "^1.0.11"
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
