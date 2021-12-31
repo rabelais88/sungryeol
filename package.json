@@ -13,13 +13,18 @@
     "oao": "^2.0.2",
     "typescript": ">=3.0.0"
   },
-  "workspaces": [
-    "app-portfolio-2021",
-    "lib",
-    "eslint-config",
-    "prettier-config",
-    "typescript-config"
-  ],
+  "workspaces": {
+    "packages": [
+      "app-portfolio-2021",
+      "lib",
+      "eslint-config",
+      "prettier-config",
+      "typescript-config"
+    ],
+    "nohoist": [
+      "**/lib/**"
+    ]
+  },
   "scripts": {
     "bootstrap": "oao bootstrap",
     "status": "oao status",
