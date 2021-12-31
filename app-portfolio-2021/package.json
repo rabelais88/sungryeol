@@ -4,8 +4,8 @@
   "version": "1.0.11",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "node_modules/next/dist/bin/next build",
+    "start": "node_modules/next/dist/bin/next start",
     "lint": "next lint",
     "format": "prettier"
   },
