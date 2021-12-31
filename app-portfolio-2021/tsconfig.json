@@ -3,6 +3,9 @@
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "compilerOptions": {
     "incremental": false,
-    "paths": { "@sungryeol/lib": ["../lib/src"] }
+    "paths": {
+      "@sungryeol/lib": ["../lib/src/index"],
+      "@sungryeol/lib/*": ["../lib/src/*"]
+    }
   }
 }
