@@ -34,6 +34,7 @@
   "go.lintTool": "golangci-lint",
   "eslint.workingDirectories": [
     "./app-portfolio-2021",
+    "./app-admin-2021",
     "./eslint-config",
     "./typescript-config",
     "./prettier-config",

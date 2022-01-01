@@ -1,0 +1,9 @@
+{
+  "schemaPath": "schema/schema.graphql",
+  "includes": [
+    "**/*.graphql"
+  ],
+  "extensions": {
+    "schemaTypesPath": "types/graphql"
+  }
+}

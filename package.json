@@ -11,7 +11,8 @@
     "@parcel/packager-ts": "^2.0.1",
     "@parcel/transformer-typescript-types": "^2.0.1",
     "oao": "^2.0.2",
-    "typescript": ">=3.0.0"
+    "typescript": ">=3.0.0",
+    "vercel": "^23.1.2"
   },
   "workspaces": [
     "app-portfolio-2021",
