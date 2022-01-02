@@ -1,5 +1,10 @@
 import type { IGetPostResponse, ITags } from '@/types';
-import { PostInput, StringFilterInput, TagFiltersInput } from '@/types/graphql';
+import {
+  PostFiltersInput,
+  PostInput,
+  StringFilterInput,
+  TagFiltersInput,
+} from '@/types/graphql';
 import { IPaginationResult } from '@/types/Pagination';
 import { gql } from 'graphql-request';
 import gqlClient from './gqlClient';
@@ -19,7 +24,7 @@ interface IGetPostIndices {
 
 export const getPostIndices = async () => {
   const query = gql`
-    query getPosts($pageSize: Int) {
+    query getPostsIndices($pageSize: Int) {
       posts(pagination: { pageSize: $pageSize }) {
         data {
           attributes {
@@ -91,27 +96,28 @@ interface IGetPostsPost {
 interface IGetPostsResponse {
   posts: {
     data: IGetPostsPost[];
+    meta: {
+      pagination: {
+        total: number;
+        page: number;
+        pageSize: number;
+        pageCount: number;
+      };
+    };
   };
 }
 
-interface IGetPostsFilter {
-  title?: StringFilterInput;
-  tags?: TagFiltersInput;
-}
+interface IGetPostsFilter extends PostFiltersInput {}
 
 // 나중에 meilisearch 로 업데이트할 것
 export const getPosts = async ({
-  page = 0,
+  page = 1,
   pageSize = 10,
-  tagKeys,
-  keyword,
+  tagKeys = [],
+  keyword = '',
 }: IGetPostsArg) => {
   const query = gql`
-    query getPostsByTag(
-      $filters: PostFiltersInput
-      $page: Int
-      $pageSize: Int
-    ) {
+    query getPosts($filters: PostFiltersInput, $page: Int, $pageSize: Int) {
       posts(
         filters: $filters
         pagination: { page: $page, pageSize: $pageSize }
@@ -131,18 +137,28 @@ export const getPosts = async ({
             }
           }
         }
+        meta {
+          pagination {
+            total
+            page
+            pageSize
+            pageCount
+          }
+        }
       }
     }
   `;
   const filters: IGetPostsFilter = {};
   if (keyword !== '') filters.title = { containsi: keyword };
-  if (tagKeys) filters.tags = { key: { and: tagKeys } };
+
+  if (tagKeys?.length >= 1)
+    filters.tags = { and: tagKeys.map((tagKey) => ({ key: { eq: tagKey } })) };
   const posts = await gqlClient.request<IGetPostsResponse>(query, {
     filters,
     page,
     pageSize,
   });
-  return posts?.posts?.data;
+  return posts?.posts;
 };
 
 interface ISearchPostArg {

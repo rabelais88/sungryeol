@@ -22,7 +22,7 @@ const Home: NextPage<IProps> = ({ tags, posts }) => {
       {tags?.tags?.data?.map((tag) => (
         <li key={tag.attributes.key}>{tag.attributes.label}</li>
       ))}
-      {posts?.map((post) => (
+      {posts?.data?.map((post) => (
         <a href={`/posts/${post.attributes.uid}`} key={post?.attributes?.uid}>
           {post?.attributes?.title}
         </a>
