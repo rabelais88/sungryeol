@@ -2,7 +2,9 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { getPost, getPostIndices } from '@/services/PostService';
 import { ReturnPromiseType } from '@/types';
 import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { MDXRemoteSerializeResult } from 'next-mdx-remote';
+import LayoutDefault from '@/layout/LayoutDefault';
+import MDXRender from '@/components/MDXRender';
 
 interface IProps {
   post: ReturnPromiseType<typeof getPost>;
@@ -11,13 +13,10 @@ interface IProps {
 
 const Post: NextPage<IProps> = ({ post, mdxSource }) => {
   return (
-    <div>
+    <LayoutDefault>
       <h1>{post.title}</h1>
-      <MDXRemote
-        {...mdxSource}
-        // components={components}
-      />
-    </div>
+      <MDXRender mdxSource={mdxSource} />
+    </LayoutDefault>
   );
 };
 

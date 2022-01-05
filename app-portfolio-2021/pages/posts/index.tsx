@@ -1,3 +1,4 @@
+import LayoutDefault from '@/layout/LayoutDefault';
 import { getPosts } from '@/services/PostService';
 import { ReturnPromiseType } from '@/types';
 import { GetServerSideProps, NextPage } from 'next';
@@ -18,7 +19,7 @@ const Posts: NextPage<IProps> = ({
   postsData,
 }) => {
   return (
-    <div>
+    <LayoutDefault>
       <p>searching by {keyword}</p>
       <p>page {page}</p>
       {postsData.data.map((post) => (
@@ -29,7 +30,7 @@ const Posts: NextPage<IProps> = ({
       ))}
       <p>total articles: {postsData.meta.pagination.total}</p>
       <p>page size: {pageSize}</p>
-    </div>
+    </LayoutDefault>
   );
 };
 

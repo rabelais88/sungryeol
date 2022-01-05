@@ -2,13 +2,19 @@ import { GetStaticProps, NextPage } from 'next';
 import { MDXRemoteSerializeResult, MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import { getWork } from '@/services/WorkService';
+import LayoutDefault from '@/layout/LayoutDefault';
+import MDXRender from '@/components/MDXRender';
 
 interface IProps {
   mdxSource: MDXRemoteSerializeResult;
 }
 
 const Work: NextPage<IProps> = ({ mdxSource }) => {
-  return <MDXRemote {...mdxSource} />;
+  return (
+    <LayoutDefault>
+      <MDXRender mdxSource={mdxSource} />
+    </LayoutDefault>
+  );
 };
 
 export default Work;
