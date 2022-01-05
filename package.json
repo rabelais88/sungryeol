@@ -15,11 +15,11 @@
     "vercel": "^23.1.2"
   },
   "workspaces": [
-    "app-portfolio-2021",
-    "lib",
     "eslint-config",
     "prettier-config",
-    "typescript-config"
+    "typescript-config",
+    "lib",
+    "app-portfolio-2021"
   ],
   "scripts": {
     "bootstrap": "oao bootstrap",

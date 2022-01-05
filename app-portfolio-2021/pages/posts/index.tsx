@@ -45,7 +45,6 @@ export const getServerSideProps: GetServerSideProps<IProps> = async (
     ? Number(context.query?.pageSize)
     : 10;
   if (isNaN(page) || isNaN(pageSize)) return { notFound: true };
-  console.log({ keyword, page, tags, pageSize });
   const postsData = await getPosts({ page, pageSize, keyword, tagKeys: tags });
   return { props: { keyword, tags, page, pageSize, postsData } };
 };

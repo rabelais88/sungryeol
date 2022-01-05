@@ -35,7 +35,6 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 // https://github.com/prisma-labs/graphql-request
 export const getStaticProps: GetStaticProps<IProps> = async (context) => {
   const uid = `${context?.params?.uid}`;
-  console.log('fetching post', uid);
   const post = await getPost(uid);
   if (!post) return { notFound: true };
   const mdxSource = await serialize(post.content);

@@ -1,3 +1,4 @@
+import PostSearch from '@/components/PostSearch';
 import { getPosts } from '@/services/PostService';
 import { getTags } from '@/services/TagService';
 import { ReturnPromiseType } from '@/types';
@@ -28,6 +29,7 @@ const Home: NextPage<IProps> = ({ tags, posts }) => {
         </a>
       ))}
       <div>total of {tags.tags.meta.pagination.total} tags</div>
+      <PostSearch />
     </div>
   );
 };
