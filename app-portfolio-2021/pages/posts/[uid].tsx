@@ -5,6 +5,18 @@ import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import LayoutDefault from '@/layout/LayoutDefault';
 import MDXRender from '@/components/MDXRender';
+import {
+  Box,
+  Button,
+  Divider,
+  Heading,
+  HStack,
+  Link,
+  useToast,
+} from '@chakra-ui/react';
+import NextLink from 'next/link';
+import IconShare from '@/components/icons/IconShare';
+import copyToClipboard from '@/utils/copyToClipboard';
 
 interface IProps {
   post: ReturnPromiseType<typeof getPost>;
@@ -12,10 +24,29 @@ interface IProps {
 }
 
 const Post: NextPage<IProps> = ({ post, mdxSource }) => {
+  const toast = useToast();
+  const onShare = () => {
+    copyToClipboard(window?.location?.href);
+    toast({ title: 'url copied to clipboard', isClosable: true });
+  };
   return (
     <LayoutDefault>
-      <h1>{post.title}</h1>
-      <MDXRender mdxSource={mdxSource} />
+      <HStack mt="30px">
+        <NextLink href="/posts" passHref>
+          <Link textDecor="underline">Posts</Link>
+        </NextLink>
+        <Box flexGrow="1" />
+        <Button leftIcon={<IconShare />} onClick={onShare}>
+          Share
+        </Button>
+      </HStack>
+      <Heading fontFamily="KP CR Tungkeun" mt="10px">
+        {post.title}
+      </Heading>
+      <Divider mt="10px" mb="10px" borderBottom="solid 1px black" />
+      <Box fontSize="16px" fontWeight="300">
+        <MDXRender mdxSource={mdxSource} />
+      </Box>
     </LayoutDefault>
   );
 };

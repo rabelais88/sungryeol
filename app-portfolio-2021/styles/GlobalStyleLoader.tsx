@@ -17,6 +17,13 @@ function GlobalStyleLoader() {
 }
 
 @font-face {
+	font-family: 'KP CR Tungkeun', sans-serif;
+	font-weight: 500;
+	font-display: swap;
+	src: local('KP CR Tungkeun'), url('/fonts/KCC-KP-CR_Tungkeun-Medium-KP-2011KPS.ttf') format('truetype');
+}
+
+@font-face {
 	font-family: 'Pretendard';
 	font-weight: 900;
 	font-display: swap;

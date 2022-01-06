@@ -12,7 +12,9 @@ interface IGetTags {
   };
 }
 
-export const getTags = async () => {
+export const getTags = async ({
+  pageSize = 100,
+}: { pageSize?: number } = {}) => {
   const query = gql`
     query getTags($pageSize: Int) {
       tags(pagination: { pageSize: $pageSize }) {
@@ -31,6 +33,6 @@ export const getTags = async () => {
     }
   `;
 
-  const res = await gqlClient.request<IGetTags>(query, { pageSize: 100 });
+  const res = await gqlClient.request<IGetTags>(query, { pageSize });
   return res;
 };

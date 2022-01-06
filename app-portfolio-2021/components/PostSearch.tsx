@@ -1,9 +1,12 @@
 // https://www.contentful.com/blog/2021/07/02/add-algolia-instantsearch-to-nextjs-app/
-import dynamic from 'next/dynamic';
-import algoliasearch from 'algoliasearch/lite';
-import { InstantSearch, Highlight, connectHits } from 'react-instantsearch-dom';
-import { useMemo } from 'react';
-import { connectSearchBox } from 'react-instantsearch-dom';
+import {
+  InstantSearch,
+  InstantSearchProps,
+  Highlight,
+  connectHits,
+  connectSearchBox,
+  connectPagination,
+} from 'react-instantsearch-dom';
 import {
   Input,
   InputGroup,
@@ -11,19 +14,18 @@ import {
   Image,
   ListItem,
   UnorderedList,
-  Heading,
   Text,
   HStack,
   Box,
   Link,
+  Button,
 } from '@chakra-ui/react';
 import PostTag from './PostTag';
 import { Hit } from 'react-instantsearch-core';
 import { shortInternationalTime } from '@sungryeol/lib';
 import NextLink from 'next/link';
-
-const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID ?? '';
-const appKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_KEY ?? '';
+import AlgoliaService from '@/services/AlgoliaService';
+import { SearchClient } from 'algoliasearch/lite';
 
 const SearchBox = connectSearchBox(({ refine }) => {
   return (
@@ -36,29 +38,18 @@ const SearchBox = connectSearchBox(({ refine }) => {
         onChange={(e) => refine(e?.currentTarget?.value)}
         className="post-search--search-box"
         placeholder="Type keywords to search/검색하려는 단어를 입력하세요..."
+        sx={{
+          '&:focus': {
+            boxShadow: '0px 1px 0px 0px black !important',
+            borderColor: 'black',
+          },
+        }}
       />
     </InputGroup>
   );
 });
 
 const Hit: React.FC<{ hit: any }> = ({ hit }) => <Highlight hit={hit} />;
-
-// const Hits = connectStateResults(({ searchState, searchResults }) => {
-//   const validQuery = searchState.query && searchState.query?.length >= 2;
-//   if (searchResults?.hits?.length === 0 || !searchResults?.hits)
-//     return <p>no result</p>;
-//   return (
-//     <ol>
-//       {searchResults.hits.map((hit) => (
-//         <li key={hit.uid}>
-//           {hit.title}
-//           {JSON.stringify(hit)}
-//           {/* <Highlight hit={hit} /> */}
-//         </li>
-//       ))}
-//     </ol>
-//   );
-// });
 
 interface IArticle {
   updatedAt: string;
@@ -145,19 +136,64 @@ const SearchResults = connectHits<Hit<IArticle>>(({ hits }) => {
   );
 });
 
+const SearchPagination = connectPagination(
+  ({ currentRefinement, nbPages, refine, createURL }) => {
+    return (
+      <HStack className="search-pagination" justify="flex-end">
+        <Button
+          variant="link"
+          color="black"
+          disabled={currentRefinement <= 1}
+          onClick={() => refine(currentRefinement - 1)}
+        >
+          Prev
+        </Button>
+        {Array.from({ length: nbPages }).map((_, i) => (
+          <Button
+            variant="link"
+            key={i}
+            className={currentRefinement === i + 1 ? 'active' : ''}
+            color="black"
+            sx={{ '.active': { fontWeight: 'bold', color: 'pink.400' } }}
+            onClick={() => refine(i)}
+          >
+            {i + 1}
+          </Button>
+        ))}
+        <Button
+          variant="link"
+          color="black"
+          disabled={currentRefinement >= nbPages}
+          onClick={() => refine(currentRefinement + 1)}
+        >
+          Next
+        </Button>
+      </HStack>
+    );
+  }
+);
+
+interface IPostSearch
+  extends Omit<
+    InstantSearchProps,
+    'indexName' | 'stalledSearchDelay' | 'searchClient'
+  > {
+  searchClient?: SearchClient;
+}
 // component for seraching posts with Algolia
-const _PostSearch: React.FC = () => {
-  const searchClient = useMemo(() => algoliasearch(appId, appKey), []);
+const PostSearch: React.FC<IPostSearch> = ({ searchClient, ...props }) => {
   return (
-    <>
-      <InstantSearch searchClient={searchClient} indexName="posts">
-        <SearchBox />
-        <SearchResults />
-      </InstantSearch>
-    </>
+    <InstantSearch
+      {...props}
+      searchClient={searchClient ?? new AlgoliaService().searchClient}
+      indexName="posts"
+      stalledSearchDelay={500}
+    >
+      <SearchBox />
+      <SearchResults />
+      <SearchPagination />
+    </InstantSearch>
   );
 };
 
-// const PostSearch = dynamic(() => Promise.resolve(_PostSearch), { ssr: false });
-
-export default _PostSearch;
+export default PostSearch;

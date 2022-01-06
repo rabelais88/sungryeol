@@ -1,5 +1,7 @@
-import { Box, Tabs, Slide, TabList, Tab, VStack } from '@chakra-ui/react';
+import { Box, Link, Slide, VStack } from '@chakra-ui/react';
 import LogoGeometry from './icons/LogoGeometry';
+import MenuTab from './MenuTab';
+import NextLink from 'next/link';
 
 interface IProps {
   visible?: boolean;
@@ -12,16 +14,20 @@ const Menu: React.FC<IProps> = ({ visible = false }) => {
       in={visible}
       style={{ maxWidth: '228px', zIndex: 1300 }}
     >
-      <Box bgColor="yellow.100" maxW="228px" w="100%" h="100%" pt="50px">
-        <VStack p="29px">
-          <LogoGeometry w="160px" h="68px" mx="auto" />
-          <Tabs orientation="vertical">
-            <TabList mt="30px" sx={{}}>
-              <Tab>Post</Tab>
-              <Tab>Work</Tab>
-              <Tab>Contact</Tab>
-            </TabList>
-          </Tabs>
+      <Box height="50px" className="menu-margin" />
+      <Box
+        bgColor="yellow.100"
+        maxW="228px"
+        w="100%"
+        h="100%"
+        p="29px"
+        className="menu"
+      >
+        <LogoGeometry w="160px" h="68px" mx="auto" display="block" />
+        <VStack alignItems="flex-start" mt="20px">
+          <MenuTab href="/posts">posts</MenuTab>
+          <MenuTab href="/work">work</MenuTab>
+          <MenuTab href="/contact">contact</MenuTab>
         </VStack>
       </Box>
     </Slide>

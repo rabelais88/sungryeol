@@ -1,16 +1,17 @@
 import type { AppProps } from 'next/app';
-import { testUtil } from '@sungryeol/lib';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '@/styles/theme';
 import TopBar from '@/components/TopBar';
 import { Box } from '@chakra-ui/react';
 import GlobalStyleLoader from '@/styles/GlobalStyleLoader';
 import Menu from '@/components/Menu';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  testUtil(1, 2);
+function MyApp({ Component, pageProps, router }: AppProps) {
   const [menuVisible, setMenuVisible] = useState(false);
+  useEffect(() => {
+    setMenuVisible(false);
+  }, [router.pathname]);
   return (
     <ChakraProvider theme={theme}>
       <GlobalStyleLoader />

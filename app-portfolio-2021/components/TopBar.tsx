@@ -12,6 +12,7 @@ import NextLink from 'next/link';
 import IconMenu from './icons/IconMenu';
 import IconSearch from './icons/IconSearch';
 import { useEffect, useMemo, useState } from 'react';
+import LogoText from './icons/LogoText';
 
 interface ITopBarProps {
   onMenuToggle?: () => void;
@@ -63,6 +64,34 @@ const SearchButton: React.FC = () => (
   </LinkBox>
 );
 
+{
+  /* <Image
+src="/logo-text.svg"
+alt="text logo for this blog"
+position="absolute"
+right="29px"
+top="16px"
+/> */
+}
+const LogoButton: React.FC = () => {
+  return (
+    <LinkBox
+      height="100%"
+      px="18px"
+      _hover={{
+        bgColor: 'black',
+        '.chakra-icon': { fill: 'black', path: { fill: 'white' } },
+      }}
+    >
+      <NextLink href="/" passHref>
+        <LinkOverlay>
+          <LogoText w="78px" h="18px" display="block" mt="16px" />
+        </LinkOverlay>
+      </NextLink>
+    </LinkBox>
+  );
+};
+
 const TopBar: React.FC<ITopBarProps> = ({ onMenuToggle = () => {} }) => {
   const [visible, setVisible] = useState(true);
   const [scroll, setScroll] = useState(0);
@@ -91,14 +120,9 @@ const TopBar: React.FC<ITopBarProps> = ({ onMenuToggle = () => {} }) => {
         <HStack h="100%" ml="18px">
           <MenuButton aria-label="open or close menu" onClick={onMenuToggle} />
           <SearchButton />
+          <Box flexGrow="1" />
+          <LogoButton />
         </HStack>
-        <Image
-          src="/logo-text.svg"
-          alt="text logo for this blog"
-          position="absolute"
-          right="29px"
-          top="16px"
-        />
       </Box>
     ),
     [onMenuToggle]

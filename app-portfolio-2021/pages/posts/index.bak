@@ -18,13 +18,18 @@ interface IProps {
   pageSize: number;
   postsData: ReturnPromiseType<typeof getPosts>;
   tagsData: ReturnPromiseType<typeof getTags>;
+  instantSearchProps: Omit<InstantSearchProps, 'searchClient' | 'indexName'>;
 }
+const algoliaService = new AlgoliaService();
+const { searchClient } = algoliaService;
+
 const Posts: NextPage<IProps> = ({
   keyword,
   page,
   pageSize,
   postsData,
   tagsData,
+  instantSearchProps,
 }) => {
   return (
     <LayoutDefault>
@@ -62,12 +67,12 @@ const Posts: NextPage<IProps> = ({
           </WrapItem>
         ))}
       </Wrap>
-      <PostSearch />
+      <PostSearch {...instantSearchProps} />
     </LayoutDefault>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+Posts.getInitialProps = async (context) => {
   const keyword = `${context.query?.q ?? ''}`;
   const tags = `${context.query?.tags ?? ''}`
     .split(',')
@@ -79,6 +84,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   console.log({ page, pageSize, keyword, tags });
   const postsData = await getPosts({ page, pageSize, keyword, tagKeys: tags });
   const tagsData = await getTags({ pageSize: 20 });
+  const resultsState = await findResultsState(PostSearch, {
+    searchClient,
+    indexName: 'posts',
+  });
+  console.log(resultsState);
   const props: IProps = {
     keyword,
     tags,
@@ -86,8 +96,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     pageSize,
     postsData,
     tagsData,
+    instantSearchProps: {
+      resultsState: JSON.parse(JSON.stringify(resultsState)),
+    },
   };
-  return { props };
+  return props;
 };
 
 export default Posts;
