@@ -11,13 +11,7 @@ interface IProps {
   postsData: ReturnPromiseType<typeof getPosts>;
 }
 
-const Posts: NextPage<IProps> = ({
-  keyword,
-  tags,
-  page,
-  pageSize,
-  postsData,
-}) => {
+const Posts: NextPage<IProps> = ({ keyword, page, pageSize, postsData }) => {
   return (
     <LayoutDefault>
       <p>searching by {keyword}</p>
