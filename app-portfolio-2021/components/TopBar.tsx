@@ -104,7 +104,7 @@ const TopBar: React.FC<ITopBarProps> = ({ onMenuToggle = () => {} }) => {
     [onMenuToggle]
   );
   return (
-    <Slide direction="top" in={visible} style={{ zIndex: 'overlay' }}>
+    <Slide direction="top" in={visible} style={{ zIndex: 1310 }}>
       {Bar}
     </Slide>
   );

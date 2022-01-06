@@ -5,14 +5,18 @@ import theme from '@/styles/theme';
 import TopBar from '@/components/TopBar';
 import { Box } from '@chakra-ui/react';
 import GlobalStyleLoader from '@/styles/GlobalStyleLoader';
+import Menu from '@/components/Menu';
+import { useState } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
   testUtil(1, 2);
+  const [menuVisible, setMenuVisible] = useState(false);
   return (
     <ChakraProvider theme={theme}>
       <GlobalStyleLoader />
-      <TopBar />
+      <TopBar onMenuToggle={() => setMenuVisible(!menuVisible)} />
       <Box className="margin-top-bar" height="50px" />
+      <Menu visible={menuVisible} />
       <Component {...pageProps} />
     </ChakraProvider>
   );
