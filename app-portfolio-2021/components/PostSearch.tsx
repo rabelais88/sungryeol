@@ -26,8 +26,11 @@ import { shortInternationalTime } from '@sungryeol/lib';
 import NextLink from 'next/link';
 import AlgoliaService from '@/services/AlgoliaService';
 import { SearchClient } from 'algoliasearch/lite';
+import _debounce from 'lodash/debounce'
+import { useMemo } from 'react';
 
 const SearchBox = connectSearchBox(({ refine }) => {
+  const debouncedOnChange = useMemo(() => _debounce((target) => refine(target), 200, {trailing:true}), [refine]);
   return (
     <InputGroup>
       <InputLeftElement
@@ -35,7 +38,7 @@ const SearchBox = connectSearchBox(({ refine }) => {
       />
       <Input
         type="search"
-        onChange={(e) => refine(e?.currentTarget?.value)}
+        onChange={(e) => debouncedOnChange(e?.currentTarget?.value)}
         className="post-search--search-box"
         placeholder="Type keywords to search/검색하려는 단어를 입력하세요..."
         sx={{
