@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import LayoutContact from '@/layout/LayoutContact';
 import NextLink from 'next/link';
-import { shortInternationalTime } from '@/../lib/dist';
+import { shortInternationalTime } from '@sungryeol/lib';
 import IconShare from '@/components/icons/IconShare';
 import copyToClipboard from '@/utils/copyToClipboard';
 import Head from 'next/head';
