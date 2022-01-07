@@ -72,7 +72,7 @@ export const getStaticProps: GetStaticProps<IProps> = async (context) => {
   const post = await getPost(uid);
   if (!post) return { notFound: true };
   const mdxSource = await serialize(post.content);
-  return { props: { post, mdxSource } };
+  return { props: { post, mdxSource }, revalidate: 60 };
 };
 
 export default Post;
