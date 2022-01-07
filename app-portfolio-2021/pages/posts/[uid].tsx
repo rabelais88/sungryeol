@@ -60,8 +60,7 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
   const paths = postIndices.posts.data.map((p) => ({
     params: { uid: `${p?.attributes?.uid}` },
   }));
-  //   return { paths, fallback: 'blocking' };
-  return { paths, fallback: false };
+  return { paths, fallback: 'blocking' };
 };
 
 // graphql example
