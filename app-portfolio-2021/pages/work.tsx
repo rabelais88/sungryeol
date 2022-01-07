@@ -4,6 +4,8 @@ import { serialize } from 'next-mdx-remote/serialize';
 import { getWork } from '@/services/WorkService';
 import LayoutDefault from '@/layout/LayoutDefault';
 import MDXRender from '@/components/MDXRender';
+import { Box } from '@chakra-ui/react';
+import Head from 'next/head';
 
 interface IProps {
   mdxSource: MDXRemoteSerializeResult;
@@ -12,6 +14,10 @@ interface IProps {
 const Work: NextPage<IProps> = ({ mdxSource }) => {
   return (
     <LayoutDefault>
+      <Head>
+        <title>지식공단 - work</title>
+      </Head>
+      <Box height="50px" />
       <MDXRender mdxSource={mdxSource} />
     </LayoutDefault>
   );

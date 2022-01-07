@@ -6,6 +6,7 @@ import {
   connectHits,
   connectSearchBox,
   connectPagination,
+  connectRefinementList,
 } from 'react-instantsearch-dom';
 import {
   Input,
@@ -19,18 +20,23 @@ import {
   Box,
   Link,
   Button,
+  Wrap,
+  WrapItem,
 } from '@chakra-ui/react';
-import PostTag from './PostTag';
+import PostTag, { PostTagControl } from './PostTag';
 import { Hit } from 'react-instantsearch-core';
 import { shortInternationalTime } from '@sungryeol/lib';
 import NextLink from 'next/link';
 import AlgoliaService from '@/services/AlgoliaService';
 import { SearchClient } from 'algoliasearch/lite';
-import _debounce from 'lodash/debounce'
+import _debounce from 'lodash/debounce';
 import { useMemo } from 'react';
 
-const SearchBox = connectSearchBox(({ refine }) => {
-  const debouncedOnChange = useMemo(() => _debounce((target) => refine(target), 200, {trailing:true}), [refine]);
+export const SearchBox = connectSearchBox(({ refine }) => {
+  const debouncedOnChange = useMemo(
+    () => _debounce((target) => refine(target), 200, { trailing: true }),
+    [refine]
+  );
   return (
     <InputGroup>
       <InputLeftElement
@@ -121,7 +127,7 @@ const HitItem: React.FC<{ hit: Hit<IArticle> }> = ({ hit }) => {
 };
 
 // same as react-instasearch-dom/Hits component
-const SearchResults = connectHits<Hit<IArticle>>(({ hits }) => {
+export const SearchResults = connectHits<Hit<IArticle>>(({ hits }) => {
   return (
     <UnorderedList
       styleType="none"
@@ -139,7 +145,7 @@ const SearchResults = connectHits<Hit<IArticle>>(({ hits }) => {
   );
 });
 
-const SearchPagination = connectPagination(
+export const SearchPagination = connectPagination(
   ({ currentRefinement, nbPages, refine, createURL }) => {
     return (
       <HStack className="search-pagination" justify="flex-end">
@@ -183,8 +189,31 @@ interface IPostSearch
   > {
   searchClient?: SearchClient;
 }
+
+export const TagListMenu = connectRefinementList((arg) => {
+  const { items, refine } = arg;
+  return (
+    <Wrap className="tag-list-menu" justify="center">
+      {items.map((item) => (
+        <WrapItem key={item.label}>
+          <PostTagControl
+            active={item.isRefined}
+            onClick={() => refine(item.value)}
+          >
+            {item.label.split('||')[0].toUpperCase()}:{item.count}
+          </PostTagControl>
+        </WrapItem>
+      ))}
+    </Wrap>
+  );
+});
+
 // component for seraching posts with Algolia
-const PostSearch: React.FC<IPostSearch> = ({ searchClient, ...props }) => {
+const PostSearch: React.FC<IPostSearch> = ({
+  searchClient,
+  children,
+  ...props
+}) => {
   return (
     <InstantSearch
       {...props}
@@ -192,9 +221,7 @@ const PostSearch: React.FC<IPostSearch> = ({ searchClient, ...props }) => {
       indexName="posts"
       stalledSearchDelay={500}
     >
-      <SearchBox />
-      <SearchResults />
-      <SearchPagination />
+      {children}
     </InstantSearch>
   );
 };

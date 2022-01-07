@@ -1,6 +1,5 @@
 import {
   Box,
-  Image,
   IconButton,
   IconButtonProps,
   HStack,
@@ -13,6 +12,8 @@ import IconMenu from './icons/IconMenu';
 import IconSearch from './icons/IconSearch';
 import { useEffect, useMemo, useState } from 'react';
 import LogoText from './icons/LogoText';
+import { useRouter } from 'next/router';
+import MarqueeBar from './Marquee';
 
 interface ITopBarProps {
   onMenuToggle?: () => void;
@@ -95,6 +96,7 @@ const LogoButton: React.FC = () => {
 const TopBar: React.FC<ITopBarProps> = ({ onMenuToggle = () => {} }) => {
   const [visible, setVisible] = useState(true);
   const [scroll, setScroll] = useState(0);
+  const router = useRouter();
   const onScroll = () => {
     setScroll(window.scrollY);
   };
@@ -127,9 +129,15 @@ const TopBar: React.FC<ITopBarProps> = ({ onMenuToggle = () => {} }) => {
     ),
     [onMenuToggle]
   );
+
+  const marqueeText = Array.from({ length: 5 })
+    .map(() => '이 블로그의 깃헙 소스 보기 - see github code of this blog')
+    .join(' - ');
+
   return (
     <Slide direction="top" in={visible} style={{ zIndex: 1310 }}>
       {Bar}
+      {router.pathname === '/contact' && <MarqueeBar>{marqueeText}</MarqueeBar>}
     </Slide>
   );
 };

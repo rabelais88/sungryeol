@@ -17,6 +17,7 @@ import {
 import NextLink from 'next/link';
 import IconShare from '@/components/icons/IconShare';
 import copyToClipboard from '@/utils/copyToClipboard';
+import Head from 'next/head';
 
 interface IProps {
   post: ReturnPromiseType<typeof getPost>;
@@ -31,6 +32,9 @@ const Post: NextPage<IProps> = ({ post, mdxSource }) => {
   };
   return (
     <LayoutDefault>
+      <Head>
+        <title>지식공단 - {post.title}</title>
+      </Head>
       <HStack mt="30px">
         <NextLink href="/posts" passHref>
           <Link textDecor="underline">Posts</Link>
@@ -40,11 +44,11 @@ const Post: NextPage<IProps> = ({ post, mdxSource }) => {
           Share
         </Button>
       </HStack>
-      <Heading fontFamily="KP CR Tungkeun" mt="10px">
+      <Heading as="h1" fontFamily="KP CR Tungkeun" mt="10px">
         {post.title}
       </Heading>
       <Divider mt="10px" mb="10px" borderBottom="solid 1px black" />
-      <Box fontSize="16px" fontWeight="300">
+      <Box as="article" fontSize="16px" fontWeight="300">
         <MDXRender mdxSource={mdxSource} />
       </Box>
     </LayoutDefault>

@@ -85,6 +85,24 @@ function GlobalStyleLoader() {
 	font-display: swap;
 	src: local('Pretendard Thin'), url('/fonts/woff2/Pretendard-Thin.woff2') format('woff2'), url('/fonts/woff/Pretendard-Thin.woff') format('woff');
 }
+
+@keyframes marquee {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee2 {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
 `;
 
   return <Global styles={styles} />;

@@ -1,7 +1,6 @@
-import { Box, Link, Slide, VStack } from '@chakra-ui/react';
+import { Box, Slide, VStack } from '@chakra-ui/react';
 import LogoGeometry from './icons/LogoGeometry';
 import MenuTab from './MenuTab';
-import NextLink from 'next/link';
 
 interface IProps {
   visible?: boolean;
@@ -16,6 +15,7 @@ const Menu: React.FC<IProps> = ({ visible = false }) => {
     >
       <Box height="50px" className="menu-margin" />
       <Box
+        as="nav"
         bgColor="yellow.100"
         maxW="228px"
         w="100%"
