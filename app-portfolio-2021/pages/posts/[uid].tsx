@@ -44,13 +44,11 @@ const Post: NextPage<IProps> = ({ post, mdxSource }) => {
           Share
         </Button>
       </HStack>
-      <Heading as="h1" fontFamily="KP CR Tungkeun" mt="10px">
+      <Heading as="h1" fontFamily="Title" mt="10px">
         {post.title}
       </Heading>
       <Divider mt="10px" mb="10px" borderBottom="solid 1px black" />
-      <Box as="article" fontSize="16px" fontWeight="300">
-        <MDXRender mdxSource={mdxSource} />
-      </Box>
+      <MDXRender mdxSource={mdxSource} as="article" />
     </LayoutDefault>
   );
 };
