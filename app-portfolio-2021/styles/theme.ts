@@ -3,7 +3,14 @@ import {
   withDefaultColorScheme,
   withDefaultProps,
 } from '@chakra-ui/react';
-import { GlobalStyleProps } from '@chakra-ui/theme-tools';
+import { GlobalStyleProps, createBreakpoints } from '@chakra-ui/theme-tools';
+const breakpoints = createBreakpoints({
+  sm: '320px',
+  md: '768px',
+  lg: '960px',
+  xl: '1200px',
+  '2xl': '1536px',
+});
 
 const theme = extendTheme(
   {
@@ -31,12 +38,13 @@ const theme = extendTheme(
     colors: {
       'bg-yellow': '#FEFCBF', // yellow.100
     },
-    // styles: {
-    //   global: ({ colorMode, theme: _theme }: GlobalStyleProps) => ({
-    //     '*::selection': { bgColor: 'bg-yellow' },
-    //     '*::-moz-selection': { bgColor: 'bg-yellow' },
-    //   }),
-    // },
+    styles: {
+      global: ({ colorMode, theme: _theme }: GlobalStyleProps) => ({
+        '*::selection': { bgColor: 'bg-yellow' },
+        '*::-moz-selection': { bgColor: 'bg-yellow' },
+      }),
+    },
+    breakpoints,
   },
   withDefaultColorScheme({ colorScheme: 'gray', components: ['Button'] }),
   withDefaultProps({

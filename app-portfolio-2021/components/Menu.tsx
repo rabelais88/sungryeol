@@ -11,13 +11,15 @@ const Menu: React.FC<IProps> = ({ visible = false }) => {
     <Slide
       direction="left"
       in={visible}
-      style={{ maxWidth: '228px', zIndex: 1300 }}
+      style={{
+        zIndex: 1300,
+      }}
     >
       <Box height="50px" className="menu-margin" />
       <Box
         as="nav"
         bgColor="bg-yellow"
-        maxW="228px"
+        maxW={{ lg: '228px' }}
         w="100%"
         h="100%"
         p="29px"
