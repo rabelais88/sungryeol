@@ -29,8 +29,12 @@ const Home: NextPage<IProps> = ({}) => {
     <LayoutDefault>
       <Head>
         <title>지식공단 - Sungryeol</title>
-        <meta name="description" content="home of sungryeol's blog" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="지식공단"></meta>
+        <meta
+          name="description"
+          property="og:description"
+          content="home of sungryeol's blog"
+        />
       </Head>
       <VStack spacing="10px" mt="30px" mb="40px">
         <Text
