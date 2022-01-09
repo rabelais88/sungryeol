@@ -28,15 +28,13 @@ const _Link: React.FC<LinkProps> = ({ children, href }) => {
 // https://mdxjs.com/table-of-components/
 const components = {
   a: _Link,
-  h1: (props: HeadingProps) => <Heading as="h1" {...props} />,
-  h2: (props: HeadingProps) => <Heading as="h2" {...props} size="lg" />,
-  h3: (props: HeadingProps) => <Heading as="h3" {...props} size="md" />,
-  li: (props: ListItemProps) => (
-    <ListItem fontSize="16px" fontWeight="400" {...props} />
-  ),
+  h1: (props: HeadingProps) => <Heading {...props} as="h1" />,
+  h2: (props: HeadingProps) => <Heading {...props} size="lg" as="h2" />,
+  h3: (props: HeadingProps) => <Heading {...props} size="md" as="h3" />,
+  li: ListItem,
   ol: OrderedList,
-  ul: (props: ListProps) => <UnorderedList {...props} />,
-  p: (props: TextProps) => <Text fontSize="16px" fontWeight="300" {...props} />,
+  ul: UnorderedList,
+  p: Text,
 };
 
 interface IMDXRenderProps extends BoxProps {
@@ -49,6 +47,8 @@ const MDXRender: React.FC<IMDXRenderProps> = ({ mdxSource, ...props }) => (
     sx={{
       'h1,h2,h3,h4,h5': { fontFamily: 'Title' },
       '* + h1,* + h2,* + h3,* + h4,* + h5': { mt: '40px' },
+      li: { fontSize: '16px', fontWeight: '400' },
+      p: { fontSize: '16px', fontWeight: '300' },
     }}
   >
     <MDXRemote {...mdxSource} components={components} />
