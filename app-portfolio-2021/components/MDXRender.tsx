@@ -18,7 +18,9 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 const _Link: React.FC<LinkProps> = ({ children, href }) => {
   return (
     <NextLink href={href} passHref>
-      <Link textDecor="underline">{children}</Link>
+      <Link bgColor="pink.100" _hover={{ bgColor: 'yellow.100' }}>
+        {children}
+      </Link>
     </NextLink>
   );
 };

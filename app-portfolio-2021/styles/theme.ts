@@ -3,6 +3,7 @@ import {
   withDefaultColorScheme,
   withDefaultProps,
 } from '@chakra-ui/react';
+import { GlobalStyleProps } from '@chakra-ui/theme-tools';
 
 const theme = extendTheme(
   {
@@ -28,7 +29,13 @@ const theme = extendTheme(
       // tooltip: 1800,
     },
     colors: {
-      'bg-yellow': 'yellow.100',
+      'bg-yellow': '#FEFCBF', // yellow.100
+    },
+    styles: {
+      global: ({ colorMode, theme: _theme }: GlobalStyleProps) => ({
+        '*::selection': { bgColor: 'bg-yellow' },
+        '*::-moz-selection': { bgColor: 'bg-yellow' },
+      }),
     },
   },
   withDefaultColorScheme({ colorScheme: 'gray', components: ['Button'] }),

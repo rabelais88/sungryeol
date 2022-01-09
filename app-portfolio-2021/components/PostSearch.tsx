@@ -76,7 +76,7 @@ const HitItem: React.FC<{ hit: Hit<IArticle> }> = ({ hit }) => {
   return (
     <ListItem
       key={hit.uid}
-      sx={{ em: { bgColor: 'yellow.100', fontStyle: 'normal' } }}
+      sx={{ em: { bgColor: 'bg-yellow', fontStyle: 'normal' } }}
       pt="9px"
       pb="27px"
       className="search-result-item"

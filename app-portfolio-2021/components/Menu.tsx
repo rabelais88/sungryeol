@@ -16,7 +16,7 @@ const Menu: React.FC<IProps> = ({ visible = false }) => {
       <Box height="50px" className="menu-margin" />
       <Box
         as="nav"
-        bgColor="yellow.100"
+        bgColor="bg-yellow"
         maxW="228px"
         w="100%"
         h="100%"

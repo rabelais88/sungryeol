@@ -111,7 +111,7 @@ const TopBar: React.FC<ITopBarProps> = ({ onMenuToggle = () => {} }) => {
   const Bar = useMemo(
     () => (
       <Box
-        bgColor="yellow.100"
+        bgColor="bg-yellow"
         className="top-bar"
         borderBottom="solid 1px black"
         height="100%"
