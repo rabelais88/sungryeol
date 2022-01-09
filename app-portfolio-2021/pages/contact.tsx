@@ -17,9 +17,9 @@ import { shortInternationalTime } from '@sungryeol/lib';
 import IconShare from '@/components/icons/IconShare';
 import copyToClipboard from '@/utils/copyToClipboard';
 import Head from 'next/head';
-import { Canvas } from '@react-three/fiber';
-import { useRef } from 'react';
-import { OrbitControls } from '@react-three/drei';
+// import { Canvas } from '@react-three/fiber';
+// import { useRef } from 'react';
+// import { OrbitControls } from '@react-three/drei';
 
 interface IProps {
   contact: ReturnPromiseType<typeof getContact>;
@@ -58,18 +58,18 @@ const ContactItem: React.FC<IContactItemProps> = ({
   );
 };
 
-const Logo3D = () => {
-  const boxRef = useRef();
-  return (
-    <Canvas>
-      <OrbitControls />
-      <axesHelper scale="3" />
-      <mesh>
-        <boxGeometry ref={boxRef} />
-      </mesh>
-    </Canvas>
-  );
-};
+// const Logo3D = () => {
+//   const boxRef = useRef();
+//   return (
+//     <Canvas>
+//       <OrbitControls />
+//       <axesHelper scale="3" />
+//       <mesh>
+//         <boxGeometry ref={boxRef} />
+//       </mesh>
+//     </Canvas>
+//   );
+// };
 
 const Contact: NextPage<IProps> = ({ contact }) => {
   const toast = useToast();
@@ -91,9 +91,9 @@ const Contact: NextPage<IProps> = ({ contact }) => {
       <Head>
         <title>지식공단 - contact</title>
       </Head>
-      <Box h="200px">
+      {/* <Box h="200px">
         <Logo3D />
-      </Box>
+      </Box> */}
       <Heading
         mt="50px"
         fontSize="62px"
