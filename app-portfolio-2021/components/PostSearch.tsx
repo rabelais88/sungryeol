@@ -7,6 +7,7 @@ import {
   connectSearchBox,
   connectPagination,
   connectRefinementList,
+  Configure,
 } from 'react-instantsearch-dom';
 import {
   Input,
@@ -221,6 +222,7 @@ const PostSearch: React.FC<IPostSearch> = ({
       indexName="posts"
       stalledSearchDelay={500}
     >
+      <Configure hitsPerPage={8} />
       {children}
     </InstantSearch>
   );

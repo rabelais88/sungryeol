@@ -2,20 +2,19 @@ import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '@/styles/theme';
 import TopBar from '@/components/TopBar';
-import { Box, chakra } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import GlobalStyleLoader from '@/styles/GlobalStyleLoader';
 import Menu from '@/components/Menu';
 import { useEffect, useState } from 'react';
-import {
-  AnimatePresence,
-  domAnimation,
-  LazyMotion,
-  m,
-  motion,
-} from 'framer-motion';
-import * as animVariant from '@/constants/animVariant';
+import // AnimatePresence,
+// domAnimation,
+// LazyMotion,
+// m,
+// motion,
+'framer-motion';
+// import * as animVariant from '@/constants/animVariant';
 
-const MotionBox = motion(Box);
+// const MotionBox = motion(Box);
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const [menuVisible, setMenuVisible] = useState(false);
