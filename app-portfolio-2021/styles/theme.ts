@@ -31,12 +31,12 @@ const theme = extendTheme(
     colors: {
       'bg-yellow': '#FEFCBF', // yellow.100
     },
-    styles: {
-      global: ({ colorMode, theme: _theme }: GlobalStyleProps) => ({
-        '*::selection': { bgColor: 'bg-yellow' },
-        '*::-moz-selection': { bgColor: 'bg-yellow' },
-      }),
-    },
+    // styles: {
+    //   global: ({ colorMode, theme: _theme }: GlobalStyleProps) => ({
+    //     '*::selection': { bgColor: 'bg-yellow' },
+    //     '*::-moz-selection': { bgColor: 'bg-yellow' },
+    //   }),
+    // },
   },
   withDefaultColorScheme({ colorScheme: 'gray', components: ['Button'] }),
   withDefaultProps({
