@@ -3,18 +3,20 @@ import { ChakraProvider } from '@chakra-ui/react';
 import theme from '@/styles/theme';
 import TopBar from '@/components/TopBar';
 import { Box } from '@chakra-ui/react';
-import GlobalStyleLoader from '@/styles/GlobalStyleLoader';
+// import GlobalStyleLoader from '@/styles/GlobalStyleLoader';
 import Menu from '@/components/Menu';
 import { useEffect, useState } from 'react';
-import // AnimatePresence,
-// domAnimation,
-// LazyMotion,
-// m,
-// motion,
-'framer-motion';
-// import * as animVariant from '@/constants/animVariant';
+import {
+  AnimatePresence,
+  domAnimation,
+  LazyMotion,
+  m,
+  motion,
+} from 'framer-motion';
+import * as animVariant from '@/constants/animVariant';
+// import '@/styles/global.css';
 
-// const MotionBox = motion(Box);
+const MotionBox = motion(Box);
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const [menuVisible, setMenuVisible] = useState(false);
@@ -22,12 +24,12 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     setMenuVisible(false);
   }, [router.pathname]);
   return (
-    <ChakraProvider theme={theme} resetCSS>
-      <GlobalStyleLoader />
+    <ChakraProvider theme={theme}>
+      {/* <GlobalStyleLoader /> */}
       <TopBar onMenuToggle={() => setMenuVisible(!menuVisible)} />
       <Box className="margin-top-bar" height="50px" />
       <Menu visible={menuVisible} />
-      {/* <Box className="app-wrap" position="relative">
+      <Box className="app-wrap" position="relative">
         <AnimatePresence exitBeforeEnter>
           <MotionBox
             key={router.pathname}
@@ -39,11 +41,11 @@ function MyApp({ Component, pageProps, router }: AppProps) {
             exit="exit"
             variants={animVariant.slideRight.variants}
             transition={animVariant.slideRight.transition}
-          > */}
-      <Component {...pageProps} />
-      {/* </MotionBox>
+          >
+            <Component {...pageProps} />
+          </MotionBox>
         </AnimatePresence>
-      </Box> */}
+      </Box>
     </ChakraProvider>
   );
 }

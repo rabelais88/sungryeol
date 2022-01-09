@@ -27,7 +27,7 @@ const BigLink: React.FC<LinkProps> = ({ href, children }) => {
 const Home: NextPage<IProps> = ({}) => {
   return (
     <LayoutDefault>
-      {/* <Head>
+      <Head>
         <title>지식공단 - Sungryeol</title>
         <meta property="og:title" content="지식공단"></meta>
         <meta
@@ -35,7 +35,7 @@ const Home: NextPage<IProps> = ({}) => {
           property="og:description"
           content="home of sungryeol's blog"
         />
-      </Head> */}
+      </Head>
       <VStack spacing="10px" mt="30px" mb="40px">
         <Text
           letterSpacing="-0.085em"
@@ -56,13 +56,6 @@ const Home: NextPage<IProps> = ({}) => {
       </PostSearch>
     </LayoutDefault>
   );
-};
-
-export const getStaticProps: GetStaticProps<IProps> = async (context) => {
-  return { props: {} };
-  // const tags = await getTags();
-  // const posts = await getPosts({ keyword: '' });
-  // return { props: { tags, posts } };
 };
 
 export default Home;

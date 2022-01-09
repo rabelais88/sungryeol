@@ -28,13 +28,13 @@ function GlobalStyleLoader() {
 	font-weight: 400;
 	font-display: swap;
 	src: url(https://fonts.gstatic.com/s/hammersmithone/v12/qWcyB624q4L_C4jGQ9IK0O_dFlnrtRElkYABXg.woff2) format('woff2');
-	unicode-range: U+0041-005A, U+0061-007A, U+0030-0039, U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E; // alphanumeric and extra characters
+	unicode-range: U+0041-005A, U+0061-007A, U+0030-0039, U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E; /* alphanumeric and extra characters */
 }
 
 @font-face {
 	font-family: Title;
 	src: local('KP CR Tungkeun'), url('/fonts/KCC-KP-CR_Tungkeun-Medium-KP-2011KPS.ttf') format('truetype');
-	unicode-range: U+AC00-D7A3; // korean
+	unicode-range: U+AC00-D7A3; /* korean */
 }
 
 @font-face {
