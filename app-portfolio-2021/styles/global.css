@@ -20,7 +20,7 @@
 }
 
 @font-face {
-  font-family: Title;
+  font-family: 'Title';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -31,7 +31,7 @@
 }
 
 @font-face {
-  font-family: Title;
+  font-family: 'Title';
   src: local('KP CR Tungkeun'),
     url('/fonts/KCC-KP-CR_Tungkeun-Medium-KP-2011KPS.ttf') format('truetype');
   unicode-range: U+AC00-D7A3; /* korean */

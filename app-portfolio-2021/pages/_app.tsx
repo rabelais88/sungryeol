@@ -14,7 +14,7 @@ import {
   motion,
 } from 'framer-motion';
 import * as animVariant from '@/constants/animVariant';
-// import '@/styles/global.css';
+import '@/styles/global.css';
 
 const MotionBox = motion(Box);
 
