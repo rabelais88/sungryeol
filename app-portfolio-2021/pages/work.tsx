@@ -5,7 +5,7 @@ import { getWork } from '@/services/WorkService';
 import LayoutDefault from '@/layout/LayoutDefault';
 import MDXRender from '@/components/MDXRender';
 import { Box } from '@chakra-ui/react';
-import Head from 'next/head';
+import Header from '@/components/Header';
 
 interface IProps {
   mdxSource: MDXRemoteSerializeResult;
@@ -14,15 +14,7 @@ interface IProps {
 const Work: NextPage<IProps> = ({ mdxSource }) => {
   return (
     <LayoutDefault>
-      <Head>
-        <title>지식공단 - work</title>
-        <meta property="og:title" content="지식공단 - browsing works"></meta>
-        <meta
-          name="description"
-          property="og:description"
-          content="작업물 일람"
-        />
-      </Head>
+      <Header title="지식공단 - work" description="browsing works" />
       <Box height="50px" />
       <MDXRender mdxSource={mdxSource} />
     </LayoutDefault>

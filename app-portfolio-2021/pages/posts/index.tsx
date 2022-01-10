@@ -7,22 +7,14 @@ import PostSearch, {
 import LayoutDefault from '@/layout/LayoutDefault';
 import { Box, Heading } from '@chakra-ui/react';
 import { NextPage } from 'next';
-import Head from 'next/head';
 import LogoAnimated from '@/components/LogoAnimated';
+import Header from '@/components/Header';
 
 interface IProps {}
 const Posts: NextPage<IProps> = ({}) => {
   return (
     <>
-      <Head>
-        <title>지식공단 - posts</title>
-        <meta property="og:title" content="지식공단 - browse postings"></meta>
-        <meta
-          name="description"
-          property="og:description"
-          content="글 열람하기"
-        />
-      </Head>
+      <Header title="지식공단 - posts" description="browse postings" />
       <LayoutDefault>
         <Box height="50px" className="margin" />
         <LogoAnimated mx="auto" />

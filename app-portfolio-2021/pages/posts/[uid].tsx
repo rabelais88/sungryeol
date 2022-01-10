@@ -17,7 +17,8 @@ import {
 import NextLink from 'next/link';
 import IconShare from '@/components/icons/IconShare';
 import copyToClipboard from '@/utils/copyToClipboard';
-import Head from 'next/head';
+import Header from '@/components/Header';
+import { useMemo } from 'react';
 
 interface IProps {
   post: ReturnPromiseType<typeof getPost>;
@@ -30,17 +31,16 @@ const Post: NextPage<IProps> = ({ post, mdxSource }) => {
     copyToClipboard(window?.location?.href);
     toast({ title: 'url copied to clipboard', isClosable: true });
   };
+  const shortenedContent = useMemo(
+    () => (post.content ?? '').slice(0, 20),
+    [post.content]
+  );
   return (
     <LayoutDefault>
-      <Head>
-        <title>지식공단 - {post.title}</title>
-        <meta property="og:title" content={post.title} />
-        <meta
-          name="description"
-          property="og:description"
-          content={(post.content ?? '').slice(0, 20)}
-        />
-      </Head>
+      <Header
+        title={`지식공단 - ${post.title}`}
+        description={shortenedContent}
+      />
       <HStack mt="30px">
         <NextLink href="/posts" passHref>
           <Link textDecor="underline">Posts</Link>

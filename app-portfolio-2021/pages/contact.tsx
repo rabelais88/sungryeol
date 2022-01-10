@@ -17,7 +17,7 @@ import NextLink from 'next/link';
 import { shortInternationalTime } from '@sungryeol/lib';
 import IconShare from '@/components/icons/IconShare';
 import copyToClipboard from '@/utils/copyToClipboard';
-import Head from 'next/head';
+import Header from '@/components/Header';
 // import { Canvas } from '@react-three/fiber';
 // import { useRef } from 'react';
 // import { OrbitControls } from '@react-three/drei';
@@ -137,9 +137,10 @@ const Contact: NextPage<IProps> = ({ contact }) => {
   };
   return (
     <LayoutContact>
-      <Head>
-        <title>지식공단 - contact</title>
-      </Head>
+      <Header
+        title="지식공단 - contact"
+        description="contact information of Sungryeol"
+      />
       {/* <Box h="200px">
         <Logo3D />
       </Box> */}

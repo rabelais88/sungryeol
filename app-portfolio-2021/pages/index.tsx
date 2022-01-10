@@ -1,10 +1,10 @@
 import PostSearch, { SearchResults } from '@/components/PostSearch';
 import LayoutDefault from '@/layout/LayoutDefault';
-import type { GetStaticProps, NextPage } from 'next';
-import Head from 'next/head';
-import { Text, Image, Center, VStack, Link } from '@chakra-ui/react';
+import type { NextPage } from 'next';
+import { Text, VStack, Link } from '@chakra-ui/react';
 import NextLink, { LinkProps } from 'next/link';
 import LogoAnimated from '@/components/LogoAnimated';
+import Header from '@/components/Header';
 
 interface IProps {
   // tags: ReturnPromiseType<typeof getTags>;
@@ -28,15 +28,10 @@ const BigLink: React.FC<LinkProps> = ({ href, children }) => {
 const Home: NextPage<IProps> = ({}) => {
   return (
     <LayoutDefault>
-      <Head>
-        <title>지식공단 - Sungryeol</title>
-        <meta property="og:title" content="지식공단 - home"></meta>
-        <meta
-          name="description"
-          property="og:description"
-          content="메인 화면"
-        />
-      </Head>
+      <Header
+        title="지식공단 - Sungryeol"
+        description="home of Sungryeol's blog"
+      />
       <VStack spacing="10px" mt="30px" mb="40px">
         <Text
           letterSpacing="-0.085em"
