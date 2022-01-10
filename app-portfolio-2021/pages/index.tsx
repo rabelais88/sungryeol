@@ -4,6 +4,7 @@ import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { Text, Image, Center, VStack, Link } from '@chakra-ui/react';
 import NextLink, { LinkProps } from 'next/link';
+import LogoAnimated from '@/components/LogoAnimated';
 
 interface IProps {
   // tags: ReturnPromiseType<typeof getTags>;
@@ -45,9 +46,7 @@ const Home: NextPage<IProps> = ({}) => {
         >
           박성렬 블로그 &amp; 포트폴리오
         </Text>
-        <Center>
-          <Image src="/logo-geometry.svg" alt="geometric logo of this blog" />
-        </Center>
+        <LogoAnimated mx="auto" />
         <BigLink href="/work">WORK</BigLink>
         <BigLink href="/contact">CONTACT</BigLink>
       </VStack>

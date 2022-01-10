@@ -1,4 +1,3 @@
-import LogoGeometry from '@/components/icons/LogoGeometry';
 import PostSearch, {
   SearchBox,
   SearchPagination,
@@ -9,6 +8,7 @@ import LayoutDefault from '@/layout/LayoutDefault';
 import { Box, Heading } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import Head from 'next/head';
+import LogoAnimated from '@/components/LogoAnimated';
 
 interface IProps {}
 const Posts: NextPage<IProps> = ({}) => {
@@ -18,14 +18,8 @@ const Posts: NextPage<IProps> = ({}) => {
         <title>지식공단 - posts</title>
       </Head>
       <LayoutDefault>
-        <LogoGeometry
-          w="160px"
-          h="68px"
-          mx="auto"
-          display="block"
-          mt="30px"
-          mb="10px"
-        />
+        <Box height="50px" className="margin" />
+        <LogoAnimated mx="auto" />
         <PostSearch>
           <Heading
             fontFamily="'Hammersmith One', sans-serif"
