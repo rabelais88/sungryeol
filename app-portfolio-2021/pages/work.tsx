@@ -16,6 +16,12 @@ const Work: NextPage<IProps> = ({ mdxSource }) => {
     <LayoutDefault>
       <Head>
         <title>지식공단 - work</title>
+        <meta property="og:title" content="지식공단 - browsing works"></meta>
+        <meta
+          name="description"
+          property="og:description"
+          content="작업물 일람"
+        />
       </Head>
       <Box height="50px" />
       <MDXRender mdxSource={mdxSource} />

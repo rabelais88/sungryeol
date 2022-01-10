@@ -30,11 +30,11 @@ const Home: NextPage<IProps> = ({}) => {
     <LayoutDefault>
       <Head>
         <title>지식공단 - Sungryeol</title>
-        <meta property="og:title" content="지식공단"></meta>
+        <meta property="og:title" content="지식공단 - home"></meta>
         <meta
           name="description"
           property="og:description"
-          content="home of sungryeol's blog"
+          content="메인 화면"
         />
       </Head>
       <VStack spacing="10px" mt="30px" mb="40px">

@@ -16,6 +16,12 @@ const Posts: NextPage<IProps> = ({}) => {
     <>
       <Head>
         <title>지식공단 - posts</title>
+        <meta property="og:title" content="지식공단 - browse postings"></meta>
+        <meta
+          name="description"
+          property="og:description"
+          content="글 열람하기"
+        />
       </Head>
       <LayoutDefault>
         <Box height="50px" className="margin" />

@@ -34,6 +34,12 @@ const Post: NextPage<IProps> = ({ post, mdxSource }) => {
     <LayoutDefault>
       <Head>
         <title>지식공단 - {post.title}</title>
+        <meta property="og:title" content={post.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={(post.content ?? '').slice(0, 20)}
+        />
       </Head>
       <HStack mt="30px">
         <NextLink href="/posts" passHref>
