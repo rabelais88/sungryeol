@@ -6,13 +6,7 @@ import { Box } from '@chakra-ui/react';
 // import GlobalStyleLoader from '@/styles/GlobalStyleLoader';
 import Menu from '@/components/Menu';
 import { useEffect, useState } from 'react';
-import {
-  AnimatePresence,
-  domAnimation,
-  LazyMotion,
-  m,
-  motion,
-} from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import * as animVariant from '@/constants/animVariant';
 import '@/styles/global.css';
 
