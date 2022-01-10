@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier",
-    "schema-to-type": "graphql-typescript-definitions --schema-types-path types/graphql"
+    "schema-to-type": "graphql-typescript-definitions --schema-types-path types/graphql",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.7.4",
@@ -38,6 +39,7 @@
     "eslint": "8.5.0",
     "eslint-config-next": "12.0.7",
     "graphql-typescript-definitions": "^2.1.5",
+    "next-sitemap": "^1.8.4",
     "prettier": "^2.5.1",
     "typescript": "4.5.4",
     "vercel": "^23.1.2"
