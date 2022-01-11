@@ -224,7 +224,6 @@ const PostSearch: React.FC<IPostSearch> = ({
   } = useSearchQuery();
   const searchState: SearchState = { page, query };
   if (compositeTags.length >= 1) searchState.refinementList = { compositeTags };
-  console.log('serachState', searchState);
 
   return (
     <InstantSearch

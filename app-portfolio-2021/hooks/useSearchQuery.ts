@@ -48,12 +48,9 @@ const useSearchQuery = () => {
   };
   const toggleTag = (tag: string) => {
     const q = new URLSearchParams(router.query as Record<string, string>);
-    console.log('toggleTag: compositeTags', compositeTags, tag);
     if (hasTag(tag)) {
-      console.log('tag chosen');
       q.set('tag', compositeTags.filter((t) => t !== tag).join(','));
     } else {
-      console.log('tag not chosen');
       q.set('tag', [...compositeTags, tag].join(','));
     }
     router.replace(`/posts?${q.toString()}`);

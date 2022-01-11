@@ -21,11 +21,10 @@ import IconShare from '@/components/icons/IconShare';
 import copyToClipboard from '@/utils/copyToClipboard';
 import Header from '@/components/Header';
 import { useCallback, useMemo } from 'react';
-import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeTOC from 'rehype-toc';
+
 import { PostTagControl } from '@/components/PostTag';
 import { useRouter } from 'next/router';
+import { mdxPostConfig } from '@/constants/mdxConfig';
 
 interface IProps {
   post: ReturnPromiseType<typeof getPost>;
@@ -74,7 +73,7 @@ const Post: NextPage<IProps> = ({ post, mdxSource }) => {
             <PostTagControl
               onClick={searchTag(tag?.attributes?.key, tag?.attributes?.label)}
             >
-              {tag?.attributes?.label}
+              {tag?.attributes?.label.toUpperCase()}
             </PostTagControl>
           </WrapItem>
         ))}
@@ -103,11 +102,7 @@ export const getStaticProps: GetStaticProps<IProps> = async (context) => {
   const uid = `${context?.params?.uid}`;
   const post = await getPost(uid);
   if (!post) return { notFound: true };
-  const mdxSource = await serialize(post.content, {
-    mdxOptions: {
-      rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings, rehypeTOC],
-    },
-  });
+  const mdxSource = await serialize(post.content, mdxPostConfig);
   return { props: { post, mdxSource }, revalidate: 60 };
 };
 

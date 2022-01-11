@@ -7,13 +7,11 @@ import {
   OrderedList,
   UnorderedList,
   Box,
-  ListItemProps,
   BoxProps,
-  TextProps,
   Text,
-  ListProps,
 } from '@chakra-ui/react';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import PrismCodeStyle from '@/styles/PrismCodeStyle';
 
 const _Link: React.FC<LinkProps> = ({ children, href }) => {
   return (
@@ -35,6 +33,10 @@ const components = {
   ol: OrderedList,
   ul: UnorderedList,
   p: Text,
+  div: Box,
+  wrapper: (props: any) => {
+    return <PrismCodeStyle {...props} />;
+  },
 };
 
 interface IMDXRenderProps extends BoxProps {
@@ -49,6 +51,7 @@ const MDXRender: React.FC<IMDXRenderProps> = ({ mdxSource, ...props }) => (
       '* + h1,* + h2,* + h3,* + h4,* + h5': { mt: '40px' },
       li: { fontSize: '16px', fontWeight: '400' },
       p: { fontSize: '16px', fontWeight: '300' },
+      div: { fontSize: '16px', fontWeight: '300' },
     }}
   >
     <MDXRemote {...mdxSource} components={components} />
