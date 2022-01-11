@@ -115,7 +115,7 @@ const ProfileVideo = () => {
       transform="translate3d(0, 0, 0)"
       z="-1"
     >
-      <Video width="300px" autoPlay muted loop position="absolute">
+      <Video width="300px" autoPlay muted loop playsinline position="absolute">
         <source src="/video-profile.mp4" type="video/mp4" />
       </Video>
     </Box>
