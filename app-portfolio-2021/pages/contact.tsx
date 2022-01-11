@@ -112,6 +112,8 @@ const ProfileVideo = () => {
       borderRadius="50%"
       overflow="hidden"
       mx="auto"
+      transform="translate3d(0, 0, 0)"
+      z="-1"
     >
       <Video width="300px" autoPlay muted loop position="absolute">
         <source src="/video-profile.mp4" type="video/mp4" />
