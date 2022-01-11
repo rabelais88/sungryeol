@@ -101,8 +101,6 @@ const ContactItem: React.FC<IContactItemProps> = ({
 //   );
 // };
 
-const Video = chakra('video');
-
 const ProfileVideo = () => {
   return (
     <Box
@@ -115,17 +113,15 @@ const ProfileVideo = () => {
       transform="translate3d(0, 0, 0)"
       z="-1"
     >
-      <Video
-        width="300px"
+      <video
         autoPlay
-        autoplay
         muted
         loop
-        playsinline="playsinline"
-        position="absolute"
+        playsInline
+        style={{ position: 'absolute', width: '300px' }}
       >
         <source src="/video-profile.mp4" type="video/mp4" />
-      </Video>
+      </video>
     </Box>
   );
 };
