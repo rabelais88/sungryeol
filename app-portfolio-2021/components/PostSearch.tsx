@@ -25,17 +25,19 @@ import {
   WrapItem,
 } from '@chakra-ui/react';
 import PostTag, { PostTagControl } from './PostTag';
-import { Hit } from 'react-instantsearch-core';
+import { Hit, SearchState } from 'react-instantsearch-core';
 import { shortInternationalTime } from '@sungryeol/lib';
 import NextLink from 'next/link';
 import AlgoliaService from '@/services/AlgoliaService';
 import { SearchClient } from 'algoliasearch/lite';
 import _debounce from 'lodash/debounce';
 import { useMemo } from 'react';
+import useSearchQuery from '@/hooks/useSearchQuery';
 
 export const SearchBox = connectSearchBox(({ refine }) => {
+  const { setKeyword } = useSearchQuery();
   const debouncedOnChange = useMemo(
-    () => _debounce((target) => refine(target), 200, { trailing: true }),
+    () => _debounce(setKeyword, 200, { trailing: true }),
     [refine]
   );
   return (
@@ -192,14 +194,16 @@ interface IPostSearch
 }
 
 export const TagListMenu = connectRefinementList((arg) => {
-  const { items, refine } = arg;
+  const { items } = arg;
+  const { toggleTag } = useSearchQuery();
   return (
     <Wrap className="tag-list-menu" justify="center">
       {items.map((item) => (
         <WrapItem key={item.label}>
           <PostTagControl
+            data-is-refined={item.isRefined}
             active={item.isRefined}
-            onClick={() => refine(item.value)}
+            onClick={() => toggleTag(item.label)}
           >
             {item.label.split('||')[0].toUpperCase()}:{item.count}
           </PostTagControl>
@@ -215,12 +219,20 @@ const PostSearch: React.FC<IPostSearch> = ({
   children,
   ...props
 }) => {
+  const {
+    searchQuery: { page, query, compositeTags },
+  } = useSearchQuery();
+  const searchState: SearchState = { page, query };
+  if (compositeTags.length >= 1) searchState.refinementList = { compositeTags };
+  console.log('serachState', searchState);
+
   return (
     <InstantSearch
       {...props}
       searchClient={searchClient ?? new AlgoliaService().searchClient}
       indexName="posts"
       stalledSearchDelay={500}
+      searchState={searchState}
     >
       <Configure hitsPerPage={8} />
       {children}

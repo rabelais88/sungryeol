@@ -14,7 +14,7 @@ export const slideUp: IVariant = {
       top: '100vh',
       scale: 0.4,
     },
-    animate: {
+    enter: {
       opacity: 1,
       top: '0vh',
       scale: 1,
@@ -37,7 +37,7 @@ export const slideRight: IVariant = {
       opacity: 0,
       left: '-100%',
     },
-    animate: {
+    enter: {
       opacity: 1,
       left: 0,
     },
@@ -57,7 +57,7 @@ export const fade: IVariant = {
     initial: {
       opacity: 0,
     },
-    animate: {
+    enter: {
       opacity: 1,
     },
     exit: {

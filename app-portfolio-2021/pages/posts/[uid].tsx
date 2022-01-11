@@ -13,15 +13,19 @@ import {
   HStack,
   Link,
   useToast,
+  Wrap,
+  WrapItem,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import IconShare from '@/components/icons/IconShare';
 import copyToClipboard from '@/utils/copyToClipboard';
 import Header from '@/components/Header';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeTOC from 'rehype-toc';
+import { PostTagControl } from '@/components/PostTag';
+import { useRouter } from 'next/router';
 
 interface IProps {
   post: ReturnPromiseType<typeof getPost>;
@@ -38,6 +42,17 @@ const Post: NextPage<IProps> = ({ post, mdxSource }) => {
     () => (post.content ?? '').slice(0, 20),
     [post.content]
   );
+  const router = useRouter();
+  const searchTag = useCallback(
+    (tagLabel: string, tagKey: string) => () => {
+      const tag = [tagKey, tagLabel].join('||');
+      const query = new URLSearchParams({ tag }).toString();
+      const url = ['/posts', query].join('?');
+      router.push(url);
+    },
+    [router]
+  );
+
   return (
     <LayoutDefault>
       <Header
@@ -53,6 +68,17 @@ const Post: NextPage<IProps> = ({ post, mdxSource }) => {
           Share
         </Button>
       </HStack>
+      <Wrap>
+        {post?.tags?.data?.map((tag) => (
+          <WrapItem key={tag?.attributes?.key}>
+            <PostTagControl
+              onClick={searchTag(tag?.attributes?.key, tag?.attributes?.label)}
+            >
+              {tag?.attributes?.label}
+            </PostTagControl>
+          </WrapItem>
+        ))}
+      </Wrap>
       <Heading as="h1" fontFamily="Title" mt="10px">
         {post.title}
       </Heading>

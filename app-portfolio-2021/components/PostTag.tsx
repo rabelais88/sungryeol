@@ -29,8 +29,8 @@ export const PostTagControl: React.FC<IPostTagControl> = ({
         },
       }}
       _hover={{
-        bgColor: 'black',
-        color: 'white',
+        bgColor: 'yellow.100',
+        color: 'black',
         fontWeight: 400,
       }}
       {...props}
