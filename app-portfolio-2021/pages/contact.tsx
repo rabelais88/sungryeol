@@ -118,7 +118,7 @@ const ProfileVideo = () => {
       <Video
         width="300px"
         autoPlay
-        muted="muted"
+        muted
         loop
         playsinline="playsinline"
         position="absolute"
