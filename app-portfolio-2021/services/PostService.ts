@@ -56,27 +56,29 @@ export const getPostIndices = async () => {
   return posts;
 };
 
-export const getPost = async (uid: string) => {
+export const getPost = async (uid: string, preview?: boolean) => {
   const query = gql`
-    query getPost($uid: StringFilterInput) {
-      posts(filters: { uid: $uid }) {
-        data {
-          attributes {
-            title
-            content
-            publishedAt
-            tags {
-              data {
-                attributes {
-                  label
-                  key
-                }
+  query getPost($uid: StringFilterInput) {
+    posts(filters: { uid: $uid }, publicationState: ${
+      preview ? 'PREVIEW' : 'LIVE'
+    }) {
+      data {
+        attributes {
+          title
+          content
+          publishedAt
+          tags {
+            data {
+              attributes {
+                label
+                key
               }
             }
           }
         }
       }
     }
+  }
   `;
   const post = await gqlClient.request<IGetPostResponse>(query, {
     uid: { eq: uid },
