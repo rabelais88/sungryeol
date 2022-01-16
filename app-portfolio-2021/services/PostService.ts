@@ -24,8 +24,8 @@ interface IGetPostIndices {
 
 export const getPostIndices = async () => {
   const query = gql`
-    query getPostsIndices($pageSize: Int) {
-      posts(pagination: { pageSize: $pageSize }) {
+    query getPostsIndices($pageSize: Int, $filters: PostFiltersInput) {
+      posts(pagination: { pageSize: $pageSize }, filters: $filters) {
         data {
           attributes {
             uid
@@ -42,9 +42,17 @@ export const getPostIndices = async () => {
       }
     }
   `;
-  const posts = await gqlClient.request<IGetPostIndices>(query, {
+  interface Arg {
+    pageSize: number;
+    filters: PostFiltersInput;
+  }
+  const arg: Arg = {
     pageSize: 100,
-  });
+    filters: {
+      publishedAt: { notNull: true },
+    },
+  };
+  const posts = await gqlClient.request<IGetPostIndices>(query, arg);
   return posts;
 };
 
