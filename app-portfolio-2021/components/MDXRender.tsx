@@ -104,8 +104,8 @@ const MDXRender: React.FC<IMDXRenderProps> = ({ mdxSource, ...props }) => (
       'h1,h2,h3,h4,h5': { fontFamily: 'Title' },
       '* + h1,* + h2,* + h3,* + h4,* + h5': { mt: '40px' },
       li: { fontSize: '16px', fontWeight: '400' },
-      p: { fontSize: '16px', fontWeight: '300' },
-      div: { fontSize: '16px', fontWeight: '300' },
+      p: { fontSize: '16px', fontWeight: '400' },
+      div: { fontSize: '16px', fontWeight: '400' },
     }}
   >
     <MDXRemote {...mdxSource} components={components} />
