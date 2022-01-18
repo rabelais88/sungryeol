@@ -30,6 +30,42 @@ const _Code: React.FC<CodeProps> = ({ children, ...props }) => {
   return <Code {...props}>{children}</Code>;
 };
 
+const _Div: React.FC<BoxProps> = ({ children, ...props }) => {
+  return <Box {...props}>{children}</Box>;
+};
+
+interface ICalloutProps extends BoxProps {
+  mode?: 'info' | 'danger';
+}
+
+const Callout: React.FC<ICalloutProps> = ({
+  children,
+  mode = 'info',
+  ...props
+}) => {
+  return (
+    <Box
+      className="callout"
+      data-mode={mode}
+      py="10px"
+      px="10px"
+      sx={{
+        '&[data-mode="info"]': {
+          borderLeft: 'solid 3px black',
+          bgColor: 'rgba(0,0,0,.05)',
+        },
+        '&[data-mode="danger"]': {
+          borderLeft: 'solid 3px red',
+          bgColor: 'rgba(255,0,0,.15)',
+        },
+      }}
+      {...props}
+    >
+      {children}
+    </Box>
+  );
+};
+
 // https://mdxjs.com/table-of-components/
 const components = {
   a: _Link,
@@ -40,9 +76,10 @@ const components = {
   ol: OrderedList,
   ul: UnorderedList,
   p: Text,
-  div: Box,
+  div: _Div,
   // https://stackoverflow.com/questions/67945559/next-mdx-remote-doesnt-pass-the-component
   inlineCode: _Code,
+  Callout,
   wrapper: (props: any) => {
     return <PrismCodeStyle {...props} />;
   },
