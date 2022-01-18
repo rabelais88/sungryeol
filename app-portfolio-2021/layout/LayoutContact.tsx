@@ -5,6 +5,7 @@ const LayoutContact: React.FC = ({ children }) => {
       className="layout-contact"
       maxW="700px"
       sx={{ '& > h1, & > p': { textAlign: 'center' } }}
+      pb="50px"
     >
       {children}
     </Container>
