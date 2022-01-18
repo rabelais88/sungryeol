@@ -9,9 +9,12 @@ import {
   Box,
   BoxProps,
   Text,
+  Code,
+  CodeProps,
 } from '@chakra-ui/react';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import PrismCodeStyle from '@/styles/PrismCodeStyle';
+import 'katex/dist/katex.min.css';
 
 const _Link: React.FC<LinkProps> = ({ children, href }) => {
   return (
@@ -21,6 +24,10 @@ const _Link: React.FC<LinkProps> = ({ children, href }) => {
       </Link>
     </NextLink>
   );
+};
+
+const _Code: React.FC<CodeProps> = ({ children, ...props }) => {
+  return <Code {...props}>{children}</Code>;
 };
 
 // https://mdxjs.com/table-of-components/
@@ -34,6 +41,8 @@ const components = {
   ul: UnorderedList,
   p: Text,
   div: Box,
+  // https://stackoverflow.com/questions/67945559/next-mdx-remote-doesnt-pass-the-component
+  inlineCode: _Code,
   wrapper: (props: any) => {
     return <PrismCodeStyle {...props} />;
   },
