@@ -12,6 +12,7 @@ import {
   Code,
   CodeProps,
 } from '@chakra-ui/react';
+import Image, { ImageProps } from 'next/image';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import PrismCodeStyle from '@/styles/PrismCodeStyle';
 import 'katex/dist/katex.min.css';
@@ -66,6 +67,12 @@ const Callout: React.FC<ICalloutProps> = ({
   );
 };
 
+interface ICustomImgProps extends ImageProps {}
+
+const CustomImg: React.FC<ICustomImgProps> = ({ alt, ...props }) => {
+  return <Image alt={alt} {...props} />;
+};
+
 // https://mdxjs.com/table-of-components/
 const components = {
   a: _Link,
@@ -80,6 +87,7 @@ const components = {
   // https://stackoverflow.com/questions/67945559/next-mdx-remote-doesnt-pass-the-component
   inlineCode: _Code,
   Callout,
+  CustomImg,
   wrapper: (props: any) => {
     return <PrismCodeStyle {...props} />;
   },

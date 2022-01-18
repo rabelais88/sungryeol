@@ -9,6 +9,9 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   swcMinify: true,
+  images: {
+    domains: `${process.env.NEXT_IMAGE_DOMAINS}`.split(','),
+  },
 };
 
 module.exports = nextConfig;
