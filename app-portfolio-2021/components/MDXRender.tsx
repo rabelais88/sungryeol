@@ -74,17 +74,15 @@ interface ICustomImgProps extends ImageProps {
 const CustomImg: React.FC<ICustomImgProps> = ({
   alt,
   layout = 'intrinsic',
-  width,
   ...props
 }) => {
+  if (!alt) return <Image alt={alt} layout={layout} {...props} />;
   return (
     <figure>
-      <Image alt={alt} layout={layout} width={width} {...props} />
-      {alt && (
-        <Text w={width} fontWeight="700" maxW="100%" mb="15px" as="figcaption">
-          {alt}
-        </Text>
-      )}
+      <Image alt={alt} layout={layout} {...props} />
+      <Text fontWeight="700" mb="15px" as="figcaption">
+        {alt}
+      </Text>
     </figure>
   );
 };
