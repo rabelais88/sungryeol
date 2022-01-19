@@ -11,6 +11,7 @@ const PreviewHandler: NextApiHandler = async (req, res) => {
   try {
     console.log('fetching preview...', uid);
     const post = await getPost(uid, true);
+    res.setPreviewData(post);
     res.redirect(`/posts/${uid}`);
     console.log('successfully fetched preview');
     return;
