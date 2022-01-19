@@ -67,14 +67,26 @@ const Callout: React.FC<ICalloutProps> = ({
   );
 };
 
-interface ICustomImgProps extends ImageProps {}
+interface ICustomImgProps extends ImageProps {
+  description?: string;
+}
 
 const CustomImg: React.FC<ICustomImgProps> = ({
   alt,
   layout = 'intrinsic',
+  width,
   ...props
 }) => {
-  return <Image alt={alt} layout={layout} {...props} />;
+  return (
+    <figure>
+      <Image alt={alt} layout={layout} width={width} {...props} />
+      {alt && (
+        <Text w={width} fontWeight="700" maxW="100%" mb="15px" as="figcaption">
+          {alt}
+        </Text>
+      )}
+    </figure>
+  );
 };
 
 // https://mdxjs.com/table-of-components/
