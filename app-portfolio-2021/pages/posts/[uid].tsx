@@ -116,8 +116,9 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 // https://github.com/vercel/next.js/discussions/10946
 // https://github.com/prisma-labs/graphql-request
 export const getStaticProps: GetStaticProps<IProps> = async (context) => {
+  const uid = `${context?.params?.uid}`;
   if (context.preview) {
-    const post = context.previewData as ReturnPromiseType<typeof getPost>;
+    const post = await getPost(uid, true);
     return {
       props: {
         post,
@@ -126,7 +127,6 @@ export const getStaticProps: GetStaticProps<IProps> = async (context) => {
       },
     };
   }
-  const uid = `${context?.params?.uid}`;
   const post = await getPost(uid);
   if (!post) return { notFound: true };
   const mdxSource = await serialize(post.content, mdxPostConfig);
