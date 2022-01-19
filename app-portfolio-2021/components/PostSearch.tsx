@@ -37,7 +37,7 @@ import useSearchQuery from '@/hooks/useSearchQuery';
 export const SearchBox = connectSearchBox(({ refine }) => {
   const { setKeyword } = useSearchQuery();
   const debouncedOnChange = useMemo(
-    () => _debounce(setKeyword, 200, { trailing: true }),
+    () => _debounce(setKeyword, 500, { trailing: true }),
     [setKeyword]
   );
   return (
