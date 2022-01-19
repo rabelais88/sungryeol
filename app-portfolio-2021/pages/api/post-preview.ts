@@ -11,12 +11,12 @@ const PreviewHandler: NextApiHandler = async (req, res) => {
   try {
     console.log('fetching preview...', uid);
     const post = await getPost(uid, true);
-    res.setPreviewData(post);
     res.redirect(`/posts/${uid}`);
     console.log('successfully fetched preview');
     return;
   } catch (err) {
-    console.error('error while fetching preview', JSON.stringify(err));
+    console.error('error while fetching preview');
+    if (err instanceof Error) console.error(err.toString());
     res.status(500).json({ code: 'SERVER_ERROR_WHILE_FETCHING_ARTICLE' });
     return;
   }
