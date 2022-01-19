@@ -29,9 +29,10 @@ import { mdxPostConfig } from '@/constants/mdxConfig';
 interface IProps {
   post: ReturnPromiseType<typeof getPost>;
   mdxSource: MDXRemoteSerializeResult;
+  preview: boolean;
 }
 
-const Post: NextPage<IProps> = ({ post, mdxSource }) => {
+const Post: NextPage<IProps> = ({ post, mdxSource, preview }) => {
   const toast = useToast();
   const onShare = () => {
     copyToClipboard(window?.location?.href);
@@ -58,6 +59,22 @@ const Post: NextPage<IProps> = ({ post, mdxSource }) => {
         title={`지식공단 - ${post.title}`}
         description={shortenedContent}
       />
+      {preview && (
+        <NextLink href="/api/post-preview-exit" passHref>
+          <Link
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            textDecor="underline"
+            bgColor="red"
+            color="white"
+            h="50px"
+            textAlign="center"
+          >
+            you are previewing a post. click here to exit preview mode
+          </Link>
+        </NextLink>
+      )}
       <HStack mt="30px">
         <NextLink href="/posts" passHref>
           <Link textDecor="underline">Posts</Link>
@@ -102,14 +119,18 @@ export const getStaticProps: GetStaticProps<IProps> = async (context) => {
   if (context.preview) {
     const post = context.previewData as ReturnPromiseType<typeof getPost>;
     return {
-      props: { post, mdxSource: await serialize(post.content, mdxPostConfig) },
+      props: {
+        post,
+        mdxSource: await serialize(post.content, mdxPostConfig),
+        preview: true,
+      },
     };
   }
   const uid = `${context?.params?.uid}`;
   const post = await getPost(uid);
   if (!post) return { notFound: true };
   const mdxSource = await serialize(post.content, mdxPostConfig);
-  return { props: { post, mdxSource }, revalidate: 60 };
+  return { props: { post, mdxSource, preview: false }, revalidate: 60 };
 };
 
 export default Post;
