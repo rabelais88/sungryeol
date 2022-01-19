@@ -11,6 +11,7 @@ import {
   Text,
   Code,
   CodeProps,
+  chakra,
 } from '@chakra-ui/react';
 import Image, { ImageProps } from 'next/image';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
@@ -67,9 +68,9 @@ const Callout: React.FC<ICalloutProps> = ({
   );
 };
 
-interface ICustomImgProps extends ImageProps {
-  description?: string;
-}
+interface ICustomImgProps extends ImageProps {}
+
+const Figure = chakra('figure');
 
 const CustomImg: React.FC<ICustomImgProps> = ({
   alt,
@@ -78,12 +79,12 @@ const CustomImg: React.FC<ICustomImgProps> = ({
 }) => {
   if (!alt) return <Image alt={alt} layout={layout} {...props} />;
   return (
-    <figure>
+    <Figure display="flex" justifyContent="center" flexDir="column">
       <Image alt={alt} layout={layout} {...props} />
       <Text fontWeight="700" mb="15px" as="figcaption">
         {alt}
       </Text>
-    </figure>
+    </Figure>
   );
 };
 
