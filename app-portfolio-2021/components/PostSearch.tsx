@@ -38,7 +38,7 @@ export const SearchBox = connectSearchBox(({ refine }) => {
   const { setKeyword } = useSearchQuery();
   const debouncedOnChange = useMemo(
     () => _debounce(setKeyword, 200, { trailing: true }),
-    [refine]
+    [setKeyword]
   );
   return (
     <InputGroup>
@@ -150,13 +150,17 @@ export const SearchResults = connectHits<Hit<IArticle>>(({ hits }) => {
 
 export const SearchPagination = connectPagination(
   ({ currentRefinement, nbPages, refine, createURL }) => {
+    const {
+      searchQuery: { page },
+      setPage,
+    } = useSearchQuery();
     return (
       <HStack className="search-pagination" justify="flex-end">
         <Button
           variant="link"
           color="black"
-          disabled={currentRefinement <= 1}
-          onClick={() => refine(currentRefinement - 1)}
+          disabled={page <= 1}
+          onClick={() => setPage(page - 1)}
         >
           Prev
         </Button>
@@ -164,10 +168,10 @@ export const SearchPagination = connectPagination(
           <Button
             variant="link"
             key={i}
-            className={currentRefinement === i + 1 ? 'active' : ''}
+            className={page === i + 1 ? 'active' : ''}
             color="black"
             sx={{ '.active': { fontWeight: 'bold', color: 'pink.400' } }}
-            onClick={() => refine(i)}
+            onClick={() => setPage(i + 1)}
           >
             {i + 1}
           </Button>
@@ -175,8 +179,8 @@ export const SearchPagination = connectPagination(
         <Button
           variant="link"
           color="black"
-          disabled={currentRefinement >= nbPages}
-          onClick={() => refine(currentRefinement + 1)}
+          disabled={page >= nbPages}
+          onClick={() => setPage(page + 1)}
         >
           Next
         </Button>

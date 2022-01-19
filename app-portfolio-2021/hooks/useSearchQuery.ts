@@ -55,6 +55,15 @@ const useSearchQuery = () => {
     }
     router.replace(`/posts?${q.toString()}`);
   };
+  const setPage = (page: number) => {
+    const q = new URLSearchParams(router.query as Record<string, string>);
+    if (page <= 1) {
+      q.delete('page');
+    } else {
+      q.set('page', page.toString());
+    }
+    router.replace(`/posts?${q.toString()}`);
+  };
   return {
     searchQuery,
     pushSearchQuery,
@@ -62,6 +71,7 @@ const useSearchQuery = () => {
     setKeyword,
     toggleTag,
     hasTag,
+    setPage,
   };
 };
 
