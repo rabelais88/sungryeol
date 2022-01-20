@@ -6,6 +6,7 @@ import {
   LinkBox,
   LinkOverlay,
   Slide,
+  Link,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import IconMenu from './icons/IconMenu';
@@ -39,30 +40,26 @@ const MenuButton: React.FC<IconButtonProps> = (props) => (
 );
 
 const SearchButton: React.FC = () => (
-  <LinkBox
-    _hover={{
-      bgColor: 'black',
-      '.chakra-icon': {
-        fill: 'black',
-        path: {
-          fill: 'white',
+  <NextLink href="/posts" passHref>
+    <Link
+      h="100%"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      w="40px"
+      _hover={{
+        bgColor: 'black',
+        '.chakra-icon': {
+          fill: 'black',
+          path: {
+            fill: 'white',
+          },
         },
-      },
-    }}
-    h="100%"
-    w="40px"
-  >
-    <NextLink href="/posts" passHref>
-      <LinkOverlay
-        h="100%"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <IconSearch />
-      </LinkOverlay>
-    </NextLink>
-  </LinkBox>
+      }}
+    >
+      <IconSearch />
+    </Link>
+  </NextLink>
 );
 
 {
@@ -98,6 +95,7 @@ const TopBar: React.FC<ITopBarProps> = ({ onMenuToggle = () => {} }) => {
   const [scroll, setScroll] = useState(0);
   const router = useRouter();
   const onScroll = () => {
+    console.log(scroll, window.scrollY);
     setScroll(window.scrollY);
   };
   useEffect(() => {
