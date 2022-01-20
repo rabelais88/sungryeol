@@ -232,7 +232,6 @@ const PostSearch: React.FC<IPostSearch> = ({
   const searchState: SearchState = {
     page,
     query,
-    sortBy: 'updatedAtTimestamp',
   };
   if (compositeTags.length >= 1) searchState.refinementList = { compositeTags };
 
@@ -240,7 +239,7 @@ const PostSearch: React.FC<IPostSearch> = ({
     <InstantSearch
       {...props}
       searchClient={searchClient ?? new AlgoliaService().searchClient}
-      indexName="posts"
+      indexName="post_updated_at"
       stalledSearchDelay={500}
       searchState={searchState}
     >
