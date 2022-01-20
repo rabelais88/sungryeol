@@ -38,23 +38,11 @@ const useSearchQuery = () => {
   const replaceSearchQuery = (q: ISearchQuery) => {
     router.replace(getUrl(q));
   };
-  const setKeyword = (keyword: string) => {
-    const q = new URLSearchParams(router.query as Record<string, string>);
-    q.set('q', keyword);
-    router.replace(`/posts?${q.toString()}`);
-  };
+
   const hasTag = (tag: string) => {
     return compositeTags.findIndex((t) => t === tag) !== -1;
   };
-  const toggleTag = (tag: string) => {
-    const q = new URLSearchParams(router.query as Record<string, string>);
-    if (hasTag(tag)) {
-      q.set('tag', compositeTags.filter((t) => t !== tag).join(','));
-    } else {
-      q.set('tag', [...compositeTags, tag].join(','));
-    }
-    router.replace(`/posts?${q.toString()}`);
-  };
+
   const setPage = (page: number) => {
     const q = new URLSearchParams(router.query as Record<string, string>);
     if (page <= 1) {
@@ -64,6 +52,25 @@ const useSearchQuery = () => {
     }
     router.replace(`/posts?${q.toString()}`);
   };
+
+  const setKeyword = (keyword: string) => {
+    const q = new URLSearchParams(router.query as Record<string, string>);
+    q.set('q', keyword);
+    q.delete('page');
+    router.replace(`/posts?${q.toString()}`);
+  };
+
+  const toggleTag = (tag: string) => {
+    const q = new URLSearchParams(router.query as Record<string, string>);
+    q.delete('page');
+    if (hasTag(tag)) {
+      q.set('tag', compositeTags.filter((t) => t !== tag).join(','));
+    } else {
+      q.set('tag', [...compositeTags, tag].join(','));
+    }
+    router.replace(`/posts?${q.toString()}`);
+  };
+
   return {
     searchQuery,
     pushSearchQuery,
