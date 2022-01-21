@@ -119,17 +119,20 @@ export const getStaticProps: GetStaticProps<IProps> = async (context) => {
   const uid = `${context?.params?.uid}`;
   if (context.preview) {
     const post = await getPost(uid, true);
+    if (!post) return { notFound: true };
+    const content = post.content as string;
     return {
       props: {
         post,
-        mdxSource: await serialize(post.content, mdxPostConfig),
+        mdxSource: await serialize(content, mdxPostConfig),
         preview: true,
       },
     };
   }
   const post = await getPost(uid);
   if (!post) return { notFound: true };
-  const mdxSource = await serialize(post.content, mdxPostConfig);
+  const content = post.content as string;
+  const mdxSource = await serialize(content, mdxPostConfig);
   return { props: { post, mdxSource, preview: false }, revalidate: 60 };
 };
 

@@ -75,12 +75,17 @@ const Figure = chakra('figure');
 const CustomImg: React.FC<ICustomImgProps> = ({
   alt,
   layout = 'intrinsic',
+  src,
   ...props
 }) => {
-  if (!alt) return <Image alt={alt} layout={layout} {...props} />;
+  const _src = `${src}`.replaceAll(
+    `${process.env.NEXT_PUBLIC_S3}`,
+    `${process.env.NEXT_PUBLIC_AWS_CDN}`
+  );
+  if (!alt) return <Image src={_src} alt={alt} layout={layout} {...props} />;
   return (
     <Figure display="flex" justifyContent="center" flexDir="column">
-      <Image alt={alt} layout={layout} {...props} />
+      <Image src={_src} alt={alt} layout={layout} {...props} />
       <Text fontWeight="700" mb="15px" as="figcaption">
         {alt}
       </Text>
