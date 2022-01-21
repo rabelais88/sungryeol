@@ -1,7 +1,6 @@
 import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '@/styles/theme';
-import TopBar from '@/components/TopBar';
 import { Box } from '@chakra-ui/react';
 // import GlobalStyleLoader from '@/styles/GlobalStyleLoader';
 import Menu from '@/components/Menu';
@@ -14,6 +13,7 @@ import {
 } from 'framer-motion';
 import * as animVariant from '@/constants/animVariant';
 import '@/styles/global.css';
+import TopBar from '@/components/TopBar';
 
 const MotionBox = motion(Box);
 

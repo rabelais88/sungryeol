@@ -11,10 +11,13 @@ import {
 import NextLink from 'next/link';
 import IconMenu from './icons/IconMenu';
 import IconSearch from './icons/IconSearch';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import LogoText from './icons/LogoText';
 import { useRouter } from 'next/router';
 import MarqueeBar from './Marquee';
+import _debounce from 'lodash/debounce';
+import { AnimatePresence, motion } from 'framer-motion';
+import { menuSlideDown } from '@/constants/animVariant';
 
 interface ITopBarProps {
   onMenuToggle?: () => void;
@@ -90,29 +93,37 @@ const LogoButton: React.FC = () => {
   );
 };
 
+const MotionBox = motion(Box);
+
 const TopBar: React.FC<ITopBarProps> = ({ onMenuToggle = () => {} }) => {
   const [visible, setVisible] = useState(true);
-  const [scroll, setScroll] = useState(0);
+  const scrollData = useRef(0);
   const router = useRouter();
-  const onScroll = () => {
-    console.log(scroll, window.scrollY);
-    setScroll(window.scrollY);
-  };
+
+  const onScroll = useCallback(() => {
+    // can't use state inside callback
+    const scroll = scrollData?.current ?? 0;
+    const scrolledDown = scroll < window.scrollY;
+    setVisible(!scrolledDown);
+    scrollData.current = window.scrollY;
+  }, [scrollData?.current]);
+
+  const debouncedOnScroll = useMemo(
+    () => _debounce(onScroll, 200, { trailing: true }),
+    []
+  );
+
   useEffect(() => {
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', debouncedOnScroll);
     onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', debouncedOnScroll);
   }, []);
-  useEffect(() => {
-    setVisible(scroll < 100);
-  }, [scroll]);
   const Bar = useMemo(
     () => (
       <Box
         bgColor="bg-yellow"
         className="top-bar"
         borderBottom="solid 1px black"
-        height="100%"
         h="50px"
         left="0"
         right="0"
@@ -128,15 +139,37 @@ const TopBar: React.FC<ITopBarProps> = ({ onMenuToggle = () => {} }) => {
     [onMenuToggle]
   );
 
-  const marqueeText = Array.from({ length: 5 })
-    .map(() => '이 블로그의 깃헙 소스 보기 - see github code of this blog')
-    .join(' - ');
+  const marqueeText = useMemo(
+    () =>
+      Array.from({ length: 5 })
+        .map(() => '이 블로그의 깃헙 소스 보기 - see github code of this blog')
+        .join(' - '),
+    []
+  );
 
   return (
-    <Slide direction="top" in={visible} style={{ zIndex: 1310 }}>
-      {Bar}
-      {router.pathname === '/contact' && <MarqueeBar>{marqueeText}</MarqueeBar>}
-    </Slide>
+    <Box position="fixed" w="100%" zIndex="1310" className="top-bar-container">
+      <AnimatePresence exitBeforeEnter>
+        {visible && (
+          <MotionBox
+            position="absolute"
+            left="0"
+            right="0"
+            variants={menuSlideDown.variants}
+            initial="hide"
+            animate="show"
+            exit="hide"
+            transition={menuSlideDown.transition}
+            key="topBar"
+          >
+            {Bar}
+            {router.pathname === '/contact' && (
+              <MarqueeBar>{marqueeText}</MarqueeBar>
+            )}
+          </MotionBox>
+        )}
+      </AnimatePresence>
+    </Box>
   );
 };
 

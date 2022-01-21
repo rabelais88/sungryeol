@@ -51,6 +51,23 @@ export const slideRight: IVariant = {
   },
 };
 
+export const menuSlideDown: IVariant = {
+  name: 'menuSlideDown',
+  variants: {
+    show: {
+      opacity: 1,
+      top: 0,
+    },
+    hide: {
+      opacity: 0,
+      top: '-50px',
+    },
+  },
+  transition: {
+    duration: 0.3,
+  },
+};
+
 export const fade: IVariant = {
   name: 'fade',
   variants: {
