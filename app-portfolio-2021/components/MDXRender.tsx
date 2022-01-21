@@ -78,10 +78,8 @@ const CustomImg: React.FC<ICustomImgProps> = ({
   src,
   ...props
 }) => {
-  const _src = `${src}`.replaceAll(
-    `${process.env.NEXT_PUBLIC_S3}`,
-    `${process.env.NEXT_PUBLIC_AWS_CDN}`
-  );
+  const re = new RegExp(`${process.env.NEXT_PUBLIC_S3}`, 'g');
+  const _src = `${src}`.replace(re, `${process.env.NEXT_PUBLIC_AWS_CDN}`);
   if (!alt) return <Image src={_src} alt={alt} layout={layout} {...props} />;
   return (
     <Figure display="flex" justifyContent="center" flexDir="column">
