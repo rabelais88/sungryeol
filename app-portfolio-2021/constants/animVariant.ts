@@ -7,7 +7,7 @@ interface IVariant {
 }
 
 export const slideUp: IVariant = {
-  name: 'Slide Up',
+  name: 'slideUp',
   variants: {
     initial: {
       opacity: 0,
@@ -31,11 +31,11 @@ export const slideUp: IVariant = {
 };
 
 export const slideRight: IVariant = {
-  name: 'Slide Right',
+  name: 'slideRight',
   variants: {
     initial: {
       opacity: 0,
-      left: '-100%',
+      left: '-100vw',
     },
     enter: {
       opacity: 1,
@@ -43,11 +43,31 @@ export const slideRight: IVariant = {
     },
     exit: {
       opacity: 0,
-      left: '100%',
+      left: '100vw',
     },
   },
   transition: {
     duration: 0.7,
+  },
+};
+interface IPageDummies extends Omit<IVariant, 'transition'> {
+  transitions: Record<string, Transition>;
+}
+export const pageDummies: IPageDummies = {
+  name: 'pageDummies',
+  variants: {
+    start: {
+      left: '-100vw',
+    },
+    end: {
+      right: '100vw',
+    },
+  },
+  transitions: {
+    layer1: { duration: 0.7, ease: [0.645, 0.045, 0.355, 1] },
+    layer2: { duration: 0.7, ease: [0.645, 0.045, 0.355, 1], delay: 0.3 },
+    layer3: { duration: 0.7, ease: [0.645, 0.045, 0.355, 1], delay: 0.12 },
+    layer4: { duration: 0.7, ease: [0.645, 0.045, 0.355, 1], delay: 0.08 },
   },
 };
 

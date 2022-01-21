@@ -17,6 +17,35 @@ import TopBar from '@/components/TopBar';
 
 const MotionBox = motion(Box);
 
+interface IPageTransition {
+  pageKey: string;
+}
+const PageTransition: React.FC<IPageTransition> = ({ children, pageKey }) => {
+  return (
+    <LazyMotion features={domAnimation}>
+      <Box className="app-wrap" position="relative" overflow-x="hidden">
+        <AnimatePresence exitBeforeEnter>
+          <MotionBox
+            key={pageKey}
+            position="absolute"
+            w="100vw"
+            className="page-wrap"
+            initial="end"
+            animate="start"
+            exit="end"
+            variants={{
+              start: { opacity: 1 },
+              end: { opacity: 0 },
+            }}
+          >
+            {children}
+          </MotionBox>
+        </AnimatePresence>
+      </Box>
+    </LazyMotion>
+  );
+};
+
 function MyApp({ Component, pageProps, router }: AppProps) {
   const [menuVisible, setMenuVisible] = useState(false);
   useEffect(() => {
@@ -28,25 +57,9 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       <TopBar onMenuToggle={() => setMenuVisible(!menuVisible)} />
       <Box className="margin-top-bar" height="50px" />
       <Menu visible={menuVisible} />
-      <LazyMotion features={domAnimation}>
-        <Box className="app-wrap" position="relative">
-          <AnimatePresence exitBeforeEnter>
-            <MotionBox
-              key={router.pathname}
-              position="absolute"
-              width="100%"
-              className="page-wrap"
-              initial="initial"
-              animate="enter"
-              exit="exit"
-              variants={animVariant.slideRight.variants}
-              transition={animVariant.slideRight.transition}
-            >
-              <Component {...pageProps} />
-            </MotionBox>
-          </AnimatePresence>
-        </Box>
-      </LazyMotion>
+      <PageTransition pageKey={router.pathname}>
+        <Component {...pageProps} />
+      </PageTransition>
     </ChakraProvider>
   );
 }
