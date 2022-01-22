@@ -17,6 +17,7 @@ import Image, { ImageProps } from 'next/image';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import PrismCodeStyle from '@/styles/PrismCodeStyle';
 import 'katex/dist/katex.min.css';
+import makeShimmerUri from '@/utils/makeShimmerURI';
 
 const _Link: React.FC<LinkProps> = ({ children, href }) => {
   return (
@@ -75,15 +76,31 @@ const Figure = chakra('figure');
 const CustomImg: React.FC<ICustomImgProps> = ({
   alt,
   layout = 'intrinsic',
+  width = 0,
+  height = 0,
   src,
   ...props
 }) => {
   const re = new RegExp(`${process.env.NEXT_PUBLIC_S3}`, 'g');
   const _src = `${src}`.replace(re, `${process.env.NEXT_PUBLIC_AWS_CDN}`);
-  if (!alt) return <Image src={_src} alt={alt} layout={layout} {...props} />;
+  const blurProps: Pick<
+    ImageProps,
+    'width' | 'height' | 'placeholder' | 'blurDataURL'
+  > = {};
+  if (width > 0 && height > 0) {
+    blurProps.width = width;
+    blurProps.height = height;
+    blurProps.placeholder = 'blur';
+    blurProps.blurDataURL = makeShimmerUri(Number(width), Number(height));
+  }
+
+  if (!alt)
+    return (
+      <Image src={_src} alt={alt} layout={layout} {...blurProps} {...props} />
+    );
   return (
     <Figure display="flex" justifyContent="center" flexDir="column">
-      <Image src={_src} alt={alt} layout={layout} {...props} />
+      <Image src={_src} alt={alt} layout={layout} {...blurProps} {...props} />
       <Text fontWeight="700" mb="15px" as="figcaption">
         {alt}
       </Text>
