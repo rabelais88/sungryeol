@@ -33,6 +33,7 @@ import { SearchClient } from 'algoliasearch/lite';
 import _debounce from 'lodash/debounce';
 import { useMemo } from 'react';
 import useSearchQuery from '@/hooks/useSearchQuery';
+import { IPostHit } from '@/types';
 
 export const SearchBox = connectSearchBox(({ refine }) => {
   const { setKeyword } = useSearchQuery();
@@ -63,19 +64,7 @@ export const SearchBox = connectSearchBox(({ refine }) => {
 
 const Hit: React.FC<{ hit: any }> = ({ hit }) => <Highlight hit={hit} />;
 
-interface IArticle {
-  updatedAt: string;
-  uid: string;
-  tags: {
-    createdAt: string;
-    id: number;
-    key: string;
-    label: string;
-    updatedAt: string;
-  }[];
-}
-
-const HitItem: React.FC<{ hit: Hit<IArticle> }> = ({ hit }) => {
+const HitItem: React.FC<{ hit: Hit<IPostHit> }> = ({ hit }) => {
   return (
     <ListItem
       key={hit.uid}
@@ -132,7 +121,7 @@ const HitItem: React.FC<{ hit: Hit<IArticle> }> = ({ hit }) => {
 };
 
 // same as react-instasearch-dom/Hits component
-export const SearchResults = connectHits<Hit<IArticle>>(({ hits }) => {
+export const SearchResults = connectHits<Hit<IPostHit>>(({ hits }) => {
   return (
     <UnorderedList
       styleType="none"
@@ -243,7 +232,7 @@ const PostSearch: React.FC<IPostSearch> = ({
       stalledSearchDelay={500}
       searchState={searchState}
     >
-      <Configure hitsPerPage={8} />
+      <Configure hitsPerPage={10} />
       {children}
     </InstantSearch>
   );

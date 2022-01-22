@@ -49,3 +49,16 @@ export interface IGetContact {
     };
   };
 }
+
+export interface IPostHit {
+  updatedAt: string;
+  uid: string;
+  content: string;
+  tags: {
+    createdAt: string;
+    id: number;
+    key: string;
+    label: string;
+    updatedAt: string;
+  }[];
+}
