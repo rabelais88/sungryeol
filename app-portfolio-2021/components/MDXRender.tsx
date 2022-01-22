@@ -17,7 +17,7 @@ import Image, { ImageProps } from 'next/image';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import PrismCodeStyle from '@/styles/PrismCodeStyle';
 import 'katex/dist/katex.min.css';
-import makeShimmerUri from '@/utils/makeShimmerURI';
+import makeShimmerUri from '@/utils/makeShimmerUri';
 
 const _Link: React.FC<LinkProps> = ({ children, href }) => {
   return (

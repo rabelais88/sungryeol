@@ -1,4 +1,4 @@
-import { shortInternationalTime } from '@/../lib/dist';
+import { shortInternationalTime } from '@sungryeol/lib/dist';
 import { IPostHit } from '@/types';
 import { Box, Link, ListItem, Text } from '@chakra-ui/react';
 import { Hit } from 'react-instantsearch-core';
