@@ -12,7 +12,7 @@ const Tags = connectRefinementList((arg) => {
         <WrapItem key={item.label}>
           <PostTagControl
             onClick={() => {
-              const q = new URLSearchParams({ tags: item.label });
+              const q = new URLSearchParams({ tag: item.label });
               router.push(`/posts?${q.toString()}`);
             }}
           >
