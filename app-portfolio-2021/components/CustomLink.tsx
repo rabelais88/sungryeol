@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import { Link, LinkProps } from '@chakra-ui/react';
+import { Link, LinkProps, Text } from '@chakra-ui/react';
 
 interface ICusomLinkProps extends Omit<LinkProps, 'href'> {
   href: string;
@@ -16,6 +16,7 @@ const CustomLink: React.FC<ICusomLinkProps> = ({
       <Link
         position="relative"
         className={disabled ? 'disabled' : ''}
+        display="inline-block"
         sx={{
           '&.disabled': {
             pointerEvents: 'none',
