@@ -13,12 +13,13 @@ export const mdxWorkConfig: SerializeOptions = {};
 // https://nickymeuleman.netlify.app/blog/math-gatsby-mdx
 
 const customizeTOCItem = (toc: any, heading: any) => {
-  console.log('toc', JSON.stringify(toc));
-  console.log('heading', JSON.stringify(heading));
+  // console.log('toc', JSON.stringify(toc));
+  // console.log('heading', JSON.stringify(heading));
 
   return toc;
 };
 
+// heading
 // {
 //   type: 'element',
 //   tagName: 'h1',
@@ -38,6 +39,7 @@ const customizeTOCItem = (toc: any, heading: any) => {
 //   }
 // }
 
+// toc
 // {
 //   "type":"element",
 //   "tagName":"li",
