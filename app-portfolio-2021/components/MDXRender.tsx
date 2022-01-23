@@ -112,10 +112,9 @@ const _UnorderedList: React.FC<ListProps> = ({ children, ...props }) => {
 
 const _Heading: React.FC<HeadingProps> = ({ children, id, ...props }) => {
   return (
-    <Heading {...props}>
+    <Heading {...props} id={id}>
       <Link
         href={`#${id}`}
-        id={id}
         _hover={{ _after: { content: '"#"', color: 'pink.100' } }}
       >
         {children}
