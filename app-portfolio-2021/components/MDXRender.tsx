@@ -19,6 +19,7 @@ import PrismCodeStyle from '@/styles/PrismCodeStyle';
 import 'katex/dist/katex.min.css';
 import makeShimmerUri from '@/utils/makeShimmerUri';
 import CustomLink from './CustomLink';
+import { cloneElement, ReactChild, ReactNode } from 'react';
 
 const _Code: React.FC<CodeProps> = ({ children, ...props }) => {
   return <Code {...props}>{children}</Code>;
@@ -107,15 +108,32 @@ const _UnorderedList: React.FC<ListProps> = ({ children, ...props }) => {
 };
 
 const _Heading: React.FC<HeadingProps> = ({ children, id, ...props }) => {
-  const encodedId = encodeURIComponent(id ?? '');
+  const encodedId = encodeURI(id ?? '');
+  if (Array.isArray(children)) {
+    const headLink = children[0] as JSX.Element;
+    const text = children[1] as string;
+    // const encodedId = encodeURI(headLink.props['href'].replace(/^#/, ''));
+    return (
+      <>
+        {headLink}
+        <Heading
+          id={encodedId}
+          _hover={{ _after: { content: '"#"', color: 'pink.100' } }}
+          letterSpacing="-4px"
+          {...props}
+        >
+          <Link href={encodeURI(headLink.props['href'])}>{text}</Link>
+        </Heading>
+      </>
+    );
+  }
   return (
-    <Heading {...props} id={encodedId}>
-      <Link
-        href={`#${encodedId}`}
-        _hover={{ _after: { content: '"#"', color: 'pink.100' } }}
-      >
-        {children}
-      </Link>
+    <Heading
+      {...props}
+      id={encodedId}
+      _hover={{ _after: { content: '"#"', color: 'pink.100' } }}
+    >
+      {children}
     </Heading>
   );
 };

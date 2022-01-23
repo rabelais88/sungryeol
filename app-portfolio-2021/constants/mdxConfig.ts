@@ -6,6 +6,7 @@ import remarkGfm from 'remark-gfm';
 import remarkPrism from 'remark-prism';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import _set from 'lodash/set';
 
 export const mdxWorkConfig: SerializeOptions = {};
 
@@ -16,6 +17,13 @@ const customizeTOCItem = (toc: any, heading: any) => {
   // console.log('toc', JSON.stringify(toc));
   // console.log('heading', JSON.stringify(heading));
 
+  // const tocChildren = toc?.data?.hookArgs ?? [];
+  // if (tocChildren.length >= 1) {
+  //   toc?.data?.hookArgs.forEach((t: any) => {
+  //     const id = t.properties?.id ?? '';
+  //     if (id !== '') _set(t.properties, 'id', encodeURI(id));
+  //   });
+  // }
   return toc;
 };
 
@@ -136,7 +144,8 @@ export const mdxPostConfig: SerializeOptions = {
       rehypeSlug,
       rehypeAutolinkHeadings,
       rehypeKatex,
-      [rehypeTOC, { customizeTOCItem }],
+      // [rehypeTOC, { customizeTOCItem }],
+      rehypeTOC,
     ],
   },
 };
