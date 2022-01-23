@@ -148,7 +148,6 @@ export const SearchPagination = connectPagination(
   ({ currentRefinement, nbPages, refine, createURL }) => {
     const {
       searchQuery: { page },
-      setPage,
       getPageUrl,
     } = useSearchQuery();
     return (
@@ -196,9 +195,9 @@ interface IPostSearch
 
 export const TagListMenu = connectRefinementList((arg) => {
   const { items } = arg;
-  const { toggleTag } = useSearchQuery();
+  const { toggleTag, tagCount, resetTag } = useSearchQuery();
   return (
-    <Wrap className="tag-list-menu" justify="center">
+    <Wrap className="tag-list-menu" justify="center" spacing="4px">
       {items.map((item) => (
         <WrapItem key={item.label}>
           <PostTagControl
@@ -210,6 +209,11 @@ export const TagListMenu = connectRefinementList((arg) => {
           </PostTagControl>
         </WrapItem>
       ))}
+      {tagCount >= 1 && (
+        <WrapItem key="close-button">
+          <PostTagControl onClick={resetTag}>X</PostTagControl>
+        </WrapItem>
+      )}
     </Wrap>
   );
 });

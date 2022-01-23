@@ -65,6 +65,16 @@ const useSearchQuery = () => {
     router.replace(`/posts?${q.toString()}`);
   };
 
+  const getResetTagUrl = () => {
+    const q = new URLSearchParams(router.query as Record<string, string>);
+    q.delete('tag');
+    q.delete('page');
+    return `/posts?${q.toString()}`;
+  };
+  const resetTag = () => {
+    router.replace(getResetTagUrl());
+  };
+
   const toggleTagUrl = (tag: string) => {
     const q = new URLSearchParams(router.query as Record<string, string>);
     q.delete('page');
@@ -81,6 +91,8 @@ const useSearchQuery = () => {
     router.replace(url);
   };
 
+  const tagCount = compositeTags?.length ?? 0;
+
   return {
     searchQuery,
     pushSearchQuery,
@@ -91,6 +103,9 @@ const useSearchQuery = () => {
     setPage,
     toggleTagUrl,
     getPageUrl,
+    tagCount,
+    resetTag,
+    getResetTagUrl,
   };
 };
 
