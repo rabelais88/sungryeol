@@ -33,8 +33,8 @@ const CustomLink: React.FC<ICusomLinkProps> = ({
           left: '7px',
           w: '100%',
           h: '5px',
-          zIndex: -1,
           transition: '.3s',
+          zIndex: -2,
         }}
         _hover={{
           _before: {
