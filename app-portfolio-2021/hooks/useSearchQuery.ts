@@ -43,14 +43,19 @@ const useSearchQuery = () => {
     return compositeTags.findIndex((t) => t === tag) !== -1;
   };
 
-  const setPage = (page: number) => {
+  const getPageUrl = (page: number) => {
     const q = new URLSearchParams(router.query as Record<string, string>);
     if (page <= 1) {
       q.delete('page');
     } else {
       q.set('page', page.toString());
     }
-    router.replace(`/posts?${q.toString()}`);
+    return `/posts?${q.toString()}`;
+  };
+
+  const setPage = (page: number) => {
+    const url = getPageUrl(page);
+    router.replace(url);
   };
 
   const setKeyword = (keyword: string) => {
@@ -60,7 +65,7 @@ const useSearchQuery = () => {
     router.replace(`/posts?${q.toString()}`);
   };
 
-  const toggleTag = (tag: string) => {
+  const toggleTagUrl = (tag: string) => {
     const q = new URLSearchParams(router.query as Record<string, string>);
     q.delete('page');
     if (hasTag(tag)) {
@@ -68,7 +73,12 @@ const useSearchQuery = () => {
     } else {
       q.set('tag', [...compositeTags, tag].join(','));
     }
-    router.replace(`/posts?${q.toString()}`);
+    return `/posts?${q.toString()}`;
+  };
+
+  const toggleTag = (tag: string) => {
+    const url = toggleTagUrl(tag);
+    router.replace(url);
   };
 
   return {
@@ -79,6 +89,8 @@ const useSearchQuery = () => {
     toggleTag,
     hasTag,
     setPage,
+    toggleTagUrl,
+    getPageUrl,
   };
 };
 

@@ -109,7 +109,7 @@ const TopBar: React.FC<ITopBarProps> = ({ onMenuToggle = () => {} }) => {
   }, [scrollData?.current]);
 
   const debouncedOnScroll = useMemo(
-    () => _debounce(onScroll, 200, { trailing: true }),
+    () => _debounce(onScroll, 100, { trailing: true }),
     []
   );
 

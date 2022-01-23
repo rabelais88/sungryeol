@@ -13,7 +13,7 @@ const PostItems = connectHits<Hit<IPostHit>>(({ hits }) => {
       w="100%"
       sx={{
         '.post-item + .post-item': {
-          marginTop: '5px',
+          marginTop: '15px',
         },
       }}
     >

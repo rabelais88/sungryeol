@@ -34,6 +34,7 @@ import _debounce from 'lodash/debounce';
 import { useMemo } from 'react';
 import useSearchQuery from '@/hooks/useSearchQuery';
 import { IPostHit } from '@/types';
+import CustomLink from './CustomLink';
 
 export const SearchBox = connectSearchBox(({ refine }) => {
   const { setKeyword } = useSearchQuery();
@@ -145,37 +146,38 @@ export const SearchPagination = connectPagination(
     const {
       searchQuery: { page },
       setPage,
+      getPageUrl,
     } = useSearchQuery();
     return (
-      <HStack className="search-pagination" justify="flex-end">
-        <Button
-          variant="link"
-          color="black"
-          disabled={page <= 1}
-          onClick={() => setPage(page - 1)}
-        >
-          Prev
-        </Button>
+      <HStack className="search-pagination" justify="flex-end" spacing={3}>
+        <CustomLink href={getPageUrl(page - 1)} disabled={page <= 1}>
+          PREV
+        </CustomLink>
         {Array.from({ length: nbPages }).map((_, i) => (
-          <Button
-            variant="link"
-            key={i}
+          <CustomLink
+            href={getPageUrl(i + 1)}
             className={page === i + 1 ? 'active' : ''}
-            color="black"
-            sx={{ '.active': { fontWeight: 'bold', color: 'pink.400' } }}
-            onClick={() => setPage(i + 1)}
+            px="5px"
+            _before={{
+              content: "''",
+              position: 'absolute',
+              bgColor: 'pink.100',
+              bottom: '0px',
+              left: '0px',
+              w: '100%',
+              h: '5px',
+              zIndex: -1,
+              transition: '.3s',
+            }}
+            sx={{ '&.active': { fontWeight: 'bold', color: 'pink.400' } }}
+            key={i}
           >
             {i + 1}
-          </Button>
+          </CustomLink>
         ))}
-        <Button
-          variant="link"
-          color="black"
-          disabled={page >= nbPages}
-          onClick={() => setPage(page + 1)}
-        >
-          Next
-        </Button>
+        <CustomLink href={getPageUrl(page + 1)} disabled={page >= nbPages}>
+          NEXT
+        </CustomLink>
       </HStack>
     );
   }
@@ -232,7 +234,7 @@ const PostSearch: React.FC<IPostSearch> = ({
       stalledSearchDelay={500}
       searchState={searchState}
     >
-      <Configure hitsPerPage={10} />
+      <Configure hitsPerPage={8} />
       {children}
     </InstantSearch>
   );

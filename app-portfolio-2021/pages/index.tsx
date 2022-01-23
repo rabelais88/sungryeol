@@ -22,6 +22,7 @@ import { getTags } from '@/services/TagService';
 import { PostTagControl } from '@/components/PostTag';
 import { ReturnPromiseType } from '@/types';
 import { useRouter } from 'next/router';
+import CustomLink from '@/components/CustomLink';
 
 interface IProps {
   tags: ReturnPromiseType<typeof getTags>;
@@ -32,15 +33,14 @@ interface IProps {
 
 const BigLink: React.FC<LinkProps> = ({ href, children }) => {
   return (
-    <NextLink href={href} passHref>
-      <Link
-        fontFamily="Hammersmith One, sans-serif"
-        fontSize="24px"
-        lineHeight="150%"
-      >
-        {children}
-      </Link>
-    </NextLink>
+    <CustomLink
+      fontFamily="Hammersmith One, sans-serif"
+      fontSize="24px"
+      lineHeight="150%"
+      href={`${href}`}
+    >
+      {children}
+    </CustomLink>
   );
 };
 
@@ -72,9 +72,9 @@ const Home: NextPage<IProps> = ({ resultsState, searchState, tags }) => {
           searchClient={searchClient}
           indexName="post_updated_at"
         />
-        <NextLink href="/posts" passHref>
-          <Link fontFamily="Hammersmith One">More articles...</Link>
-        </NextLink>
+        <CustomLink href="/posts" fontFamily="Hammersmith One">
+          More Articles...
+        </CustomLink>
       </VStack>
     </LayoutDefault>
   );

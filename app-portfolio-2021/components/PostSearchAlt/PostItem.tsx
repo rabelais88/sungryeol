@@ -4,11 +4,12 @@ import { Box, Link, ListItem, Text } from '@chakra-ui/react';
 import { Hit } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 import NextLink from 'next/link';
+import CustomLink from '../CustomLink';
 
 const PostItem: React.FC<{ hit: Hit<IPostHit> }> = ({ hit }) => {
   return (
     <ListItem w="100%" className="post-item" display="flex" alignItems="center">
-      <NextLink href={`/posts/${hit.uid}`} passHref>
+      {/* <NextLink href={`/posts/${hit.uid}`} passHref>
         <Link
           fontWeight="600"
           overflowX="hidden"
@@ -17,7 +18,10 @@ const PostItem: React.FC<{ hit: Hit<IPostHit> }> = ({ hit }) => {
         >
           <Highlight hit={hit} attribute="title" tagName="em" />
         </Link>
-      </NextLink>
+      </NextLink> */}
+      <CustomLink href={`/posts/${hit.uid}`}>
+        <Highlight hit={hit} attribute="title" tagName="em" />
+      </CustomLink>
       <Box
         flex="1"
         display="inline-block"

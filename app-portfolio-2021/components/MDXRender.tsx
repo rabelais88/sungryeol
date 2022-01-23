@@ -19,36 +19,7 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import PrismCodeStyle from '@/styles/PrismCodeStyle';
 import 'katex/dist/katex.min.css';
 import makeShimmerUri from '@/utils/makeShimmerUri';
-
-const _Link: React.FC<LinkProps> = ({ children, href }) => {
-  return (
-    <NextLink href={href} passHref>
-      <Link
-        position="relative"
-        _before={{
-          content: "''",
-          position: 'absolute',
-          bgColor: 'pink.100',
-          bottom: '0px',
-          left: '7px',
-          w: '100%',
-          h: '5px',
-          zIndex: -1,
-          transition: '.3s',
-        }}
-        _hover={{
-          _before: {
-            left: '0',
-            top: '0',
-            h: '100%',
-          },
-        }}
-      >
-        {children}
-      </Link>
-    </NextLink>
-  );
-};
+import CustomLink from './CustomLink';
 
 const _Code: React.FC<CodeProps> = ({ children, ...props }) => {
   return <Code {...props}>{children}</Code>;
@@ -139,7 +110,7 @@ const _UnorderedList: React.FC<ListProps> = ({ children, ...props }) => {
 
 // https://mdxjs.com/table-of-components/
 const components = {
-  a: _Link,
+  a: CustomLink,
   h1: (props: HeadingProps) => <Heading {...props} as="h1" />,
   h2: (props: HeadingProps) => <Heading {...props} size="lg" as="h2" />,
   h3: (props: HeadingProps) => <Heading {...props} size="md" as="h3" />,
