@@ -8,6 +8,7 @@ import {
   connectPagination,
   connectRefinementList,
   Configure,
+  Snippet,
 } from 'react-instantsearch-dom';
 import {
   Input,
@@ -108,7 +109,9 @@ const HitItem: React.FC<{ hit: Hit<IPostHit> }> = ({ hit }) => {
         overflow="hidden"
         whiteSpace="nowrap"
       >
-        <Highlight hit={hit} attribute="content" tagName="em" />
+        {/* <Highlight hit={hit} attribute="content" tagName="em" /> */}
+        {/* use snippet instead of highlight so that it can strip unused part of text */}
+        <Snippet hit={hit} attribute="content" tagName="em" />
       </Text>
       <HStack spacing="9px" ml={{ base: '0px', lg: '100px' }}>
         {hit.tags.map((t, i) => (

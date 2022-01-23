@@ -3,7 +3,6 @@ import { IPostHit } from '@/types';
 import { Box, Link, ListItem, Text } from '@chakra-ui/react';
 import { Hit } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
-import NextLink from 'next/link';
 import CustomLink from '../CustomLink';
 
 const PostItem: React.FC<{ hit: Hit<IPostHit> }> = ({ hit }) => {
