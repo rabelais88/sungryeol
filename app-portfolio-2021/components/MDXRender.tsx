@@ -46,7 +46,6 @@ const Callout: React.FC<ICalloutProps> = ({
       px="10px"
       sx={{
         '&[data-mode="info"]': {
-          borderLeft: 'solid 3px black',
           bgColor: 'rgba(0,0,0,.05)',
         },
         '&[data-mode="danger"]': {
