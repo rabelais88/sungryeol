@@ -121,7 +121,9 @@ const components = {
   div: _Div,
   // https://stackoverflow.com/questions/67945559/next-mdx-remote-doesnt-pass-the-component
   inlineCode: _Code,
+  callout: Callout,
   Callout,
+  'custom-img': CustomImg,
   CustomImg,
   wrapper: (props: any) => {
     return <PrismCodeStyle {...props} />;
