@@ -1,4 +1,3 @@
-import NextLink, { LinkProps } from 'next/link';
 import {
   Link,
   Heading,
@@ -13,8 +12,6 @@ import {
   CodeProps,
   chakra,
   ListProps,
-  LinkOverlay,
-  LinkBox,
 } from '@chakra-ui/react';
 import Image, { ImageProps } from 'next/image';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
@@ -22,7 +19,6 @@ import PrismCodeStyle from '@/styles/PrismCodeStyle';
 import 'katex/dist/katex.min.css';
 import makeShimmerUri from '@/utils/makeShimmerUri';
 import CustomLink from './CustomLink';
-import { ReactNode, useRef } from 'react';
 
 const _Code: React.FC<CodeProps> = ({ children, ...props }) => {
   return <Code {...props}>{children}</Code>;
@@ -111,10 +107,11 @@ const _UnorderedList: React.FC<ListProps> = ({ children, ...props }) => {
 };
 
 const _Heading: React.FC<HeadingProps> = ({ children, id, ...props }) => {
+  const encodedId = encodeURIComponent(id ?? '');
   return (
-    <Heading {...props} id={id}>
+    <Heading {...props} id={encodedId}>
       <Link
-        href={`#${id}`}
+        href={`#${encodedId}`}
         _hover={{ _after: { content: '"#"', color: 'pink.100' } }}
       >
         {children}
