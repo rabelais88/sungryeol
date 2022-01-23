@@ -28,7 +28,7 @@ const PageTransition: React.FC<IPageTransition> = ({ children, pageKey }) => {
           <MotionBox
             key={pageKey}
             position="absolute"
-            w="100vw"
+            w="100%"
             className="page-wrap"
             initial="end"
             animate="start"
