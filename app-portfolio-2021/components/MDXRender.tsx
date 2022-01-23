@@ -13,6 +13,8 @@ import {
   CodeProps,
   chakra,
   ListProps,
+  LinkOverlay,
+  LinkBox,
 } from '@chakra-ui/react';
 import Image, { ImageProps } from 'next/image';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
@@ -20,6 +22,7 @@ import PrismCodeStyle from '@/styles/PrismCodeStyle';
 import 'katex/dist/katex.min.css';
 import makeShimmerUri from '@/utils/makeShimmerUri';
 import CustomLink from './CustomLink';
+import { ReactNode, useRef } from 'react';
 
 const _Code: React.FC<CodeProps> = ({ children, ...props }) => {
   return <Code {...props}>{children}</Code>;
@@ -107,12 +110,26 @@ const _UnorderedList: React.FC<ListProps> = ({ children, ...props }) => {
   );
 };
 
+const _Heading: React.FC<HeadingProps> = ({ children, id, ...props }) => {
+  return (
+    <Heading {...props}>
+      <Link
+        href={`#${id}`}
+        id={id}
+        _hover={{ _after: { content: '"#"', color: 'pink.100' } }}
+      >
+        {children}
+      </Link>
+    </Heading>
+  );
+};
+
 // https://mdxjs.com/table-of-components/
 const components = {
   a: CustomLink,
-  h1: (props: HeadingProps) => <Heading {...props} as="h1" />,
-  h2: (props: HeadingProps) => <Heading {...props} size="lg" as="h2" />,
-  h3: (props: HeadingProps) => <Heading {...props} size="md" as="h3" />,
+  h1: (props: HeadingProps) => <_Heading {...props} as="h1" />,
+  h2: (props: HeadingProps) => <_Heading {...props} size="lg" as="h2" />,
+  h3: (props: HeadingProps) => <_Heading {...props} size="md" as="h3" />,
   li: ListItem,
   ol: OrderedList,
   ul: _UnorderedList,
