@@ -12,6 +12,7 @@ import {
   Code,
   CodeProps,
   chakra,
+  ListProps,
 } from '@chakra-ui/react';
 import Image, { ImageProps } from 'next/image';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
@@ -22,7 +23,27 @@ import makeShimmerUri from '@/utils/makeShimmerUri';
 const _Link: React.FC<LinkProps> = ({ children, href }) => {
   return (
     <NextLink href={href} passHref>
-      <Link bgColor="pink.100" _hover={{ bgColor: 'yellow.100' }}>
+      <Link
+        position="relative"
+        _before={{
+          content: "''",
+          position: 'absolute',
+          bgColor: 'pink.100',
+          bottom: '0px',
+          left: '7px',
+          w: '100%',
+          h: '5px',
+          zIndex: -1,
+          transition: '.3s',
+        }}
+        _hover={{
+          _before: {
+            left: '0',
+            top: '0',
+            h: '100%',
+          },
+        }}
+      >
         {children}
       </Link>
     </NextLink>
@@ -108,6 +129,14 @@ const CustomImg: React.FC<ICustomImgProps> = ({
   );
 };
 
+const _UnorderedList: React.FC<ListProps> = ({ children, ...props }) => {
+  return (
+    <UnorderedList mt="20px" {...props}>
+      {children}
+    </UnorderedList>
+  );
+};
+
 // https://mdxjs.com/table-of-components/
 const components = {
   a: _Link,
@@ -116,7 +145,7 @@ const components = {
   h3: (props: HeadingProps) => <Heading {...props} size="md" as="h3" />,
   li: ListItem,
   ol: OrderedList,
-  ul: UnorderedList,
+  ul: _UnorderedList,
   p: Text,
   div: _Div,
   // https://stackoverflow.com/questions/67945559/next-mdx-remote-doesnt-pass-the-component
