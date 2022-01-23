@@ -65,15 +65,6 @@ const SearchButton: React.FC = () => (
   </NextLink>
 );
 
-{
-  /* <Image
-src="/logo-text.svg"
-alt="text logo for this blog"
-position="absolute"
-right="29px"
-top="16px"
-/> */
-}
 const LogoButton: React.FC = () => {
   return (
     <LinkBox
@@ -104,7 +95,8 @@ const TopBar: React.FC<ITopBarProps> = ({ onMenuToggle = () => {} }) => {
     // can't use state inside callback
     const scroll = scrollData?.current ?? 0;
     const scrolledDown = scroll < window.scrollY;
-    setVisible(!scrolledDown);
+    if (window.scrollY < 100) setVisible(true);
+    else setVisible(!scrolledDown);
     scrollData.current = window.scrollY;
   }, [scrollData?.current]);
 
