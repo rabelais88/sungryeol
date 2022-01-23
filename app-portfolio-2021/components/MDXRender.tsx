@@ -144,6 +144,7 @@ const MDXRender: React.FC<IMDXRenderProps> = ({ mdxSource, ...props }) => (
       p: { fontSize: '16px', fontWeight: '400', mt: '50px' },
       div: { fontSize: '16px', fontWeight: '400' },
       img: { borderRadius: '10px' },
+      blockquote: { borderLeft: 'solid 2px black', pl: '10px' },
     }}
   >
     <MDXRemote {...mdxSource} components={components} />
