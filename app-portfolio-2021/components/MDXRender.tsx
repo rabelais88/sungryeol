@@ -42,8 +42,8 @@ const Callout: React.FC<ICalloutProps> = ({
     <Box
       className="callout"
       data-mode={mode}
-      py="10px"
-      px="10px"
+      py="15px"
+      px="15px"
       sx={{
         '&[data-mode="info"]': {
           bgColor: 'rgba(0,0,0,.05)',
@@ -100,11 +100,7 @@ const CustomImg: React.FC<ICustomImgProps> = ({
 };
 
 const _UnorderedList: React.FC<ListProps> = ({ children, ...props }) => {
-  return (
-    <UnorderedList mt="20px" {...props}>
-      {children}
-    </UnorderedList>
-  );
+  return <UnorderedList {...props}>{children}</UnorderedList>;
 };
 
 const _Heading: React.FC<HeadingProps> = ({ children, id, ...props }) => {
@@ -169,8 +165,12 @@ const MDXRender: React.FC<IMDXRenderProps> = ({ mdxSource, ...props }) => (
     {...props}
     sx={{
       'h1,h2,h3,h4,h5': { fontFamily: 'Title' },
-      '* + h1,* + h2,* + h3,* + h4,* + h5': { mt: '40px' },
+      '* + h1,* + h2,* + h3,* + h4,* + h5, * + .callout, * + ul, * + ol': {
+        mt: '40px',
+      },
+      'nav.toc': { 'li + li': { mt: '5px' }, ol: { mt: '5px' } },
       li: { fontSize: '16px', fontWeight: '400' },
+      'li + li': { mt: '20px' },
       p: { fontSize: '16px', fontWeight: '400', mt: '50px' },
       div: { fontSize: '16px', fontWeight: '400' },
       img: { borderRadius: '10px' },
