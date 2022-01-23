@@ -95,7 +95,7 @@ const Post: NextPage<IProps> = ({ post, mdxSource, preview }) => {
           </WrapItem>
         ))}
       </Wrap>
-      <Heading as="h1" fontFamily="Title" mt="10px">
+      <Heading as="h1" fontFamily="Title" mt="10px" letterSpacing="-4px">
         {post.title}
       </Heading>
       <Divider mt="10px" mb="10px" borderBottom="solid 1px black" />
