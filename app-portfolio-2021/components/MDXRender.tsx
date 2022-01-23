@@ -115,7 +115,6 @@ const _Heading: React.FC<HeadingProps> = ({ children, id, ...props }) => {
         <Heading
           id={encodedId}
           _hover={{ _after: { content: '"#"', color: 'pink.100' } }}
-          letterSpacing="-4px"
           {...props}
         >
           <Link href={encodeURI(headLink.props['href'])}>{text}</Link>
