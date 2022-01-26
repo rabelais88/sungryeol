@@ -9,10 +9,10 @@
     "**/*.json"
   ],
   "compilerOptions": {
-    "typeRoots": ["./types", "./types/graphql"],
+    "typeRoots": ["./src/types", "./src/types/graphql"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     }
   }
 }

@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  app:
+    build:
+      dockerfile: ./dockerfile
+      context: .
+    volumes:
+      - ./src:/home/node/app/src
+      - ./public:/home/node/app/public
+      - ./tsconfig.json:/home/node/app/tsconfig.json
+      - ./next-sitemap.js:/home/node/app/next-sitemap.js
+      - ./.sentryclirc:/home/node/app/.sentryclirc
+      - ./.eslintrc:/home/node/app/.eslintrc
+      - ./next.config.js:/home/node/app/next.config.js
+      - ./.env.local:/home/node/app/.env.local
+    # ports:
+    #   - '3000:3000'
+    network_mode: "host"
