@@ -19,7 +19,6 @@ import PrismCodeStyle from '@/styles/PrismCodeStyle';
 import 'katex/dist/katex.min.css';
 import makeShimmerUri from '@/utils/makeShimmerUri';
 import CustomLink from './CustomLink';
-import { cloneElement, ReactChild, ReactNode } from 'react';
 
 const _Code: React.FC<CodeProps> = ({ children, ...props }) => {
   return <Code {...props}>{children}</Code>;
@@ -60,7 +59,10 @@ const Callout: React.FC<ICalloutProps> = ({
   );
 };
 
-interface ICustomImgProps extends ImageProps {}
+interface ICustomImgProps extends ImageProps {
+  longdesc?: string;
+  caption?: string;
+}
 
 const Figure = chakra('figure');
 
@@ -85,15 +87,13 @@ const CustomImg: React.FC<ICustomImgProps> = ({
     blurProps.blurDataURL = makeShimmerUri(Number(width), Number(height));
   }
 
-  if (!alt)
-    return (
-      <Image src={_src} alt={alt} layout={layout} {...blurProps} {...props} />
-    );
+  const caption = props.longdesc || props.caption;
+  if (!caption) return <Image src={_src} layout={layout} alt={alt} {...blurProps} {...props}/>
   return (
     <Figure display="flex" justifyContent="center" flexDir="column">
       <Image src={_src} alt={alt} layout={layout} {...blurProps} {...props} />
       <Text fontWeight="700" mb="15px" as="figcaption">
-        {alt}
+        {caption}
       </Text>
     </Figure>
   );
@@ -150,6 +150,7 @@ const components = {
   Callout,
   'custom-img': CustomImg,
   CustomImg,
+  img: CustomImg,
   wrapper: (props: any) => {
     return <PrismCodeStyle {...props} />;
   },
