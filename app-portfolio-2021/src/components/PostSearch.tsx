@@ -7,6 +7,7 @@ import {
   connectSearchBox,
   connectPagination,
   connectRefinementList,
+  connectStateResults,
   Configure,
   Snippet,
 } from 'react-instantsearch-dom';
@@ -36,6 +37,7 @@ import { useMemo } from 'react';
 import useSearchQuery from '@/hooks/useSearchQuery';
 import { IPostHit } from '@/types';
 import CustomLink from './CustomLink';
+import Loading from './Loading';
 
 export const SearchBox = connectSearchBox(({ refine }) => {
   const { setKeyword } = useSearchQuery();
@@ -126,6 +128,14 @@ const HitItem: React.FC<{ hit: Hit<IPostHit> }> = ({ hit }) => {
 
 // same as react-instasearch-dom/Hits component
 export const SearchResults = connectHits<Hit<IPostHit>>(({ hits }) => {
+  console.log('hits', hits.length);
+  if (hits.length === 0) {
+    return (
+      <Text textAlign="center" mt="50px">
+        no search result
+      </Text>
+    );
+  }
   return (
     <UnorderedList
       styleType="none"
@@ -217,6 +227,13 @@ export const TagListMenu = connectRefinementList((arg) => {
     </Wrap>
   );
 });
+
+export const LoadingIndicator = connectStateResults(
+  ({ searching, children }) => {
+    if (!searching) return null;
+    return <Loading mx="auto" />;
+  }
+);
 
 // component for seraching posts with Algolia
 const PostSearch: React.FC<IPostSearch> = ({

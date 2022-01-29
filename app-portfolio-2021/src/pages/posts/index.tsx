@@ -3,6 +3,7 @@ import PostSearch, {
   SearchPagination,
   TagListMenu,
   SearchResults,
+  LoadingIndicator,
 } from '@/components/PostSearch';
 import LayoutDefault from '@/layout/LayoutDefault';
 import { Box, Heading } from '@chakra-ui/react';
@@ -28,6 +29,7 @@ const PostSearchArea = () => {
       <Box height="20px" />
       <SearchBox />
       <SearchResults />
+      <LoadingIndicator />
       <SearchPagination />
     </PostSearch>
   );

@@ -12,7 +12,8 @@
     "@parcel/transformer-typescript-types": "^2.0.1",
     "oao": "^2.0.2",
     "typescript": ">=3.0.0",
-    "vercel": "^23.1.2"
+    "vercel": "^23.1.2",
+    "webpack": "5"
   },
   "workspaces": [
     "eslint-config",
@@ -27,5 +28,6 @@
     "clean": "oao clean",
     "pub": "echo 'for publishing, check readme.md'",
     "build": "oao run-script build"
-  }
+  },
+  "dependencies": {}
 }
