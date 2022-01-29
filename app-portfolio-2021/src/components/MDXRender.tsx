@@ -90,12 +90,39 @@ const CustomImg: React.FC<ICustomImgProps> = ({
   const caption = props.longdesc || props.caption;
   if (!caption)
     return (
-      <Image src={src} layout={layout} alt={alt} {...blurProps} {...props} />
+      <Image
+        src={src}
+        layout={layout}
+        alt={alt}
+        {...blurProps}
+        {...props}
+        className="without-caption"
+      />
     );
   return (
-    <Figure display="flex" justifyContent="center" flexDir="column">
-      <Image src={src} alt={alt} layout={layout} {...blurProps} {...props} />
-      <Text fontWeight="700" mb="15px" as="figcaption">
+    <Figure
+      display="flex"
+      justifyContent="center"
+      flexDir="column"
+      sx={{ img: { borderTopRadius: '10px' } }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        layout={layout}
+        {...blurProps}
+        {...props}
+        className="with-caption"
+      />
+      <Text
+        fontWeight="700"
+        mb="15px"
+        as="figcaption"
+        borderBottomRadius="10px"
+        bgColor="gray.100"
+        py="10px"
+        px="20px"
+      >
         {caption}
       </Text>
     </Figure>
@@ -175,7 +202,7 @@ const MDXRender: React.FC<IMDXRenderProps> = ({ mdxSource, ...props }) => (
       'li + li': { mt: '20px' },
       p: { fontSize: '16px', fontWeight: '400', mt: '50px' },
       div: { fontSize: '16px', fontWeight: '400' },
-      img: { borderRadius: '10px' },
+      'img.without-caption': { borderRadius: '10px' },
       blockquote: { borderLeft: 'solid 2px black', pl: '10px' },
     }}
   >
