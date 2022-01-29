@@ -6,10 +6,11 @@ https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+cli
 const prismCodeStyle = css`
   code[class*='language-'],
   pre[class*='language-'] {
-    color: #ccc;
+    color: #000;
     background: 0 0;
+    text-shadow: 0 1px #fff;
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-    font-size: 1em;
+    font-size: 14px;
     text-align: left;
     white-space: pre;
     word-spacing: normal;
@@ -24,6 +25,26 @@ const prismCodeStyle = css`
     -ms-hyphens: none;
     hyphens: none;
   }
+  code[class*='language-'] ::-moz-selection,
+  code[class*='language-']::-moz-selection,
+  pre[class*='language-'] ::-moz-selection,
+  pre[class*='language-']::-moz-selection {
+    text-shadow: none;
+    background: #b3d4fc;
+  }
+  code[class*='language-'] ::selection,
+  code[class*='language-']::selection,
+  pre[class*='language-'] ::selection,
+  pre[class*='language-']::selection {
+    text-shadow: none;
+    background: #b3d4fc;
+  }
+  @media print {
+    code[class*='language-'],
+    pre[class*='language-'] {
+      text-shadow: none;
+    }
+  }
   pre[class*='language-'] {
     padding: 1em;
     margin: 0.5em 0;
@@ -31,61 +52,62 @@ const prismCodeStyle = css`
   }
   :not(pre) > code[class*='language-'],
   pre[class*='language-'] {
-    background: #2d2d2d;
+    background: #f5f2f0;
   }
   :not(pre) > code[class*='language-'] {
     padding: 0.1em;
     border-radius: 0.3em;
     white-space: normal;
   }
-  .token.block-comment,
   .token.cdata,
   .token.comment,
   .token.doctype,
   .token.prolog {
-    color: #999;
+    color: #708090;
   }
   .token.punctuation {
-    color: #ccc;
+    color: #999;
   }
-  .token.attr-name,
-  .token.deleted,
-  .token.namespace,
-  .token.tag {
-    color: #e2777a;
-  }
-  .token.function-name {
-    color: #6196cc;
+  .token.namespace {
+    opacity: 0.7;
   }
   .token.boolean,
-  .token.function,
-  .token.number {
-    color: #f08d49;
-  }
-  .token.class-name,
   .token.constant,
+  .token.deleted,
+  .token.number,
   .token.property,
-  .token.symbol {
-    color: #f8c555;
+  .token.symbol,
+  .token.tag {
+    color: #905;
   }
-  .token.atrule,
+  .token.attr-name,
   .token.builtin,
-  .token.important,
-  .token.keyword,
-  .token.selector {
-    color: #cc99cd;
-  }
-  .token.attr-value,
   .token.char,
-  .token.regex,
-  .token.string,
-  .token.variable {
-    color: #7ec699;
+  .token.inserted,
+  .token.selector,
+  .token.string {
+    color: #690;
   }
+  .language-css .token.string,
+  .style .token.string,
   .token.entity,
   .token.operator,
   .token.url {
-    color: #67cdcc;
+    color: #9a6e3a;
+  }
+  .token.atrule,
+  .token.attr-value,
+  .token.keyword {
+    color: #07a;
+  }
+  .token.class-name,
+  .token.function {
+    color: #dd4a68;
+  }
+  .token.important,
+  .token.regex,
+  .token.variable {
+    color: #e90;
   }
   .token.bold,
   .token.important {
@@ -96,9 +118,6 @@ const prismCodeStyle = css`
   }
   .token.entity {
     cursor: help;
-  }
-  .token.inserted {
-    color: green;
   }
 `;
 
