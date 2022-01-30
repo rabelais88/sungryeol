@@ -4,7 +4,6 @@ import { getContact } from '@/services/ContactService';
 import {
   Box,
   Button,
-  chakra,
   Heading,
   Image,
   Link,
@@ -18,9 +17,6 @@ import { shortInternationalTime } from '@sungryeol/lib';
 import IconShare from '@/components/icons/IconShare';
 import copyToClipboard from '@/utils/copyToClipboard';
 import Header from '@/components/Header';
-// import { Canvas } from '@react-three/fiber';
-// import { useRef } from 'react';
-// import { OrbitControls } from '@react-three/drei';
 
 interface IProps {
   contact: ReturnPromiseType<typeof getContact>;
@@ -58,48 +54,6 @@ const ContactItem: React.FC<IContactItemProps> = ({
     </NextLink>
   );
 };
-
-// const Logo3D = () => {
-//   const boxRef = useRef();
-//   return (
-//     <Canvas>
-//       <OrbitControls />
-//       <axesHelper scale="3" />
-//       <mesh>
-//         <boxGeometry ref={boxRef} />
-//       </mesh>
-//     </Canvas>
-//   );
-// };
-
-// const ProfileVideo = () => {
-//   return (
-//     <Box
-//       borderRadius="50%"
-//       className="profile-video"
-//       overflow="hidden"
-//       w="250px"
-//       h="250px"
-//       position="relative"
-//       mx="auto"
-//     >
-//       <iframe
-//         style={{
-//           left: '-25px',
-//           position: 'absolute',
-//           zIndex: 1,
-//           pointerEvents: 'none',
-//         }}
-//         width="300"
-//         height="300"
-//         src="https://www.youtube.com/embed/HE3rPASCVHY?controls=0&autoplay=1&showinfo=0&autohide=1&loop=1&mute=1&modestbranding=1&playsinline=1&rel=0&playlist=HE3rPASCVHY"
-//         title="YouTube video player"
-//         frameBorder="0"
-//         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-//       />
-//     </Box>
-//   );
-// };
 
 const ProfileVideo = () => {
   return (
@@ -147,9 +101,6 @@ const Contact: NextPage<IProps> = ({ contact }) => {
         title="지식공단 - contact"
         description="contact information of Sungryeol"
       />
-      {/* <Box h="200px">
-        <Logo3D />
-      </Box> */}
       <Box height="80px" />
       <ProfileVideo />
       <Heading

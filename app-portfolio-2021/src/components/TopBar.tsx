@@ -49,6 +49,7 @@ const SearchButton: React.FC = () => (
       display="flex"
       justifyContent="center"
       alignItems="center"
+      aria-label="search posts"
       w="40px"
       _hover={{
         bgColor: 'black',
@@ -74,6 +75,7 @@ const LogoButton: React.FC = () => {
         bgColor: 'black',
         '.chakra-icon': { fill: 'black', path: { fill: 'white' } },
       }}
+      aria-label="home(index) page"
     >
       <NextLink href="/" passHref>
         <LinkOverlay>
