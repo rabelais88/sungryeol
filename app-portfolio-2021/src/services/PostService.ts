@@ -1,10 +1,5 @@
 import type { IGetPostResponse, ITags } from '@/types';
-import {
-  PostFiltersInput,
-  PostInput,
-  StringFilterInput,
-  TagFiltersInput,
-} from '@/types/graphql';
+import { PostFiltersInput, PostInput } from '@/types/graphql';
 import { IPaginationResult } from '@/types/Pagination';
 import { gql } from 'graphql-request';
 import gqlClient from './gqlClient';
@@ -13,7 +8,7 @@ interface IGetPostIndex {
   attributes: Pick<PostInput, 'uid'>;
 }
 
-interface IGetPostIndices {
+interface _IGetPostIndices {
   posts: {
     data: IGetPostIndex[];
     meta: {
@@ -22,10 +17,20 @@ interface IGetPostIndices {
   };
 }
 
-export const getPostIndices = async () => {
+export const getPostIndex = async (
+  page: number = 1,
+  pageSize: number = 100
+) => {
   const query = gql`
-    query getPostsIndices($pageSize: Int, $filters: PostFiltersInput) {
-      posts(pagination: { pageSize: $pageSize }, filters: $filters) {
+    query getPostsIndices(
+      $pageSize: Int
+      $page: Int
+      $filters: PostFiltersInput
+    ) {
+      posts(
+        pagination: { pageSize: $pageSize, page: $page }
+        filters: $filters
+      ) {
         data {
           attributes {
             uid
@@ -44,16 +49,40 @@ export const getPostIndices = async () => {
   `;
   interface Arg {
     pageSize: number;
+    page: number;
     filters: PostFiltersInput;
   }
   const arg: Arg = {
-    pageSize: 100,
+    pageSize,
+    page,
     filters: {
       publishedAt: { notNull: true },
     },
   };
-  const posts = await gqlClient.request<IGetPostIndices>(query, arg);
+  const posts = await gqlClient.request<_IGetPostIndices>(query, arg);
   return posts;
+};
+
+interface IGetPostIndices {
+  postUids: string[];
+  total: number;
+}
+
+export const getPostIndices = async (): Promise<IGetPostIndices> => {
+  let isPageEnd: boolean = false;
+  let postUids: string[] = [];
+  let total = 0;
+  for (let page = 1; !isPageEnd; ) {
+    const postIndices = await getPostIndex(page);
+    total = postIndices.posts.meta.pagination.total;
+    postUids = [
+      ...postUids,
+      ...postIndices.posts.data.map((p) => `${p.attributes.uid}`),
+    ];
+    isPageEnd = postIndices.posts.meta.pagination.pageCount <= page + 1;
+    page += 1;
+  }
+  return { postUids, total };
 };
 
 export const getPost = async (uid: string, preview?: boolean) => {

@@ -36,3 +36,187 @@ export const getTags = async ({
   const res = await gqlClient.request<IGetTags>(query, { pageSize });
   return res;
 };
+
+// const sampleData = {
+//   data: {
+//     tags: {
+//       data: [
+//         {
+//           id: '1',
+//           attributes: {
+//             key: 'frontend',
+//             label: 'frontend',
+//             posts: {
+//               data: [
+//                 {
+//                   attributes: {
+//                     tags: {
+//                       data: [
+//                         {
+//                           id: '1',
+//                           attributes: {
+//                             key: 'frontend',
+//                             label: 'frontend',
+//                           },
+//                         },
+//                         {
+//                           id: '2',
+//                           attributes: {
+//                             key: 'sample-tag',
+//                             label: 'sample-tag',
+//                           },
+//                         },
+//                       ],
+//                     },
+//                   },
+//                 },
+//                 {
+//                   attributes: {
+//                     tags: {
+//                       data: [
+//                         {
+//                           id: '1',
+//                           attributes: {
+//                             key: 'frontend',
+//                             label: 'frontend',
+//                           },
+//                         },
+//                       ],
+//                     },
+//                   },
+//                 },
+//                 {
+//                   attributes: {
+//                     tags: {
+//                       data: [
+//                         {
+//                           id: '1',
+//                           attributes: {
+//                             key: 'frontend',
+//                             label: 'frontend',
+//                           },
+//                         },
+//                       ],
+//                     },
+//                   },
+//                 },
+//                 {
+//                   attributes: {
+//                     tags: {
+//                       data: [
+//                         {
+//                           id: '1',
+//                           attributes: {
+//                             key: 'frontend',
+//                             label: 'frontend',
+//                           },
+//                         },
+//                       ],
+//                     },
+//                   },
+//                 },
+//               ],
+//             },
+//           },
+//         },
+//         {
+//           id: '2',
+//           attributes: {
+//             key: 'sample-tag',
+//             label: 'sample-tag',
+//             posts: {
+//               data: [
+//                 {
+//                   attributes: {
+//                     tags: {
+//                       data: [
+//                         {
+//                           id: '1',
+//                           attributes: {
+//                             key: 'frontend',
+//                             label: 'frontend',
+//                           },
+//                         },
+//                         {
+//                           id: '2',
+//                           attributes: {
+//                             key: 'sample-tag',
+//                             label: 'sample-tag',
+//                           },
+//                         },
+//                       ],
+//                     },
+//                   },
+//                 },
+//                 {
+//                   attributes: {
+//                     tags: {
+//                       data: [
+//                         {
+//                           id: '2',
+//                           attributes: {
+//                             key: 'sample-tag',
+//                             label: 'sample-tag',
+//                           },
+//                         },
+//                       ],
+//                     },
+//                   },
+//                 },
+//               ],
+//             },
+//           },
+//         },
+//       ],
+//       meta: {
+//         pagination: {
+//           page: 1,
+//           total: 2,
+//           pageSize: 10,
+//           pageCount: 1,
+//         },
+//       },
+//     },
+//   },
+// };
+
+export const getTagStats = async ({
+  pageSize = 100,
+}: { pageSize?: number } = {}) => {
+  const query = gql`
+    query getTags($pageSize: Int, $page: Int, $tagPageSize: Int) {
+      tags(pagination: { pageSize: $pageSize, page: $page }) {
+        data {
+          id
+          attributes {
+            key
+            label
+            posts {
+              data {
+                attributes {
+                  tags(pagination: { pageSize: $tagPageSize }) {
+                    data {
+                      id
+                      attributes {
+                        key
+                        label
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        meta {
+          pagination {
+            page
+            total
+            pageSize
+            pageCount
+          }
+        }
+      }
+    }
+  `;
+};

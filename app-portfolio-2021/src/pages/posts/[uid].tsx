@@ -105,9 +105,9 @@ const Post: NextPage<IProps> = ({ post, mdxSource, preview }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
-  const postIndices = await getPostIndices();
-  const paths = postIndices.posts.data.map((p) => ({
-    params: { uid: `${p?.attributes?.uid}` },
+  const { postUids } = await getPostIndices();
+  const paths = postUids.map((uid) => ({
+    params: { uid },
   }));
   return { paths, fallback: 'blocking' };
 };
