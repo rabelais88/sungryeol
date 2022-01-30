@@ -75,10 +75,9 @@ const LogoButton: React.FC = () => {
         bgColor: 'black',
         '.chakra-icon': { fill: 'black', path: { fill: 'white' } },
       }}
-      aria-label="home(index) page"
     >
       <NextLink href="/" passHref>
-        <LinkOverlay>
+        <LinkOverlay aria-label="home(index) page">
           <LogoText w="78px" h="18px" display="block" mt="16px" />
         </LinkOverlay>
       </NextLink>
