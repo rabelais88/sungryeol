@@ -1,10 +1,10 @@
-import PostSearch, {
-  SearchBox,
-  SearchPagination,
-  TagListMenu,
-  SearchResults,
-  LoadingIndicator,
-} from '@/components/PostSearch';
+import PostSearch from '@/components/PostSearch/PostSearch';
+import TagListMenu from '@/components/PostSearch/TagListMenu';
+import LoadingIndicator from '@/components/PostSearch/LoadingIndicator';
+import SearchPagination from '@/components/PostSearch/SearchPagination';
+import SearchResults from '@/components/PostSearch/SearchResults';
+import SearchBox from '@/components/PostSearch/SearchBox';
+
 import LayoutDefault from '@/layout/LayoutDefault';
 import { Box, Heading } from '@chakra-ui/react';
 import { NextPage } from 'next';

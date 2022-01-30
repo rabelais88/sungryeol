@@ -1,16 +1,7 @@
-// import PostSearch, { SearchResults } from '@/components/PostSearch';
 import LayoutDefault from '@/layout/LayoutDefault';
 import type { GetStaticProps, NextPage } from 'next';
-import {
-  Text,
-  VStack,
-  Link,
-  Heading,
-  Wrap,
-  WrapItem,
-  Box,
-} from '@chakra-ui/react';
-import NextLink, { LinkProps } from 'next/link';
+import { Text, VStack, Box } from '@chakra-ui/react';
+import { LinkProps } from 'next/link';
 import LogoAnimated from '@/components/LogoAnimated';
 import Header from '@/components/Header';
 import { findResultsState } from 'react-instantsearch-dom/server';
@@ -19,7 +10,6 @@ import type { SearchState } from 'react-instantsearch-core';
 import PostSearchAlt from '@/components/PostSearchAlt/index';
 import { useMemo } from 'react';
 import { getTags } from '@/services/TagService';
-import { PostTagControl } from '@/components/PostTag';
 import { ReturnPromiseType } from '@/types';
 import { useRouter } from 'next/router';
 import CustomLink from '@/components/CustomLink';
