@@ -85,7 +85,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       searchState,
       tags,
     },
-    revalidate: 30,
+    revalidate: 9,
   };
 };
 

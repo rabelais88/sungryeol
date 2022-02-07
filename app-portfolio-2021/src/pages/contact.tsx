@@ -173,7 +173,7 @@ const Contact: NextPage<IProps> = ({ contact }) => {
 
 export const getStaticProps: GetStaticProps<IProps> = async (context) => {
   const contact = await getContact();
-  return { props: { contact }, revalidate: 60 };
+  return { props: { contact }, revalidate: 9 };
 };
 
 export default Contact;

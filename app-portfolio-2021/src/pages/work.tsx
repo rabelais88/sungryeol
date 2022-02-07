@@ -26,5 +26,5 @@ export default Work;
 export const getStaticProps: GetStaticProps<IProps> = async (context) => {
   const req = await getWork();
   const mdxSource = await serialize(req);
-  return { props: { mdxSource }, revalidate: 60 };
+  return { props: { mdxSource }, revalidate: 9 };
 };
