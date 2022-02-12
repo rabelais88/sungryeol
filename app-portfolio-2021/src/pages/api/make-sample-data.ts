@@ -1,10 +1,10 @@
 import type { NextApiHandler } from 'next';
-import { getPostsWithTag } from '@/services/TagService';
+import { getTagStats } from '@/services/TagService';
 
 const MakeSampleDataHandler: NextApiHandler = async (req, res) => {
   try {
-    const postsWithTag = await getPostsWithTag();
-    res.status(200).json({ code: 'SUCCESS', data: postsWithTag });
+    const tagStats = await getTagStats();
+    res.status(200).json({ code: 'SUCCESS', data: tagStats });
     return;
   } catch (err) {
     if (err instanceof Error) console.error(err.toString());

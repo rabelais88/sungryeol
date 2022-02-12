@@ -1,8 +1,9 @@
-import { ITags } from '@/types';
+import { IGetTagStatsResult, ITags } from '@/types';
+import { IPaginationResult } from '@/types/Pagination';
 import { gql } from 'graphql-request';
 import gqlClient from './gqlClient';
 
-interface IGetTags {
+interface IGetTagsResult {
   tags: ITags & {
     meta: {
       pagination: {
@@ -33,7 +34,7 @@ export const getTags = async ({
     }
   `;
 
-  const res = await gqlClient.request<IGetTags>(query, { pageSize });
+  const res = await gqlClient.request<IGetTagsResult>(query, { pageSize });
   return res;
 };
 
@@ -219,4 +220,10 @@ export const getTagStats = async ({
       }
     }
   `;
+  const res = await gqlClient.request<IGetTagStatsResult>(query, {
+    pageSize,
+    page: 1,
+    tagPageSize: pageSize,
+  });
+  return res;
 };

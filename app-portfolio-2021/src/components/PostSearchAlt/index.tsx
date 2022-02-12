@@ -14,11 +14,6 @@ interface IAlgoliaClientProps extends InstantSearchProps {
   resultsState?: any;
 }
 
-// const Pagination = connectPagination((props) => {
-//   console.log(props);
-//   return <Box></Box>;
-// });
-
 const PostSearchAlt: React.FC<IAlgoliaClientProps> = (props) => {
   const {
     indexName,

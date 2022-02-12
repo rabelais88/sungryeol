@@ -62,3 +62,36 @@ export interface IPostHit {
     updatedAt: string;
   }[];
 }
+
+interface tagData {
+  id: string;
+  attributes: {
+    key: string;
+    label: string;
+  };
+}
+
+interface tagDataWithPosts extends tagData {
+  attributes: {
+    key: string;
+    label: string;
+    posts: {
+      data: {
+        attributes: {
+          tags: {
+            data: tagData[];
+          };
+        };
+      }[];
+    };
+  };
+}
+
+export interface IGetTagStatsResult {
+  tags: {
+    data: tagDataWithPosts[];
+    meta: {
+      pagination: IPaginationResult;
+    };
+  };
+}

@@ -12,8 +12,6 @@ import NextLink from 'next/link';
 import PostTag from '@/components/PostTag';
 import { shortInternationalTime } from '@sungryeol/lib';
 
-// const Hit: React.FC<{ hit: any }> = ({ hit }) => <Highlight hit={hit} />;
-
 const HitItem: React.FC<{ hit: Hit<IPostHit> }> = ({ hit }) => {
   return (
     <ListItem
@@ -74,7 +72,6 @@ const HitItem: React.FC<{ hit: Hit<IPostHit> }> = ({ hit }) => {
 
 // same as react-instasearch-dom/Hits component
 const SearchResults = connectHits<Hit<IPostHit>>(({ hits }) => {
-  console.log('hits', hits.length);
   if (hits.length === 0) {
     return (
       <Text textAlign="center" mt="50px">
