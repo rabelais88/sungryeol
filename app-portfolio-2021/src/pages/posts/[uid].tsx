@@ -133,7 +133,7 @@ export const getStaticProps: GetStaticProps<IProps> = async (context) => {
   if (!post) return { notFound: true };
   const content = post.content as string;
   const mdxSource = await serialize(content, mdxPostConfig);
-  return { props: { post, mdxSource, preview: false }, revalidate: 60 };
+  return { props: { post, mdxSource, preview: false }, revalidate: 9 };
 };
 
 export default Post;

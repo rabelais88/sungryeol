@@ -7,7 +7,7 @@ import SearchBox from '@/components/PostSearch/SearchBox';
 
 import LayoutDefault from '@/layout/LayoutDefault';
 import { Box, Heading } from '@chakra-ui/react';
-import { NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import LogoAnimated from '@/components/LogoAnimated';
 import Header from '@/components/Header';
 import dynamic from 'next/dynamic';
@@ -51,6 +51,10 @@ const Posts: NextPage<IProps> = ({}) => {
       </LayoutDefault>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = (context) => {
+  return { props: {}, revalidate: 9 };
 };
 
 export default Posts;
