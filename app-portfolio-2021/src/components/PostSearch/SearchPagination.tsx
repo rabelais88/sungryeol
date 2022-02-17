@@ -18,17 +18,6 @@ const SearchPagination = connectPagination(
             href={getPageUrl(i + 1)}
             className={page === i + 1 ? 'active' : ''}
             px="5px"
-            _before={{
-              content: "''",
-              position: 'absolute',
-              bgColor: 'pink.100',
-              bottom: '0px',
-              left: '0px',
-              w: '100%',
-              h: '5px',
-              zIndex: -1,
-              transition: '.3s',
-            }}
             sx={{ '&.active': { fontWeight: 'bold', color: 'pink.400' } }}
             key={i}
           >

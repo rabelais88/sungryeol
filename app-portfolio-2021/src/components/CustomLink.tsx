@@ -16,33 +16,24 @@ const CustomLink: React.FC<ICusomLinkProps> = ({
       <Link
         position="relative"
         className={disabled ? 'disabled' : ''}
-        display="inline-block"
         sx={{
           '&.disabled': {
             pointerEvents: 'none',
-            _before: {
-              bgColor: 'gray.100',
-            },
+            color: 'gray.300',
+          },
+          '&:where(:hover, :focus-visible)': {
+            textDecor: 'none !important',
+            bgSize: '100% 100%',
+            backgroundPositionX: 'left',
           },
         }}
-        _before={{
-          content: "''",
-          position: 'absolute',
-          bgColor: 'pink.100',
-          bottom: '0px',
-          left: '7px',
-          w: '100%',
-          h: '5px',
-          transition: '.3s',
-          zIndex: -2,
-        }}
-        _hover={{
-          _before: {
-            left: '0',
-            top: '0',
-            h: '100%',
-          },
-        }}
+        textDecor="underline"
+        textDecorationStyle="dotted"
+        bgRepeat="no-repeat"
+        bgPos="right"
+        bgSize="0% 100%"
+        bgGradient="linear(to-r, pink.100, pink.100)"
+        transition="background-size .35s"
         {...props}
       >
         {children}
