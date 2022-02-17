@@ -39,7 +39,7 @@ const Post: NextPage<IProps> = ({ post, mdxSource, preview }) => {
     toast({ title: 'url copied to clipboard', isClosable: true });
   };
   const shortenedContent = useMemo(
-    () => (post.content ?? '').slice(0, 20),
+    () => (post.content ?? '').slice(0, 50),
     [post.content]
   );
   const router = useRouter();
