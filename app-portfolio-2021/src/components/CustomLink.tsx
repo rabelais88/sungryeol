@@ -31,8 +31,11 @@ const CustomLink: React.FC<ICusomLinkProps> = ({
         textDecorationStyle="dotted"
         bgRepeat="no-repeat"
         bgPos="right"
-        bgSize="0% 100%"
-        bgGradient="linear(to-r, pink.100, pink.100)"
+        bgSize="0%,100%"
+        // bgGradient does not work with storybook
+        // bgGradient="linear(to-r, pink.100, pink.100)"
+        // pink.100 = #FED7E2
+        bgImg="linear-gradient(to right,#fed7e2,#fed7e2)"
         transition="background-size .35s"
         {...props}
       >

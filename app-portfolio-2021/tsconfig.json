@@ -12,7 +12,8 @@
     "typeRoots": ["./src/types", "./src/types/graphql"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@sb-assets/*": ["./src/stories/assets/*"]
     }
   }
 }
