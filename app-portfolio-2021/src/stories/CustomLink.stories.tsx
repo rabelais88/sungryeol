@@ -28,6 +28,9 @@ export const Base: ComponentStory<typeof CustomLink> = () => {
       sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
       mollit anim id est laborum.
       <CustomLink href="#">한국어로 된 링크입니다</CustomLink>
+      <CustomLink href="/" disabled>
+        disabled link
+      </CustomLink>
     </div>
   );
 };

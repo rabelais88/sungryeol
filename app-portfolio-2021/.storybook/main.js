@@ -29,6 +29,9 @@ module.exports = {
         extensions: config.resolve.extensions,
       }),
     ];
+    config.resolve.alias['@emotion/core'] = '@emotion/react';
+    config.resolve.alias['@emotion-theming'] = '@emotion/react';
+    config.resolve.alias['@emotion/styled'] = '@emotion/styled';
     return config;
   },
   staticDirs: ['../public'],

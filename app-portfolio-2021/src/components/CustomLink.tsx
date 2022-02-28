@@ -25,6 +25,7 @@ to { background-position: left 500px bottom 2px; }
           '&.disabled': {
             pointerEvents: 'none',
             color: 'gray.300',
+            bgImg: 'none',
           },
           '&:where(:hover, :focus-visible)': {
             textDecor: 'none !important',
