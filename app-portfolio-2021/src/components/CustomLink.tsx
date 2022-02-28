@@ -13,8 +13,8 @@ const CustomLink: React.FC<ICusomLinkProps> = ({
   ...props
 }) => {
   const kfUnderline = keyframes`
-from { background-position: 2px 19px; }
-to { background-position: 500px 19px; }
+from { background-position: left 2px bottom 2px; }
+to { background-position: left 500px bottom 2px; }
 `;
   return (
     <NextLink href={href} passHref>
@@ -31,7 +31,7 @@ to { background-position: 500px 19px; }
             bgImg: 'url("/images/wave-underline.svg")',
             bgRepeat: 'repeat-x',
             bgSize: '15px 5px',
-            bgPos: '2px 19px',
+            bgPos: 'bottom 2px left 2px',
             animation: `${kfUnderline} 15s linear infinite`,
             bgColor: 'transparent',
             paddingBottom: '5px',
@@ -39,10 +39,10 @@ to { background-position: 500px 19px; }
         }}
         textDecor="none"
         bgImg='url("/images/dot-underline.svg")'
-        boxDecorationBreak="clone"
+        // boxDecorationBreak="clone"
         bgRepeat="repeat-x"
         bgSize="4px 4px"
-        bgPos="0px 19px"
+        bgPos="bottom 2px left 2px"
         paddingBottom="5px"
         {...props}
       >
