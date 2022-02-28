@@ -1,16 +1,21 @@
 import NextLink from 'next/link';
-import { Link, LinkProps, Text } from '@chakra-ui/react';
+import { Link, LinkProps, keyframes } from '@chakra-ui/react';
 
 interface ICusomLinkProps extends Omit<LinkProps, 'href'> {
   href: string;
   disabled?: boolean;
 }
+
 const CustomLink: React.FC<ICusomLinkProps> = ({
   children,
   href,
   disabled = false,
   ...props
 }) => {
+  const kfUnderline = keyframes`
+from { background-position: 2px 19px; }
+to { background-position: 500px 19px; }
+`;
   return (
     <NextLink href={href} passHref>
       <Link
@@ -23,20 +28,22 @@ const CustomLink: React.FC<ICusomLinkProps> = ({
           },
           '&:where(:hover, :focus-visible)': {
             textDecor: 'none !important',
-            bgSize: '100% 100%',
-            backgroundPositionX: 'left',
+            bgImg: 'url("/images/wave-underline.svg")',
+            bgRepeat: 'repeat-x',
+            bgSize: '15px 5px',
+            bgPos: '2px 19px',
+            animation: `${kfUnderline} 15s linear infinite`,
+            bgColor: 'transparent',
+            paddingBottom: '5px',
           },
         }}
-        textDecor="underline"
-        textDecorationStyle="dotted"
-        bgRepeat="no-repeat"
-        bgPos="right"
-        bgSize="0%,100%"
-        // bgGradient does not work with storybook
-        // bgGradient="linear(to-r, pink.100, pink.100)"
-        // pink.100 = #FED7E2
-        bgImg="linear-gradient(to right,#fed7e2,#fed7e2)"
-        transition="background-size .35s"
+        textDecor="none"
+        bgImg='url("/images/dot-underline.svg")'
+        boxDecorationBreak="clone"
+        bgRepeat="repeat-x"
+        bgSize="4px 4px"
+        bgPos="0px 19px"
+        paddingBottom="5px"
         {...props}
       >
         {children}
