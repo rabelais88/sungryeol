@@ -13,7 +13,7 @@ const SearchPagination = connectPagination(
         <CustomLink href={getPageUrl(page - 1)} disabled={page <= 1}>
           PREV
         </CustomLink>
-        {Array.from({ length: nbPages }).map((_, i) => (
+        {/* {Array.from({ length: nbPages }).map((_, i) => (
           <CustomLink
             href={getPageUrl(i + 1)}
             className={page === i + 1 ? 'active' : ''}
@@ -23,7 +23,7 @@ const SearchPagination = connectPagination(
           >
             {i + 1}
           </CustomLink>
-        ))}
+        ))} */}
         <CustomLink href={getPageUrl(page + 1)} disabled={page >= nbPages}>
           NEXT
         </CustomLink>
