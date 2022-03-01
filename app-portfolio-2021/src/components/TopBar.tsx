@@ -18,6 +18,7 @@ import MarqueeBar from './Marquee';
 import _debounce from 'lodash/debounce';
 import { AnimatePresence, motion } from 'framer-motion';
 import { menuSlideDown } from '@/constants/animVariant';
+import useRouteLoading from '@/hooks/useRouteLoading';
 
 interface ITopBarProps {
   onMenuToggle?: () => void;
@@ -91,21 +92,7 @@ const TopBar: React.FC<ITopBarProps> = ({ onMenuToggle = () => {} }) => {
   const [visible, setVisible] = useState(true);
   const scrollData = useRef(0);
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    router.events.on('routeChangeStart', onLoadingStart);
-    router.events.on('routeChangeError', onLoadingEnd);
-    router.events.on('routeChangeComplete', onLoadingEnd);
-    return () => {
-      router.events.off('routeChangeStart', onLoadingStart);
-      router.events.off('routeChangeError', onLoadingEnd);
-      router.events.off('routeChangeComplete', onLoadingEnd);
-    };
-  }, []);
-
-  const onLoadingStart = () => setLoading(true);
-  const onLoadingEnd = () => setLoading(false);
+  const { routeLoading } = useRouteLoading();
 
   const onScroll = useCallback(() => {
     // can't use state inside callback
@@ -174,7 +161,7 @@ const TopBar: React.FC<ITopBarProps> = ({ onMenuToggle = () => {} }) => {
             {router.pathname === '/contact' && (
               <MarqueeBar>{marqueeText}</MarqueeBar>
             )}
-            {loading && (
+            {routeLoading && (
               <Progress size="xs" isIndeterminate colorScheme="blackAlpha" />
             )}
           </MotionBox>

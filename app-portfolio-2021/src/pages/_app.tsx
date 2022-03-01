@@ -15,8 +15,58 @@ import {
 import * as animVariant from '@/constants/animVariant';
 import '@/styles/global.css';
 import TopBar from '@/components/TopBar';
+import dynamic from 'next/dynamic';
 
 const MotionBox = motion(Box);
+
+const _Panels = () => {
+  return (
+    <>
+      <MotionBox
+        initial={{ height: 0 }}
+        animate={{
+          height: [0, window.innerHeight, 0],
+          bottom: [null, 0, 0],
+        }}
+        exit={{
+          height: [0, window.innerHeight, 0],
+          top: [null, 0, 0],
+        }}
+        transition={{ duration: 2, times: [0, 0.5, 1] }}
+        bgColor="bg-yellow"
+        className="panel-left"
+        position="fixed"
+        layoutId="panel"
+        left="0"
+        width="50%"
+        z="menu"
+      />
+      <MotionBox
+        initial={{ height: 0 }}
+        animate={{
+          height: [0, window.innerHeight, 0],
+          bottom: [0, 0, window.innerHeight],
+        }}
+        exit={{
+          height: [0, window.innerHeight, 0],
+          bottom: [null, 0, 0],
+        }}
+        transition={{ duration: 2, times: [0, 0.5, 1] }}
+        bgColor="bg-yellow"
+        borderColor="black"
+        className="panel-right"
+        position="fixed"
+        layoutId="panel"
+        right="0"
+        width="50%"
+        z="menu"
+      />
+    </>
+  );
+};
+
+// as panels use window Object, it needs to make sure it works for client-side
+const Panels = dynamic(() => Promise.resolve(_Panels), { ssr: false });
 
 interface IPageTransition {
   pageKey: string;
@@ -43,6 +93,7 @@ const PageTransition: React.FC<IPageTransition> = ({ children, pageKey }) => {
             >
               {children}
             </MotionBox>
+            <Panels />
           </AnimatePresence>
         </Box>
       </AnimateSharedLayout>
