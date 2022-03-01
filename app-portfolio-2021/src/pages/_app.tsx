@@ -7,6 +7,7 @@ import Menu from '@/components/Menu';
 import { useEffect, useState } from 'react';
 import {
   AnimatePresence,
+  AnimateSharedLayout,
   domAnimation,
   LazyMotion,
   motion,
@@ -23,25 +24,28 @@ interface IPageTransition {
 const PageTransition: React.FC<IPageTransition> = ({ children, pageKey }) => {
   return (
     <LazyMotion features={domAnimation}>
-      <Box className="app-wrap" position="relative" overflow-x="hidden">
-        <AnimatePresence exitBeforeEnter>
-          <MotionBox
-            key={pageKey}
-            position="absolute"
-            w="100%"
-            className="page-wrap"
-            initial="end"
-            animate="start"
-            exit="end"
-            variants={{
-              start: { opacity: 1 },
-              end: { opacity: 0 },
-            }}
-          >
-            {children}
-          </MotionBox>
-        </AnimatePresence>
-      </Box>
+      <AnimateSharedLayout>
+        <Box className="app-wrap" position="relative" overflow-x="hidden">
+          <AnimatePresence exitBeforeEnter>
+            <MotionBox
+              layoutId="pagewrap"
+              key={pageKey}
+              position="absolute"
+              w="100%"
+              className="page-wrap"
+              initial="end"
+              animate="start"
+              exit="end"
+              variants={{
+                start: { opacity: 1 },
+                end: { opacity: 0 },
+              }}
+            >
+              {children}
+            </MotionBox>
+          </AnimatePresence>
+        </Box>
+      </AnimateSharedLayout>
     </LazyMotion>
   );
 };

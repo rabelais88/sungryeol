@@ -1,4 +1,4 @@
-import { Box, Slide, useMediaQuery, VStack } from '@chakra-ui/react';
+import { Box, useMediaQuery, VStack } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import LogoGeometry from './icons/LogoGeometry';
 import MenuTab from './MenuTab';
@@ -11,7 +11,6 @@ const MotionBox = motion(Box);
 
 const Menu: React.FC<IProps> = ({ visible = false }) => {
   const [isLargerThanTablet] = useMediaQuery('(min-width: 960px)'); // same as breakpoint.lg
-
   if (isLargerThanTablet)
     return (
       <Box

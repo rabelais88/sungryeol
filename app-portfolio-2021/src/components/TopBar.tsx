@@ -5,8 +5,8 @@ import {
   HStack,
   LinkBox,
   LinkOverlay,
-  Slide,
   Link,
+  Progress,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import IconMenu from './icons/IconMenu';
@@ -91,6 +91,21 @@ const TopBar: React.FC<ITopBarProps> = ({ onMenuToggle = () => {} }) => {
   const [visible, setVisible] = useState(true);
   const scrollData = useRef(0);
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    router.events.on('routeChangeStart', onLoadingStart);
+    router.events.on('routeChangeError', onLoadingEnd);
+    router.events.on('routeChangeComplete', onLoadingEnd);
+    return () => {
+      router.events.off('routeChangeStart', onLoadingStart);
+      router.events.off('routeChangeError', onLoadingEnd);
+      router.events.off('routeChangeComplete', onLoadingEnd);
+    };
+  }, []);
+
+  const onLoadingStart = () => setLoading(true);
+  const onLoadingEnd = () => setLoading(false);
 
   const onScroll = useCallback(() => {
     // can't use state inside callback
@@ -158,6 +173,9 @@ const TopBar: React.FC<ITopBarProps> = ({ onMenuToggle = () => {} }) => {
             {Bar}
             {router.pathname === '/contact' && (
               <MarqueeBar>{marqueeText}</MarqueeBar>
+            )}
+            {loading && (
+              <Progress size="xs" isIndeterminate colorScheme="blackAlpha" />
             )}
           </MotionBox>
         )}
