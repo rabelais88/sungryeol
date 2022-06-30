@@ -14,6 +14,12 @@
 - vercel을 통해 배포할 때에는 반드시 `Root Directory`를 지정하고, `Include source files outside of the Root Directory in the Build Step.`을 체크 해제할 것. yarn workspace와 vercel의 조합이 좋지 않아 소프트링크에 대해서 분명히 파일이 존재하는 데에도 존재하지 않는다는 버그를 일으킨다.
 - 로컬에서는 웹 환경과 달리 yarn workspace 설정에 따라 자동으로 소프트링크된 내용을 사용하게 되므로 주의.
 
+# install, bootstrapping
+
+```sh
+(project root)$ yarn oao bootstrap
+```
+
 # build & publish libraries
 
 ```sh
@@ -21,3 +27,18 @@
 (proejct root)$ npm login
 (project root)$ npx oao publish
 ```
+
+# maintenance for libraries
+
+```sh
+# check all outdated libs
+(project root)$ yarn oao outdated
+# update libs in all modules
+(proejct root)$ yarn oao bump react react-dom
+# clear all libs
+(proejct root)$ yarn oao clean
+```
+
+# build skip
+
+- add `[skip-build]` to commit message
