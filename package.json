@@ -12,7 +12,7 @@
     "@parcel/transformer-typescript-types": "^2.0.1",
     "oao": "^2.0.2",
     "typescript": ">=3.0.0",
-    "vercel": "^23.1.2",
+    "vercel": "^25.2.2",
     "webpack": "5"
   },
   "workspaces": [
