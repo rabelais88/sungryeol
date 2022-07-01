@@ -8,7 +8,7 @@ import { findResultsState } from 'react-instantsearch-dom/server';
 import AlgoliaService from '@/services/AlgoliaService';
 import type { SearchState } from 'react-instantsearch-core';
 import PostSearchAlt from '@/components/PostSearchAlt/index';
-import { useMemo } from 'react';
+import { PropsWithChildren, useMemo } from 'react';
 import { getTags } from '@/services/TagService';
 import { ReturnPromiseType } from '@/types';
 import { useRouter } from 'next/router';
@@ -21,7 +21,10 @@ interface IProps {
   searchState: SearchState;
 }
 
-const BigLink: React.FC<LinkProps> = ({ href, children }) => {
+const BigLink: React.FC<PropsWithChildren<LinkProps>> = ({
+  href,
+  children,
+}) => {
   return (
     <CustomLink
       fontFamily="Hammersmith One, sans-serif"

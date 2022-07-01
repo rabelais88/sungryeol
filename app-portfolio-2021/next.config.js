@@ -14,6 +14,9 @@ const nextConfig = {
   images: {
     domains: `${process.env.NEXT_IMAGE_DOMAINS}`.split(','),
   },
+  compiler: {
+    emotion: true,
+  },
 };
 
 // This file sets a custom webpack configuration to use your Next.js app
