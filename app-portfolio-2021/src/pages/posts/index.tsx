@@ -19,15 +19,19 @@ import {
   InputGroup,
   InputLeftElement,
   Input,
+  Button,
+  IconButton,
+  Flex,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import PostTag from '@/components/PostTag';
-import { shortInternationalTime } from '@sungryeol/lib';
+import { shortInternationalTime, toNum, toStr } from '@sungryeol/lib';
 import parse from 'html-react-parser';
 import { ChangeEventHandler, useMemo } from 'react';
 import _debounce from 'lodash/debounce';
 import useSearchQuery from '@/hooks/useSearchQuery';
 import PostSearchTags from '@/components/PostSearch/Tags';
+import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 
 const PostItem: React.FC<{ hit: AlgoliaHit<IPostHit> }> = ({ hit }) => {
   return (
@@ -84,8 +88,36 @@ const PostItem: React.FC<{ hit: AlgoliaHit<IPostHit> }> = ({ hit }) => {
   );
 };
 
-const Pagination: React.FC<IProps> = ({ searchResults }) => {
-  return <UnorderedList></UnorderedList>;
+const Pagination: React.FC<{
+  searchResults: AlgoliaSearchResponse<IPostHit>;
+}> = ({ searchResults }) => {
+  const currentPage = searchResults.page;
+  const prevPage = currentPage - 1;
+  const nextPage = currentPage + 1;
+  const { getPageUrl } = useSearchQuery();
+  return (
+    <Flex gap={2} justifyContent="center">
+      {prevPage < currentPage && prevPage >= 0 && (
+        <NextLink href={getPageUrl(prevPage)} passHref>
+          <IconButton
+            icon={<ArrowBackIcon />}
+            as="a"
+            aria-label="previous page"
+          />
+        </NextLink>
+      )}
+      <Button disabled>{currentPage + 1}</Button>
+      {nextPage < searchResults.nbPages && (
+        <NextLink href={getPageUrl(nextPage)} passHref>
+          <IconButton
+            icon={<ArrowForwardIcon />}
+            as="a"
+            aria-label="next page"
+          />
+        </NextLink>
+      )}
+    </Flex>
+  );
 };
 
 const SearchBox: React.FC<{ defaultValue: string }> = ({ defaultValue }) => {
@@ -107,7 +139,7 @@ const SearchBox: React.FC<{ defaultValue: string }> = ({ defaultValue }) => {
         type="search"
         onChange={onChange}
         className="post-search--search-box"
-        placeholder="Type keywords to search/검색하려는 단어를 입력하세요..."
+        placeholder="Search Keywords, 검색어"
         defaultValue={defaultValue}
         sx={{
           '&:focus': {
@@ -125,7 +157,6 @@ interface IProps {
   tagsResult: AlgoliaTags;
 }
 const Posts: NextPage<IProps> = ({ searchResults, tagsResult }) => {
-  console.log(searchResults);
   return (
     <>
       <Header title="지식공단 - posts" description="browse postings" />
@@ -148,7 +179,7 @@ const Posts: NextPage<IProps> = ({ searchResults, tagsResult }) => {
             <PostItem hit={hit} key={hit.objectID} />
           ))}
         </UnorderedList>
-        {/* <Pagination searchResults={searchResults} /> */}
+        <Pagination searchResults={searchResults} />
       </LayoutDefault>
     </>
   );
@@ -156,12 +187,17 @@ const Posts: NextPage<IProps> = ({ searchResults, tagsResult }) => {
 
 // https://codesandbox.io/s/7pejpz?file=/pages/index.tsx
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const q = context?.query?.q ? `${context?.query?.q}` : '';
+  const q = toStr(context?.query?.q);
+  const tags = toStr(context.query.tag).split(',');
+  const page = toNum(context.query.page);
+  const size = toNum(context.query.size, 8);
   const searchResults = await AlgoliaService.search<IPostHit>(
     'post_updated_at',
     q,
     {
-      itemsPerPage: 8,
+      page,
+      itemsPerPage: size,
+      tags,
     }
   );
   const tagsResult = await AlgoliaService.searchPostTags('');

@@ -115,9 +115,9 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       <TopBar onMenuToggle={() => setMenuVisible(!menuVisible)} />
       <Box className="margin-top-bar" height="50px" />
       <Menu visible={menuVisible} />
-      <PageTransition pageKey={router.pathname}>
-        <Component {...pageProps} />
-      </PageTransition>
+      {/* <PageTransition pageKey={router.pathname}> */}
+      <Component {...pageProps} />
+      {/* </PageTransition> */}
     </ChakraProvider>
   );
 }

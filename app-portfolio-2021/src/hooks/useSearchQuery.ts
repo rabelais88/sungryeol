@@ -45,7 +45,7 @@ const useSearchQuery = () => {
 
   const getPageUrl = (page: number) => {
     const q = new URLSearchParams(router.query as Record<string, string>);
-    if (page <= 1) {
+    if (page <= 0) {
       q.delete('page');
     } else {
       q.set('page', page.toString());
