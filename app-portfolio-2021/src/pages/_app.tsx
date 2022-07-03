@@ -2,9 +2,9 @@ import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '@/styles/theme';
 import { Box } from '@chakra-ui/react';
-// import GlobalStyleLoader from '@/styles/GlobalStyleLoader';
+import GlobalStyleLoader from '@/styles/GlobalStyleLoader';
 import Menu from '@/components/Menu';
-import { useEffect, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import {
   AnimatePresence,
   AnimateSharedLayout,
@@ -13,7 +13,7 @@ import {
   motion,
 } from 'framer-motion';
 import * as animVariant from '@/constants/animVariant';
-import '@/styles/global.css';
+// import '@/styles/global.css';
 import TopBar from '@/components/TopBar';
 import dynamic from 'next/dynamic';
 
@@ -71,7 +71,10 @@ const Panels = dynamic(() => Promise.resolve(_Panels), { ssr: false });
 interface IPageTransition {
   pageKey: string;
 }
-const PageTransition: React.FC<IPageTransition> = ({ children, pageKey }) => {
+const PageTransition: React.FC<PropsWithChildren<IPageTransition>> = ({
+  children,
+  pageKey,
+}) => {
   return (
     <LazyMotion features={domAnimation}>
       <AnimateSharedLayout>
@@ -108,13 +111,13 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   }, [router.pathname]);
   return (
     <ChakraProvider theme={theme}>
-      {/* <GlobalStyleLoader /> */}
+      <GlobalStyleLoader />
       <TopBar onMenuToggle={() => setMenuVisible(!menuVisible)} />
       <Box className="margin-top-bar" height="50px" />
       <Menu visible={menuVisible} />
-      <PageTransition pageKey={router.pathname}>
-        <Component {...pageProps} />
-      </PageTransition>
+      {/* <PageTransition pageKey={router.pathname}> */}
+      <Component {...pageProps} />
+      {/* </PageTransition> */}
     </ChakraProvider>
   );
 }

@@ -19,12 +19,7 @@ const Loading: React.FC<BoxProps> = (props) => {
       display="block"
       {...props}
     >
-      <SvgBg
-        w="150px"
-        h="150px"
-        className="svg-bg"
-        animation={`${rotate} infinite 4s linear`}
-      />
+      <SvgBg w="150px" h="150px" animation={`${rotate} infinite 4s linear`} />
       <LogoGeometry
         w="128px"
         h="54.4px"

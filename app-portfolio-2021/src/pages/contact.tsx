@@ -65,7 +65,7 @@ const ProfileVideo = () => {
       overflow="hidden"
       mx="auto"
       transform="translate3d(0, 0, 0)"
-      z="-1"
+      zIndex="-1"
     >
       <video
         autoPlay

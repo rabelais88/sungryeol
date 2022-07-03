@@ -1,4 +1,5 @@
 import { Button, chakra, Tag, TagProps } from '@chakra-ui/react';
+import { PropsWithChildren } from 'react';
 const PostTag = chakra(Tag, {
   baseStyle: {
     borderRadius: 'full',
@@ -11,7 +12,7 @@ interface IPostTagControl extends TagProps {
   active?: boolean;
 }
 
-export const PostTagControl: React.FC<IPostTagControl> = ({
+export const PostTagControl: React.FC<PropsWithChildren<IPostTagControl>> = ({
   children,
   active,
   ...props

@@ -1,5 +1,6 @@
 import { Container } from '@chakra-ui/react';
-const LayoutContact: React.FC = ({ children }) => {
+import { PropsWithChildren } from 'react';
+const LayoutContact: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   return (
     <Container
       className="layout-contact"

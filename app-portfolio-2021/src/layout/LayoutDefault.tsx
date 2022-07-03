@@ -1,5 +1,6 @@
 import { Container } from '@chakra-ui/react';
-const LayoutDefault: React.FC = ({ children }) => {
+import { PropsWithChildren } from 'react';
+const LayoutDefault: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   return (
     <Container className="layout-default" maxW="700px" pb="50px">
       {children}
