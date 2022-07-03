@@ -1,24 +1,31 @@
 import LayoutDefault from '@/layout/LayoutDefault';
 import type { GetStaticProps, NextPage } from 'next';
-import { Text, VStack, Box } from '@chakra-ui/react';
+import {
+  Text,
+  VStack,
+  Box,
+  Heading,
+  UnorderedList,
+  ListItem,
+} from '@chakra-ui/react';
 import { LinkProps } from 'next/link';
 import LogoAnimated from '@/components/LogoAnimated';
 import Header from '@/components/Header';
-import { findResultsState } from 'react-instantsearch-dom/server';
-import AlgoliaService from '@/services/AlgoliaService';
-import type { SearchState } from 'react-instantsearch-core';
-import PostSearchAlt from '@/components/PostSearchAlt/index';
-import { PropsWithChildren, useMemo } from 'react';
-import { getTags } from '@/services/TagService';
-import { ReturnPromiseType } from '@/types';
-import { useRouter } from 'next/router';
+import { PropsWithChildren } from 'react';
 import CustomLink from '@/components/CustomLink';
+import { shortInternationalTime } from '@sungryeol/lib';
+import AlgoliaService, {
+  AlgoliaHit,
+  AlgoliaSearchResponse,
+  AlgoliaTags,
+} from '@/services/AlgoliaService';
+import { IPostHit } from '@/types';
+import parse from 'html-react-parser';
+import PostSearchTags from '@/components/PostSearch/Tags';
 
 interface IProps {
-  tags: ReturnPromiseType<typeof getTags>;
-  // posts: ReturnPromiseType<typeof getPosts>;
-  resultsState: any;
-  searchState: SearchState;
+  searchResult: AlgoliaSearchResponse<IPostHit>;
+  tagsResult: AlgoliaTags;
 }
 
 const BigLink: React.FC<PropsWithChildren<LinkProps>> = ({
@@ -37,9 +44,47 @@ const BigLink: React.FC<PropsWithChildren<LinkProps>> = ({
   );
 };
 
-const Home: NextPage<IProps> = ({ resultsState, searchState, tags }) => {
-  const { searchClient } = useMemo(() => new AlgoliaService(), []);
-  const router = useRouter();
+const Result: React.FC<{ hit: AlgoliaHit<IPostHit> }> = ({ hit }) => {
+  return (
+    <ListItem w="100%" className="post-item" display="flex" alignItems="center">
+      <CustomLink href={`/posts/${hit.uid}`}>
+        <Text as="em">{parse(hit._highlightResult?.title?.value ?? '')}</Text>
+      </CustomLink>
+      <Box
+        flex="1"
+        display="inline-block"
+        borderBottom="dashed 1px black"
+        h="1px"
+        mx="10px"
+      />
+      <Text>{shortInternationalTime(new Date(hit.updatedAt))}</Text>
+    </ListItem>
+  );
+};
+
+const PostSearchResults: React.FC<{
+  searchResult: AlgoliaSearchResponse<IPostHit>;
+}> = ({ searchResult }) => {
+  return (
+    <UnorderedList
+      styleType="none"
+      className="search-results"
+      marginInlineStart="none"
+      w="100%"
+      sx={{
+        '.search-result-item + .search-result-item': {
+          borderTop: 'solid 1px black',
+        },
+      }}
+    >
+      {searchResult.hits.map((hit) => (
+        <Result hit={hit} key={hit.objectID} />
+      ))}
+    </UnorderedList>
+  );
+};
+
+const Home: NextPage<IProps> = ({ searchResult, tagsResult }) => {
   return (
     <LayoutDefault>
       <Header
@@ -59,12 +104,9 @@ const Home: NextPage<IProps> = ({ resultsState, searchState, tags }) => {
         <BigLink href="/work">WORK</BigLink>
         <BigLink href="/contact">CONTACT</BigLink>
         <Box h="50px" />
-        <PostSearchAlt
-          resultsState={resultsState}
-          searchState={searchState}
-          searchClient={searchClient}
-          indexName="post_updated_at"
-        />
+        <Heading fontFamily="HammerSmith One">RECENT ARTICLES</Heading>
+        <PostSearchResults searchResult={searchResult} />
+        <PostSearchTags tagsResult={tagsResult} />
         <CustomLink href="/posts" fontFamily="Hammersmith One">
           More Articles...
         </CustomLink>
@@ -74,19 +116,17 @@ const Home: NextPage<IProps> = ({ resultsState, searchState, tags }) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const { searchClient } = new AlgoliaService();
-  const searchState: SearchState = {};
-  const resultsState = await findResultsState(PostSearchAlt, {
-    searchClient,
-    indexName: 'post_updated_at',
-    searchState,
+  const searchResult = await AlgoliaService.search('post_updated_at', '', {
+    page: 0,
+    itemsPerPage: 5,
   });
-  const tags = await getTags({ pageSize: 100 });
+
+  const tagsResult = await AlgoliaService.searchPostTags('');
+
   return {
     props: {
-      resultsState: JSON.parse(JSON.stringify(resultsState)),
-      searchState,
-      tags,
+      searchResult,
+      tagsResult,
     },
     revalidate: 9,
   };

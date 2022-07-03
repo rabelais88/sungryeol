@@ -1,3 +1,4 @@
+// do not use declare for using IDE in project root dir
 export interface ITag {
   attributes: {
     label: string;
@@ -54,6 +55,7 @@ export interface IPostHit {
   updatedAt: string;
   uid: string;
   content: string;
+  title: string;
   tags: {
     createdAt: string;
     id: number;
