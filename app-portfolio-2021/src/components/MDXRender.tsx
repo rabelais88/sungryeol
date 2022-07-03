@@ -14,14 +14,22 @@ import {
   ListProps,
 } from '@chakra-ui/react';
 import Image, { ImageProps } from 'next/image';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import {
+  MDXRemote,
+  MDXRemoteProps,
+  MDXRemoteSerializeResult,
+} from 'next-mdx-remote';
 import PrismCodeStyle from '@/styles/PrismCodeStyle';
 import 'katex/dist/katex.min.css';
 import makeShimmerUri from '@/utils/makeShimmerUri';
 import CustomLink from './CustomLink';
 
 const _Code: React.FC<CodeProps> = ({ children, ...props }) => {
-  return <Code {...props}>{children}</Code>;
+  return (
+    <Code {...props} bgColor="#f5f2f0" color="pink.500">
+      {children}
+    </Code>
+  );
 };
 
 const _Div: React.FC<BoxProps> = ({ children, ...props }) => {
@@ -59,9 +67,11 @@ const Callout: React.FC<ICalloutProps> = ({
   );
 };
 
-interface ICustomImgProps extends ImageProps {
+interface ICustomImgProps extends Omit<ImageProps, 'placeholder' | 'src'> {
   longdesc?: string;
   caption?: string;
+  placeholder?: string;
+  src?: string;
 }
 
 const Figure = chakra('figure');
@@ -69,11 +79,13 @@ const Figure = chakra('figure');
 const CustomImg: React.FC<ICustomImgProps> = ({
   alt,
   layout = 'intrinsic',
-  width = 0,
-  height = 0,
-  src,
+  width = 500,
+  height = 500,
+  src = '',
+  placeholder,
   ...props
 }) => {
+  console.log(props);
   // const re = new RegExp(`${process.env.NEXT_PUBLIC_S3}`, 'g');
   // const _src = `${src}`.replace(re, `${process.env.NEXT_PUBLIC_AWS_CDN}`);
   const blurProps: Pick<
@@ -96,6 +108,7 @@ const CustomImg: React.FC<ICustomImgProps> = ({
         alt={alt}
         {...blurProps}
         {...props}
+        style={{ marginLeft: 'auto', marginRight: 'auto' }}
         className="without-caption"
       />
     );
@@ -164,7 +177,7 @@ const _Heading: React.FC<HeadingProps> = ({ children, id, ...props }) => {
 };
 
 // https://mdxjs.com/table-of-components/
-const components = {
+const components: MDXRemoteProps['components'] = {
   a: CustomLink,
   h1: (props: HeadingProps) => <_Heading {...props} as="h1" />,
   h2: (props: HeadingProps) => <_Heading {...props} size="lg" as="h2" />,
@@ -174,15 +187,16 @@ const components = {
   ul: _UnorderedList,
   p: Text,
   div: _Div,
-  // https://stackoverflow.com/questions/67945559/next-mdx-remote-doesnt-pass-the-component
-  inlineCode: _Code,
   callout: Callout,
   Callout,
   'custom-img': CustomImg,
+  // currently, it only works for proper markdown
+  // ![Alt text](/logo.png "title")
   img: CustomImg,
   wrapper: (props: any) => {
     return <PrismCodeStyle {...props} />;
   },
+  code: _Code,
 };
 
 interface IMDXRenderProps extends BoxProps {
@@ -192,6 +206,7 @@ interface IMDXRenderProps extends BoxProps {
 const MDXRender: React.FC<IMDXRenderProps> = ({ mdxSource, ...props }) => (
   <Box
     {...props}
+    className="mdx-render"
     sx={{
       'h1,h2,h3,h4,h5': { fontFamily: 'Title' },
       '* + h1,* + h2,* + h3,* + h4,* + h5, * + .callout, * + ul, * + ol': {
