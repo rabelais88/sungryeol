@@ -110,7 +110,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     setMenuVisible(false);
   }, [router.pathname]);
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider theme={theme} resetCSS>
       <GlobalStyleLoader />
       <TopBar onMenuToggle={() => setMenuVisible(!menuVisible)} />
       <Box className="margin-top-bar" height="50px" />

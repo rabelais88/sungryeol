@@ -34,3 +34,4 @@ export const Base: ComponentStory<typeof CustomLink> = () => {
     </div>
   );
 };
+Base.storyName = 'CustomLink';

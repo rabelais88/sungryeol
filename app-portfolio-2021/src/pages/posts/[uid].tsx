@@ -25,6 +25,7 @@ import { useCallback, useMemo } from 'react';
 import { PostTagControl } from '@/components/PostTag';
 import { useRouter } from 'next/router';
 import { mdxPostConfig } from '@/constants/mdxConfig';
+import testMarkdowns from '@/constants/testMarkdowns';
 
 interface IProps {
   post: ReturnPromiseType<typeof getPost>;
@@ -109,6 +110,11 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
   const paths = postIndices.posts.data.map((p) => ({
     params: { uid: `${p?.attributes?.uid}` },
   }));
+  if (process.env.NODE_ENV === 'development') {
+    testMarkdowns.forEach((_, i) =>
+      paths.push({ params: { uid: `test-${i}` } })
+    );
+  }
   return { paths, fallback: 'blocking' };
 };
 
@@ -117,6 +123,15 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 // https://github.com/prisma-labs/graphql-request
 export const getStaticProps: GetStaticProps<IProps> = async (context) => {
   const uid = `${context?.params?.uid}`;
+  if (process.env.NODE_ENV === 'development') {
+    const testValid = /^test-[\d]+$/.test(uid);
+    if (testValid) {
+      const testUid = Number(uid.replace('test-', ''));
+      const testPost = testMarkdowns[Number(testUid)];
+      const mdxSource = await serialize(testPost?.content ?? '', mdxPostConfig);
+      return { props: { post: testPost, mdxSource, preview: false } };
+    }
+  }
   if (context.preview) {
     const post = await getPost(uid, true);
     if (!post) return { notFound: true };

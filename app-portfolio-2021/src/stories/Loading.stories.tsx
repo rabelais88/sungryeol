@@ -12,3 +12,4 @@ const Template: ComponentStory<typeof Loading> = (args) => (
 );
 
 export const Base = Template.bind({});
+Base.storyName = 'Loading';

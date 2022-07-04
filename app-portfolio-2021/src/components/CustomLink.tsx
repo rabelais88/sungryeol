@@ -2,13 +2,13 @@ import NextLink from 'next/link';
 import { Link, LinkProps, keyframes } from '@chakra-ui/react';
 
 interface ICusomLinkProps extends Omit<LinkProps, 'href'> {
-  href: string;
+  href?: string;
   disabled?: boolean;
 }
 
 const CustomLink: React.FC<ICusomLinkProps> = ({
   children,
-  href,
+  href = '',
   disabled = false,
   ...props
 }) => {
