@@ -18,7 +18,7 @@ const testMarkdowns: ReturnPromiseType<typeof getPost>[] = [
 
 **bold text**
 
-\`inline test\`
+People need to use \`inline function\` in certain cases.
 
 \`\`\`javascript
 const myVar = 1;
@@ -27,9 +27,14 @@ var abc = 1 + myVar;
 
 testing code
 
-<img src="/images/sample-sid-suratia-Y_p9uzin_Vc-unsplash.jpg" />
+<img src="/images/sample-sid-suratia-Y_p9uzin_Vc-unsplash.jpg" width="500" height="500" />
 ![image alt](/images/sample-sid-suratia-Y_p9uzin_Vc-unsplash.jpg "image with options[@options:{width: 555,height:555}]")
 
+$ f(a) = 1 $
+
+$$
+f(x) = 2 + 3
+$$
 `,
     publishedAt: new Date().toString(),
     tags: {

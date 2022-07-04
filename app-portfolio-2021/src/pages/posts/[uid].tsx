@@ -26,6 +26,8 @@ import { PostTagControl } from '@/components/PostTag';
 import { useRouter } from 'next/router';
 import { mdxPostConfig } from '@/constants/mdxConfig';
 import testMarkdowns from '@/constants/testMarkdowns';
+// https://github.com/PrismJS/prism-themes
+import 'prism-themes/themes/prism-one-light.css';
 
 interface IProps {
   post: ReturnPromiseType<typeof getPost>;
@@ -128,7 +130,7 @@ export const getStaticProps: GetStaticProps<IProps> = async (context) => {
     if (testValid) {
       const testUid = Number(uid.replace('test-', ''));
       const testPost = testMarkdowns[Number(testUid)];
-      const mdxSource = await serialize(testPost?.content ?? '');
+      const mdxSource = await serialize(testPost?.content ?? '', mdxPostConfig);
       return { props: { post: testPost, mdxSource, preview: false } };
     }
   }

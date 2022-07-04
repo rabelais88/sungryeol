@@ -18,15 +18,20 @@ import {
   MDXRemoteProps,
   MDXRemoteSerializeResult,
 } from 'next-mdx-remote';
-import PrismCodeStyle from '@/styles/PrismCodeStyle';
+// import PrismCodeStyle from '@/styles/PrismCodeStyle';
 import 'katex/dist/katex.min.css';
 import makeShimmerUri from '@/utils/makeShimmerUri';
 import CustomLink from './CustomLink';
 import { DetailedHTMLProps, ImgHTMLAttributes } from 'react';
 
 const _Code: React.FC<CodeProps> = ({ children, ...props }) => {
+  const fullCode = /language-(\w+)/.exec(props.className || '');
+
+  if (fullCode) {
+    return <Code {...props}>{children}</Code>;
+  }
   return (
-    <Code {...props} bgColor="#f5f2f0" color="pink.500">
+    <Code {...props} bgColor="#f5f2f0" color="pink.500" data-code-inline="true">
       {children}
     </Code>
   );
@@ -114,6 +119,8 @@ const CustomImg: React.FC<CustomImgProps> = ({
   try {
     options = optionsParser(optionString);
   } catch (err) {
+    // apparently, this replacement does not work
+    // unreachable code
     return (
       <img
         {...props}
@@ -121,6 +128,7 @@ const CustomImg: React.FC<CustomImgProps> = ({
         src={src}
         placeholder={placeholder}
         title={title}
+        className="without-options"
       />
     );
   }
@@ -225,13 +233,7 @@ const components: MDXRemoteProps['components'] = {
   callout: Callout,
   Callout,
   'custom-img': CustomImg,
-  // currently, it only works for proper markdown
-  // replacing <img /> no longer works
-  // ![Alt text](/logo.png "title")
   img: CustomImg,
-  wrapper: (props: any) => {
-    return <PrismCodeStyle {...props} />;
-  },
   code: _Code,
 };
 
@@ -253,7 +255,7 @@ const MDXRender: React.FC<IMDXRenderProps> = ({ mdxSource, ...props }) => (
       'li + li': { mt: '20px' },
       p: { fontSize: '16px', fontWeight: '400', mt: '50px' },
       div: { fontSize: '16px', fontWeight: '400' },
-      'img.without-caption': { borderRadius: '10px' },
+      'img:not(.with-caption)': { borderRadius: '10px' },
       blockquote: { borderLeft: 'solid 2px black', pl: '10px' },
     }}
   >

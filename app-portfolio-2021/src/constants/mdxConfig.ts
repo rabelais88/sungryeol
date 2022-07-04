@@ -3,9 +3,9 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeTOC from 'rehype-toc';
 import remarkGfm from 'remark-gfm';
-import remarkPrism from 'remark-prism';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import rehypePrism from 'rehype-prism-plus';
 import _set from 'lodash/set';
 
 export const mdxWorkConfig: SerializeOptions = {};
@@ -139,13 +139,14 @@ const customizeTOCItem = (toc: any, heading: any) => {
 
 export const mdxPostConfig: SerializeOptions = {
   mdxOptions: {
-    remarkPlugins: [remarkGfm, remarkPrism as any, remarkMath],
+    remarkPlugins: [remarkGfm, remarkMath],
     rehypePlugins: [
       rehypeSlug,
       rehypeAutolinkHeadings,
       rehypeKatex,
       // [rehypeTOC, { customizeTOCItem }],
       rehypeTOC,
+      rehypePrism,
     ],
   },
 };
