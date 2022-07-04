@@ -18,7 +18,6 @@ import {
   MDXRemoteProps,
   MDXRemoteSerializeResult,
 } from 'next-mdx-remote';
-// import PrismCodeStyle from '@/styles/PrismCodeStyle';
 import 'katex/dist/katex.min.css';
 import makeShimmerUri from '@/utils/makeShimmerUri';
 import CustomLink from './CustomLink';
@@ -233,6 +232,8 @@ const components: MDXRemoteProps['components'] = {
   callout: Callout,
   Callout,
   'custom-img': CustomImg,
+  // todo: probably need to use hydrate() with mdx to bypass img issue
+  // https://stackoverflow.com/questions/64007838/mdx-blog-just-displays-markdown-content-instead-of-rendering-it-while-using-mdx
   img: CustomImg,
   code: _Code,
 };
