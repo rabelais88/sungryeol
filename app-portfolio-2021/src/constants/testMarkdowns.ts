@@ -35,6 +35,10 @@ $ f(a) = 1 $
 $$
 f(x) = 2 + 3
 $$
+
+\`\`\`sh
+docker run -it --rm image/myimage
+\`\`\`
 `,
     publishedAt: new Date().toString(),
     tags: {

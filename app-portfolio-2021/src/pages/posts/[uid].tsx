@@ -26,8 +26,6 @@ import { PostTagControl } from '@/components/PostTag';
 import { useRouter } from 'next/router';
 import { mdxPostConfig } from '@/constants/mdxConfig';
 import testMarkdowns from '@/constants/testMarkdowns';
-// https://github.com/PrismJS/prism-themes
-import 'prism-themes/themes/prism-one-light.css';
 
 interface IProps {
   post: ReturnPromiseType<typeof getPost>;

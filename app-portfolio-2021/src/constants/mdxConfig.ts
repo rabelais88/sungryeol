@@ -5,7 +5,7 @@ import rehypeTOC from 'rehype-toc';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
-import rehypePrism from 'rehype-prism-plus';
+import rehypeHighlight from 'rehype-highlight';
 import _set from 'lodash/set';
 
 export const mdxWorkConfig: SerializeOptions = {};
@@ -146,7 +146,7 @@ export const mdxPostConfig: SerializeOptions = {
       rehypeKatex,
       // [rehypeTOC, { customizeTOCItem }],
       rehypeTOC,
-      rehypePrism,
+      rehypeHighlight,
     ],
   },
 };
