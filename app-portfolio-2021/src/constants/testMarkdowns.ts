@@ -39,6 +39,14 @@ $$
 \`\`\`sh
 docker run -it --rm image/myimage
 \`\`\`
+
+\`\`\`groovy
+class Main {
+  static void main(String... args) {
+      println 'Groovy world!'
+  }
+}
+\`\`\`
 `,
     publishedAt: new Date().toString(),
     tags: {

@@ -7,6 +7,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import rehypeHighlight from 'rehype-highlight';
 import _set from 'lodash/set';
+import groovy from 'highlight.js/lib/languages/groovy';
 
 export const mdxWorkConfig: SerializeOptions = {};
 
@@ -146,7 +147,7 @@ export const mdxPostConfig: SerializeOptions = {
       rehypeKatex,
       // [rehypeTOC, { customizeTOCItem }],
       rehypeTOC,
-      rehypeHighlight,
+      [rehypeHighlight, { languages: { groovy } }],
     ],
   },
 };
