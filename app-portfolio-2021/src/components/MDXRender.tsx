@@ -10,7 +10,6 @@ import {
   Text,
   Code,
   CodeProps,
-  chakra,
   ListProps,
 } from '@chakra-ui/react';
 import Image, { ImageProps } from 'next/image';
@@ -23,6 +22,7 @@ import PrismCodeStyle from '@/styles/PrismCodeStyle';
 import 'katex/dist/katex.min.css';
 import makeShimmerUri from '@/utils/makeShimmerUri';
 import CustomLink from './CustomLink';
+import { DetailedHTMLProps, ImgHTMLAttributes } from 'react';
 
 const _Code: React.FC<CodeProps> = ({ children, ...props }) => {
   return (
@@ -67,62 +67,97 @@ const Callout: React.FC<ICalloutProps> = ({
   );
 };
 
-interface ICustomImgProps extends Omit<ImageProps, 'placeholder' | 'src'> {
-  longdesc?: string;
-  caption?: string;
-  placeholder?: string;
-  src?: string;
+type CustomImgProps = DetailedHTMLProps<
+  ImgHTMLAttributes<HTMLImageElement>,
+  HTMLImageElement
+>;
+type BlurProps = Pick<
+  ImageProps,
+  'width' | 'height' | 'placeholder' | 'blurDataURL'
+>;
+const reOptions = /\[@options:\{(.+)\}\]/;
+const reCaptions = /(.*)\[@options:\{.+\}\](.*)/;
+const optionsParser = (str?: string) => {
+  if (!str) return;
+  const matches = reOptions.exec(str);
+  if (!matches || !matches?.[1]) return;
+  return matches[1].split(',').reduce((ac, cv) => {
+    const [key, value] = cv.split(':');
+    return { ...ac, [key]: value };
+  }, {}) as Partial<CustomImgProps>;
+};
+function captionsParser(str?: string) {
+  try {
+    if (!str) return '';
+    const matches = reCaptions.exec(str);
+    if (!matches || !matches[1]) return str;
+    const captions = matches
+      .slice(1)
+      .filter((t) => t !== '')
+      .join(' ');
+    return captions;
+  } catch (err) {
+    return '';
+  }
 }
 
-const Figure = chakra('figure');
-
-const CustomImg: React.FC<ICustomImgProps> = ({
+const CustomImg: React.FC<CustomImgProps> = ({
   alt,
-  layout = 'intrinsic',
-  width = 500,
-  height = 500,
   src = '',
   placeholder,
+  title,
   ...props
 }) => {
-  console.log(props);
-  // const re = new RegExp(`${process.env.NEXT_PUBLIC_S3}`, 'g');
-  // const _src = `${src}`.replace(re, `${process.env.NEXT_PUBLIC_AWS_CDN}`);
-  const blurProps: Pick<
-    ImageProps,
-    'width' | 'height' | 'placeholder' | 'blurDataURL'
-  > = {};
-  if (width > 0 && height > 0) {
-    blurProps.width = width;
-    blurProps.height = height;
-    blurProps.placeholder = 'blur';
-    blurProps.blurDataURL = makeShimmerUri(Number(width), Number(height));
+  const optionString = title ?? '';
+  let options: ReturnType<typeof optionsParser>;
+  let caption = captionsParser(optionString);
+  try {
+    options = optionsParser(optionString);
+  } catch (err) {
+    return (
+      <img
+        {...props}
+        alt={alt}
+        src={src}
+        placeholder={placeholder}
+        title={title}
+      />
+    );
   }
+  const blurProps: BlurProps = {
+    width: options?.width ?? 500,
+    height: options?.height,
+    placeholder: 'blur',
+  };
+  blurProps.blurDataURL = makeShimmerUri(
+    Number(blurProps.width),
+    Number(blurProps.height)
+  );
 
-  const caption = props.longdesc || props.caption;
-  if (!caption)
+  if (!caption || caption === '')
     return (
       <Image
         src={src}
-        layout={layout}
+        layout="responsive"
         alt={alt}
         {...blurProps}
         {...props}
-        style={{ marginLeft: 'auto', marginRight: 'auto' }}
         className="without-caption"
       />
     );
+
   return (
-    <Figure
+    <Box
       display="flex"
       justifyContent="center"
       flexDir="column"
       sx={{ img: { borderTopRadius: '10px' } }}
+      as="span"
     >
       <Image
         src={src}
         alt={alt}
-        layout={layout}
+        layout="responsive"
         {...blurProps}
         {...props}
         className="with-caption"
@@ -130,15 +165,15 @@ const CustomImg: React.FC<ICustomImgProps> = ({
       <Text
         fontWeight="700"
         mb="15px"
-        as="figcaption"
         borderBottomRadius="10px"
         bgColor="gray.100"
         py="10px"
         px="20px"
+        as="span"
       >
         {caption}
       </Text>
-    </Figure>
+    </Box>
   );
 };
 
@@ -191,6 +226,7 @@ const components: MDXRemoteProps['components'] = {
   Callout,
   'custom-img': CustomImg,
   // currently, it only works for proper markdown
+  // replacing <img /> no longer works
   // ![Alt text](/logo.png "title")
   img: CustomImg,
   wrapper: (props: any) => {

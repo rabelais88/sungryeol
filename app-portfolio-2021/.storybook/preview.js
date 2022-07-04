@@ -1,6 +1,8 @@
-import { ChakraProvider } from '@chakra-ui/react';
+// import { ChakraProvider } from '@chakra-ui/react';
 import theme from '@/styles/theme';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
+import GlobalStyleLoader from '@/styles/GlobalStyleLoader';
+// https://www.npmjs.com/package/@chakra-ui/storybook-addon
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -13,12 +15,14 @@ export const parameters = {
   nextRouter: {
     Provider: RouterContext.Provider,
   },
+  chakra: { theme },
 };
 
 export const decorators = [
   (Story) => (
-    <ChakraProvider theme={theme}>
+    <>
+      <GlobalStyleLoader />
       <Story />
-    </ChakraProvider>
+    </>
   ),
 ];
