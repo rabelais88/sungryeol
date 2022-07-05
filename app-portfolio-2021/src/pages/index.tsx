@@ -22,6 +22,7 @@ import AlgoliaService, {
 import { IPostHit } from '@/types';
 import parse from 'html-react-parser';
 import PostSearchTags from '@/components/PostSearch/Tags';
+import PrintDate from '@/components/PrintDate';
 
 interface IProps {
   searchResult: AlgoliaSearchResponse<IPostHit>;
@@ -57,7 +58,10 @@ const Result: React.FC<{ hit: AlgoliaHit<IPostHit> }> = ({ hit }) => {
         h="1px"
         mx="10px"
       />
-      <Text>{shortInternationalTime(new Date(hit.updatedAt))}</Text>
+      <PrintDate
+        render={(strDate) => <Text>{strDate}</Text>}
+        value={hit.updatedAt}
+      />
     </ListItem>
   );
 };
