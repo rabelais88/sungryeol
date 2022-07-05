@@ -12,7 +12,9 @@ import {
   Heading,
   HStack,
   Link,
+  LinkOverlay,
   useToast,
+  VStack,
   Wrap,
   WrapItem,
 } from '@chakra-ui/react';
@@ -27,6 +29,8 @@ import { useRouter } from 'next/router';
 import { mdxPostConfig } from '@/components/Markdown/mdxConfig';
 import testMarkdowns from '@/constants/testMarkdowns';
 import { processContent } from '@/components/Markdown/mdxUtils';
+import LogoGeometry from '@/components/icons/LogoGeometry';
+import LogoText from '@/components/icons/LogoText';
 
 interface IProps {
   post: ReturnPromiseType<typeof getPost>;
@@ -102,6 +106,19 @@ const Post: NextPage<IProps> = ({ post, mdxSource, preview }) => {
       </Heading>
       <Divider mt="10px" mb="10px" borderBottom="solid 1px black" />
       <MDXRender mdxSource={mdxSource} as="article" />
+
+      <VStack className="area-post-bottom" mt="20">
+        <NextLink href="/" passHref>
+          <Link>
+            <LogoGeometry w="160px" h="68px" />
+          </Link>
+        </NextLink>
+        <NextLink href="/" passHref>
+          <Link>
+            <LogoText w="78px" h="18px" />
+          </Link>
+        </NextLink>
+      </VStack>
     </LayoutDefault>
   );
 };
