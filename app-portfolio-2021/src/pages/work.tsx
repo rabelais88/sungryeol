@@ -16,6 +16,7 @@ const Work: NextPage<IProps> = ({ mdxSource }) => {
   return (
     <Box
       position="relative"
+      width="100%"
       sx={{
         '.work-bg': {
           position: 'fixed',

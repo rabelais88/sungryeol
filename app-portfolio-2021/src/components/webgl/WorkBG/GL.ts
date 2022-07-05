@@ -1,20 +1,18 @@
-import dynamic from 'next/dynamic';
-import { useRef, useEffect, useCallback, useState } from 'react';
 import * as T from 'three';
-
-class GL {
+import FlowingText from './FlowingText';
+export default class GL {
   canvas?: HTMLCanvasElement;
   scene: T.Scene;
   renderer?: T.WebGLRenderer;
   camera?: T.PerspectiveCamera;
-  width: number;
-  height: number;
-  destroyed: boolean;
+  width: number = 1;
+  height: number = 1;
+  destroyed: boolean = false;
+  prevTime: number = 0;
+  delta: number = 0;
+  flowingText?: FlowingText;
   constructor() {
     this.scene = new T.Scene();
-    this.width = 1;
-    this.height = 1;
-    this.destroyed = false;
   }
   log(...args: any[]) {
     console.log('gl:', ...args);
@@ -39,11 +37,13 @@ class GL {
     this.height = height;
 
     this.camera = new T.PerspectiveCamera(70, this.aspect, 0.01, 10);
-    this.camera.position.z = 3;
+    this.camera.position.z = 1.5;
     this.scene.add(this.camera);
     this.scene.background = new T.Color('pink');
 
     this.scene.add(new T.AxesHelper(3));
+    this.flowingText = new FlowingText();
+    this.scene.add(this.flowingText.group);
 
     this.renderer = new T.WebGLRenderer({ ...renderer, canvas });
     this.resize(width, height);
@@ -63,9 +63,12 @@ class GL {
     this.renderer.setPixelRatio(1.5);
   }
 
-  onLoop: XRFrameRequestCallback = () => {
+  onLoop: XRFrameRequestCallback = (time) => {
     if (!this.camera || !this.renderer) return;
+    if (this.prevTime !== 0) this.delta = time - this.prevTime;
+    if (this.flowingText) this.flowingText.update(time, this.delta);
     this.renderer.render(this.scene, this.camera);
+    this.prevTime = time;
   };
   destroy() {
     this.log('destroying');
@@ -74,34 +77,3 @@ class GL {
     this.destroyed = true;
   }
 }
-const WorkBG: React.FC = () => {
-  const refCanvas = useRef<HTMLCanvasElement>(null);
-  const refState = useRef({ gl: new GL() });
-
-  const onResize = useCallback(() => {
-    if (!refCanvas.current) return;
-    refState.current.gl.resize(
-      refCanvas.current.clientWidth,
-      refCanvas.current.clientHeight
-    );
-  }, []);
-  useEffect(() => {
-    if (!refCanvas.current) return;
-    const state = refState.current;
-    console.log('useEffect() triggering init');
-    if (state.gl.destroyed) state.gl = new GL();
-    state.gl.init({
-      canvas: refCanvas.current,
-      width: refCanvas.current.clientWidth,
-      height: refCanvas.current.clientHeight,
-    });
-    window.addEventListener('resize', onResize);
-    return () => {
-      window.removeEventListener('resize', onResize);
-      state.gl.destroy();
-    };
-  }, []);
-  return <canvas ref={refCanvas} className="gl work-bg"></canvas>;
-};
-
-export default dynamic(() => Promise.resolve(WorkBG), { ssr: false });
