@@ -19,8 +19,8 @@ const MenuTab: React.FC<IProps> = ({ children, href, ...props }) => {
         borderBottom="solid 1px black"
         sx={{
           '&.active,&:focus': {
-            color: 'pink.400',
-            borderBottomColor: 'pink.400',
+            color: 'bg-pink',
+            borderBottomColor: 'bg-pink',
             borderBottomWidth: '2px',
           },
         }}

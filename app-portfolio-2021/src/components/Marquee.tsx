@@ -13,7 +13,7 @@ const MarqueeBar: React.FC<PropsWithChildren<{}>> = ({ children }) => {
           maxW="100%"
           overflow="hidden"
           height="30px"
-          bgColor="pink.400"
+          bgColor="bg-pink"
           sx={{
             '.track': {
               position: 'absolute',
