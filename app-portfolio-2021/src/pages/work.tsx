@@ -6,6 +6,7 @@ import LayoutDefault from '@/layout/LayoutDefault';
 import MDXRender from '@/components/MDXRender';
 import { Box } from '@chakra-ui/react';
 import Header from '@/components/Header';
+import WorkBG from '@/components/webgl/WorkBG';
 
 interface IProps {
   mdxSource: MDXRemoteSerializeResult;
@@ -13,11 +14,26 @@ interface IProps {
 
 const Work: NextPage<IProps> = ({ mdxSource }) => {
   return (
-    <LayoutDefault>
-      <Header title="지식공단 - work" description="browsing works" />
-      <Box height="50px" />
-      <MDXRender mdxSource={mdxSource} />
-    </LayoutDefault>
+    <Box
+      position="relative"
+      sx={{
+        '.work-bg': {
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: 0,
+        },
+      }}
+    >
+      <LayoutDefault zIndex="1" position="fixed">
+        <Header title="지식공단 - work" description="browsing works" />
+        <Box height="50px" />
+        <MDXRender mdxSource={mdxSource} />
+      </LayoutDefault>
+      <WorkBG />
+    </Box>
   );
 };
 
