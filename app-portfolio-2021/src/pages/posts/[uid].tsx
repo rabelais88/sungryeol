@@ -4,7 +4,7 @@ import { ReturnPromiseType } from '@/types';
 import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import LayoutDefault from '@/layout/LayoutDefault';
-import MDXRender from '@/components/MDXRender';
+import MDXRender from '@/components/Markdown/MDXRender';
 import {
   Box,
   Button,
@@ -24,7 +24,7 @@ import { useCallback, useMemo } from 'react';
 
 import { PostTagControl } from '@/components/PostTag';
 import { useRouter } from 'next/router';
-import { mdxPostConfig } from '@/constants/mdxConfig';
+import { mdxPostConfig } from '@/components/Markdown/mdxConfig';
 import testMarkdowns from '@/constants/testMarkdowns';
 
 interface IProps {
@@ -110,7 +110,10 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
   const paths = postIndices.posts.data.map((p) => ({
     params: { uid: `${p?.attributes?.uid}` },
   }));
-  if (process.env.NODE_ENV === 'development') {
+  if (
+    process.env.NODE_ENV === 'development' ||
+    process.env.NODE_ENV === 'test'
+  ) {
     testMarkdowns.forEach((_, i) =>
       paths.push({ params: { uid: `test-${i}` } })
     );

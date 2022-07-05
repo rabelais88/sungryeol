@@ -3,7 +3,7 @@ import { MDXRemoteSerializeResult, MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import { getWork } from '@/services/WorkService';
 import LayoutDefault from '@/layout/LayoutDefault';
-import MDXRender from '@/components/MDXRender';
+import MDXRender from '@/components/Markdown/MDXRender';
 import { Box } from '@chakra-ui/react';
 import Header from '@/components/Header';
 

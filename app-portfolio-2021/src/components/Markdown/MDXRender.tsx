@@ -20,7 +20,7 @@ import {
 } from 'next-mdx-remote';
 import 'katex/dist/katex.min.css';
 import makeShimmerUri from '@/utils/makeShimmerUri';
-import CustomLink from './CustomLink';
+import CustomLink from '@/components/CustomLink';
 import { DetailedHTMLProps, ImgHTMLAttributes } from 'react';
 
 const _Code: React.FC<CodeProps> = ({ children, ...props }) => {
