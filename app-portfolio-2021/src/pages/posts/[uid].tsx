@@ -26,6 +26,7 @@ import { PostTagControl } from '@/components/PostTag';
 import { useRouter } from 'next/router';
 import { mdxPostConfig } from '@/components/Markdown/mdxConfig';
 import testMarkdowns from '@/constants/testMarkdowns';
+import { processContent } from '@/components/Markdown/mdxUtils';
 
 interface IProps {
   post: ReturnPromiseType<typeof getPost>;
@@ -40,8 +41,8 @@ const Post: NextPage<IProps> = ({ post, mdxSource, preview }) => {
     toast({ title: 'url copied to clipboard', isClosable: true });
   };
   const shortenedContent = useMemo(
-    () => (post.content ?? '').slice(0, 50),
-    [post.content]
+    () => (post?.content ?? '').slice(0, 50),
+    [post?.content]
   );
   const router = useRouter();
   const searchTag = useCallback(
@@ -126,19 +127,21 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 // https://github.com/prisma-labs/graphql-request
 export const getStaticProps: GetStaticProps<IProps> = async (context) => {
   const uid = `${context?.params?.uid}`;
+
   if (process.env.NODE_ENV === 'development') {
     const testValid = /^test-[\d]+$/.test(uid);
     if (testValid) {
       const testUid = Number(uid.replace('test-', ''));
       const testPost = testMarkdowns[Number(testUid)];
-      const mdxSource = await serialize(testPost?.content ?? '', mdxPostConfig);
+      const content = processContent(testPost?.content);
+      const mdxSource = await serialize(content, mdxPostConfig);
       return { props: { post: testPost, mdxSource, preview: false } };
     }
   }
   if (context.preview) {
     const post = await getPost(uid, true);
     if (!post) return { notFound: true };
-    const content = post.content as string;
+    const content = processContent(post.content as string);
     return {
       props: {
         post,
@@ -149,7 +152,7 @@ export const getStaticProps: GetStaticProps<IProps> = async (context) => {
   }
   const post = await getPost(uid);
   if (!post) return { notFound: true };
-  const content = post.content as string;
+  const content = processContent(post.content as string);
   const mdxSource = await serialize(content, mdxPostConfig);
   return { props: { post, mdxSource, preview: false }, revalidate: 9 };
 };

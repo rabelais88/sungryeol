@@ -231,7 +231,7 @@ const components: MDXRemoteProps['components'] = {
   div: _Div,
   callout: Callout,
   Callout,
-  'custom-img': CustomImg,
+  CustomImg: CustomImg,
   // todo: probably need to use hydrate() with mdx to bypass img issue
   // https://stackoverflow.com/questions/64007838/mdx-blog-just-displays-markdown-content-instead-of-rendering-it-while-using-mdx
   img: CustomImg,
