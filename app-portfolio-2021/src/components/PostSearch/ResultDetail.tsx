@@ -2,8 +2,8 @@ import { Box, ListItem, Text, UnorderedList } from '@chakra-ui/react';
 import { useHits, Highlight } from 'react-instantsearch-hooks-web';
 import { Hit, BaseHit } from 'instantsearch.js';
 import CustomLink from '@/components/CustomLink';
-import { shortInternationalTime } from '@sungryeol/lib';
 import { IPostHit } from '@/types';
+import DateText from '../DateText';
 
 type PostHit = Hit<BaseHit & IPostHit>;
 
@@ -25,7 +25,10 @@ const PostSearchResultDetail: React.FC<IResultProps> = ({ hit }) => {
         h="1px"
         mx="10px"
       />
-      <Text>{shortInternationalTime(new Date(hit.updatedAt))}</Text>
+      <DateText
+        render={(formattedDate) => <Text>{formattedDate}</Text>}
+        value={hit.updatedAt}
+      />
     </ListItem>
   );
 };

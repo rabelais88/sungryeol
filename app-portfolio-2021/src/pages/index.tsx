@@ -13,7 +13,6 @@ import LogoAnimated from '@/components/LogoAnimated';
 import Header from '@/components/Header';
 import { PropsWithChildren } from 'react';
 import CustomLink from '@/components/CustomLink';
-import { shortInternationalTime } from '@sungryeol/lib';
 import AlgoliaService, {
   AlgoliaHit,
   AlgoliaSearchResponse,
@@ -22,7 +21,7 @@ import AlgoliaService, {
 import { IPostHit } from '@/types';
 import parse from 'html-react-parser';
 import PostSearchTags from '@/components/PostSearch/Tags';
-import PrintDate from '@/components/PrintDate';
+import DateText from '@/components/DateText';
 
 interface IProps {
   searchResult: AlgoliaSearchResponse<IPostHit>;
@@ -58,7 +57,7 @@ const Result: React.FC<{ hit: AlgoliaHit<IPostHit> }> = ({ hit }) => {
         h="1px"
         mx="10px"
       />
-      <PrintDate
+      <DateText
         render={(strDate) => <Text>{strDate}</Text>}
         value={hit.updatedAt}
       />
