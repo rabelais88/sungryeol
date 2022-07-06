@@ -64,3 +64,7 @@ export interface IPostHit {
     updatedAt: string;
   }[];
 }
+
+export interface FrameGL {
+  (time: number, delta: number): void;
+}
