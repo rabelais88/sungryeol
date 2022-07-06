@@ -15,11 +15,13 @@ interface IProps {
 const Work: NextPage<IProps> = ({ mdxSource }) => {
   return (
     <Box position="relative" width="100%">
-      <LayoutDefault zIndex="1" position="absolute">
-        <Header title="지식공단 - work" description="browsing works" />
-        <Box height="50px" />
-        <MDXRender mdxSource={mdxSource} />
-      </LayoutDefault>
+      <Box position="absolute" zIndex="1" width="100%">
+        <LayoutDefault>
+          <Header title="지식공단 - work" description="browsing works" />
+          <Box height="50px" />
+          <MDXRender mdxSource={mdxSource} />
+        </LayoutDefault>
+      </Box>
       <WorkBG
         position="fixed"
         top="0"

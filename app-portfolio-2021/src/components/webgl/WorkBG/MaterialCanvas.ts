@@ -1,14 +1,12 @@
 import { text } from 'stream/consumers';
 import {
   CanvasTexture,
-  DoubleSide,
+  Color,
   FrontSide,
   LinearFilter,
-  MirroredRepeatWrapping,
   RepeatWrapping,
   ShaderMaterial,
   UVMapping,
-  Vector2,
 } from 'three';
 
 const simplexNoise3D = `
@@ -95,20 +93,25 @@ export default class MaterialCanvas {
   texture: CanvasTexture;
   material: ShaderMaterial;
   content: string = 'sungryeol';
+  fontSize: number = 60;
+  fontFamily: string = 'arial';
+  fontColor: CanvasFillStrokeStyles['fillStyle'] = '#fff5f5';
   constructor() {
     this.canvas = document.createElement('canvas');
-    const { width: textWidth, height: textHeight } = this.setFont(80, 'arial');
+    const { width: textWidth, height: textHeight } = this.setFont(
+      this.fontSize,
+      this.fontFamily
+    );
     this.width = textWidth;
     this.height = textHeight;
     this.texture = new CanvasTexture(this.canvas);
     this.draw();
 
-    this.texture.offset.set(0, 0);
     this.texture.wrapS = this.texture.wrapT = RepeatWrapping;
-    this.texture.repeat.set(100, 100);
     this.texture.mapping = UVMapping;
     this.texture.minFilter = LinearFilter;
     this.texture.needsUpdate = true;
+
     this.material = new ShaderMaterial({
       transparent: true,
       side: FrontSide,
@@ -116,7 +119,11 @@ export default class MaterialCanvas {
         map: { value: this.texture },
         uTime: { value: 0 },
         uIntensity: { value: 0.1 },
-        uRepeat: { value: 100 },
+        uRepeat: { value: 200 },
+        uFogColor: { value: new Color('#ffffff') },
+        uFogNear: { value: 3 },
+        uFogFar: { value: 10 },
+        uOffset: { value: 0 },
       },
       vertexShader: `
       varying vec2 vUv;
@@ -124,6 +131,7 @@ export default class MaterialCanvas {
       varying vec3 vPositionNormal;
       uniform float uTime;
       uniform float uIntensity;
+      varying vec3 vPos;
 
       ${simplexNoise3D}
       
@@ -133,6 +141,7 @@ export default class MaterialCanvas {
         // convert uv attribute to vUv varying
         vUv = uv;
         vNormal = normalize( normalMatrix * normal );
+        vPos = position;
         vec3 pos = position;
         vec3 mpos = vec3(pos.x + t, pos.y + t, pos.z);
         float n = (snoise(mpos) - 0.5) * uIntensity;
@@ -148,8 +157,20 @@ export default class MaterialCanvas {
       varying vec2 vUv;
       uniform sampler2D map;
       uniform float uRepeat;
+      uniform vec3 uFogColor;
+      varying vec3 vPos;
+      uniform float uFogNear;
+      uniform float uFogFar;
+      uniform float uOffset;
       void main() {
-        gl_FragColor = texture2D(map, vUv * uRepeat);
+        gl_FragColor = texture2D(map, vUv * uRepeat + uOffset);
+        #ifdef USE_LOGDEPTHBUF_EXT
+            float depth = gl_FragDepthEXT / gl_FragCoord.w;
+        #else
+            float depth = gl_FragCoord.z / gl_FragCoord.w;
+        #endif
+        float fogFactor = smoothstep( uFogNear, uFogFar, depth );
+        gl_FragColor.rgb = mix( gl_FragColor.rgb, uFogColor, fogFactor );
       }
       `,
     });
@@ -162,10 +183,10 @@ export default class MaterialCanvas {
     this.ctx.textBaseline = 'top';
     this.ctx.font = `${px}px ${fontFamily}`;
     const { width } = this.ctx.measureText(this.content);
-    return { width, height: px };
+    return { width: width, height: px };
   }
   draw() {
-    this.ctx.fillStyle = 'lightgray';
+    this.ctx.fillStyle = this.fontColor;
     this.ctx.fillText(this.content, 0, 0);
 
     if (

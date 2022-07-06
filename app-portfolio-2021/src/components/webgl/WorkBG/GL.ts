@@ -1,5 +1,5 @@
 import * as T from 'three';
-import FlowingText from './FlowingText';
+import FlowingText from './GroupFlowingText';
 export default class GL {
   canvas?: HTMLCanvasElement;
   scene: T.Scene;
@@ -11,6 +11,7 @@ export default class GL {
   prevTime: number = 0;
   delta: number = 0;
   flowingText?: FlowingText;
+  mouse: T.Vector2 = new T.Vector2(0, 0);
   constructor() {
     this.scene = new T.Scene();
   }
@@ -43,7 +44,6 @@ export default class GL {
     this.camera.position.z = 5;
     this.scene.add(this.camera);
 
-    this.scene.add(new T.AxesHelper(3));
     this.flowingText = new FlowingText(100);
     this.scene.add(this.flowingText.group);
 
@@ -71,9 +71,27 @@ export default class GL {
     if (!this.camera || !this.renderer) return;
     if (this.prevTime !== 0) this.delta = time - this.prevTime;
     if (this.flowingText) this.flowingText.update(time, this.delta);
+    this.camera.position.z = T.MathUtils.damp(
+      this.camera.position.z,
+      5 + this.mouse.y * 2,
+      4,
+      this.delta * 0.0001
+    );
+    this.camera.position.x = T.MathUtils.damp(
+      this.camera.position.x,
+      -this.mouse.x * 2,
+      4,
+      this.delta * 0.0001
+    );
     this.renderer.render(this.scene, this.camera);
     this.prevTime = time;
   };
+
+  onMouseMove(x: number, y: number) {
+    this.mouse.x = x;
+    this.mouse.y = y;
+  }
+
   destroy() {
     this.log('destroying');
     this.renderer?.dispose();

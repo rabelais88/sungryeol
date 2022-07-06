@@ -1,20 +1,14 @@
-import {
-  CylinderGeometry,
-  Group,
-  Mesh,
-  MeshBasicMaterial,
-  PlaneGeometry,
-} from 'three';
+import { Group, Mesh, MeshBasicMaterial, PlaneGeometry } from 'three';
 import MaterialCanvas from './MaterialCanvas';
 
-export default class FlowingText {
+export default class GroupFlowingText {
   matCanvas: MaterialCanvas;
   geometry: PlaneGeometry;
   mesh: Mesh;
   group: Group;
   debug: boolean = false;
   constructor(size: number) {
-    this.geometry = new PlaneGeometry(size, size, 256, 256);
+    this.geometry = new PlaneGeometry(size, size, 512, 512);
     this.matCanvas = new MaterialCanvas();
     this.mesh = new Mesh(
       this.geometry,
@@ -30,7 +24,7 @@ export default class FlowingText {
   }
   update = (time: number, delta: number) => {
     this.matCanvas.material.uniforms.uTime.value = time;
-    this.matCanvas.texture.offset.y += delta * 0.00001;
+    this.matCanvas.material.uniforms.uOffset.value += delta * 0.0001;
     this.matCanvas.texture.needsUpdate = true;
   };
 }
