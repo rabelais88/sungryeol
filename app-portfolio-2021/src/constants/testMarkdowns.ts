@@ -28,7 +28,8 @@ var abc = 1 + myVar;
 testing code
 
 <img src="/images/sample-sid-suratia-Y_p9uzin_Vc-unsplash.jpg" width="500" height="500" />
-![image alt](/images/sample-sid-suratia-Y_p9uzin_Vc-unsplash.jpg "image with options[@options:{width: 555,height:555}]")
+<img src="/images/sample-sid-suratia-Y_p9uzin_Vc-unsplash.jpg" width="500" height="500" caption="sand beach" />
+![image alt](/images/sample-sid-suratia-Y_p9uzin_Vc-unsplash.jpg)
 
 $ f(a) = 1 $
 
