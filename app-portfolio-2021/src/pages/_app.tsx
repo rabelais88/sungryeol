@@ -16,6 +16,7 @@ import * as animVariant from '@/constants/animVariant';
 // import '@/styles/global.css';
 import TopBar from '@/components/TopBar';
 import dynamic from 'next/dynamic';
+import { Chakra } from '@/styles/Chakra';
 
 const MotionBox = motion(Box);
 
@@ -104,13 +105,17 @@ const PageTransition: React.FC<PropsWithChildren<IPageTransition>> = ({
   );
 };
 
-function MyApp({ Component, pageProps, router }: AppProps) {
+function MyApp({
+  Component,
+  pageProps,
+  router,
+}: AppProps & { cookies: string }) {
   const [menuVisible, setMenuVisible] = useState(false);
   useEffect(() => {
     setMenuVisible(false);
   }, [router.pathname]);
   return (
-    <ChakraProvider theme={theme} resetCSS>
+    <Chakra>
       <GlobalStyleLoader />
       <TopBar onMenuToggle={() => setMenuVisible(!menuVisible)} />
       <Box className="margin-top-bar" height="50px" />
@@ -118,7 +123,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       {/* <PageTransition pageKey={router.pathname}> */}
       <Component {...pageProps} />
       {/* </PageTransition> */}
-    </ChakraProvider>
+    </Chakra>
   );
 }
 

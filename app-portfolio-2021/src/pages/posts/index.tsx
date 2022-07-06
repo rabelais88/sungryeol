@@ -25,13 +25,14 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import PostTag from '@/components/PostTag';
-import { shortInternationalTime, toNum, toStr } from '@sungryeol/lib';
+import { toNum, toStr } from '@sungryeol/lib';
 import parse from 'html-react-parser';
 import { ChangeEventHandler, useMemo } from 'react';
 import _debounce from 'lodash/debounce';
 import useSearchQuery from '@/hooks/useSearchQuery';
 import PostSearchTags from '@/components/PostSearch/Tags';
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
+import DateText from '@/components/DateText';
 
 const PostItem: React.FC<{ hit: AlgoliaHit<IPostHit> }> = ({ hit }) => {
   return (
@@ -50,16 +51,21 @@ const PostItem: React.FC<{ hit: AlgoliaHit<IPostHit> }> = ({ hit }) => {
         lineHeight="18px"
         className="title-area"
       >
-        <Text
-          w="90px"
-          mr="10px"
-          as="span"
-          display={{ base: 'block', lg: 'inline-block' }}
-          mb={{ base: '15px', lg: '0' }}
-          className="title-date"
-        >
-          {shortInternationalTime(new Date(hit.updatedAt))}
-        </Text>
+        <DateText
+          value={hit.updatedAt}
+          render={(updatedAt) => (
+            <Text
+              w="90px"
+              mr="10px"
+              as="span"
+              display={{ base: 'block', lg: 'inline-block' }}
+              mb={{ base: '15px', lg: '0' }}
+              className="title-date"
+            >
+              {updatedAt}
+            </Text>
+          )}
+        />
         <NextLink href={`/posts/${hit.uid}`} passHref>
           <Link display="inline-block" fontSize="15px" fontWeight="800">
             {parse(hit._highlightResult?.title?.value ?? '')}

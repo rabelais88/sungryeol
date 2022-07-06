@@ -113,6 +113,7 @@ const TopBar: React.FC<ITopBarProps> = ({ onMenuToggle = () => {} }) => {
     onScroll();
     return () => window.removeEventListener('scroll', debouncedOnScroll);
   }, []);
+
   const Bar = useMemo(
     () => (
       <Box

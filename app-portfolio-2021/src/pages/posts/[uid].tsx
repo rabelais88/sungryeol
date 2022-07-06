@@ -4,7 +4,7 @@ import { ReturnPromiseType } from '@/types';
 import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import LayoutDefault from '@/layout/LayoutDefault';
-import MDXRender from '@/components/MDXRender';
+import MDXRender from '@/components/Markdown/MDXRender';
 import {
   Box,
   Button,
@@ -12,7 +12,9 @@ import {
   Heading,
   HStack,
   Link,
+  LinkOverlay,
   useToast,
+  VStack,
   Wrap,
   WrapItem,
 } from '@chakra-ui/react';
@@ -24,8 +26,11 @@ import { useCallback, useMemo } from 'react';
 
 import { PostTagControl } from '@/components/PostTag';
 import { useRouter } from 'next/router';
-import { mdxPostConfig } from '@/constants/mdxConfig';
+import { mdxPostConfig } from '@/components/Markdown/mdxConfig';
 import testMarkdowns from '@/constants/testMarkdowns';
+import { processContent } from '@/components/Markdown/mdxUtils';
+import LogoGeometry from '@/components/icons/LogoGeometry';
+import LogoText from '@/components/icons/LogoText';
 
 interface IProps {
   post: ReturnPromiseType<typeof getPost>;
@@ -40,8 +45,8 @@ const Post: NextPage<IProps> = ({ post, mdxSource, preview }) => {
     toast({ title: 'url copied to clipboard', isClosable: true });
   };
   const shortenedContent = useMemo(
-    () => (post.content ?? '').slice(0, 50),
-    [post.content]
+    () => (post?.content ?? '').slice(0, 50),
+    [post?.content]
   );
   const router = useRouter();
   const searchTag = useCallback(
@@ -101,6 +106,19 @@ const Post: NextPage<IProps> = ({ post, mdxSource, preview }) => {
       </Heading>
       <Divider mt="10px" mb="10px" borderBottom="solid 1px black" />
       <MDXRender mdxSource={mdxSource} as="article" />
+
+      <VStack className="area-post-bottom" mt="20">
+        <NextLink href="/" passHref>
+          <Link>
+            <LogoGeometry w="160px" h="68px" />
+          </Link>
+        </NextLink>
+        <NextLink href="/" passHref>
+          <Link>
+            <LogoText w="78px" h="18px" />
+          </Link>
+        </NextLink>
+      </VStack>
     </LayoutDefault>
   );
 };
@@ -110,7 +128,10 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
   const paths = postIndices.posts.data.map((p) => ({
     params: { uid: `${p?.attributes?.uid}` },
   }));
-  if (process.env.NODE_ENV === 'development') {
+  if (
+    process.env.NODE_ENV === 'development' ||
+    process.env.NODE_ENV === 'test'
+  ) {
     testMarkdowns.forEach((_, i) =>
       paths.push({ params: { uid: `test-${i}` } })
     );
@@ -123,19 +144,21 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 // https://github.com/prisma-labs/graphql-request
 export const getStaticProps: GetStaticProps<IProps> = async (context) => {
   const uid = `${context?.params?.uid}`;
+
   if (process.env.NODE_ENV === 'development') {
     const testValid = /^test-[\d]+$/.test(uid);
     if (testValid) {
       const testUid = Number(uid.replace('test-', ''));
       const testPost = testMarkdowns[Number(testUid)];
-      const mdxSource = await serialize(testPost?.content ?? '', mdxPostConfig);
+      const content = processContent(testPost?.content);
+      const mdxSource = await serialize(content, mdxPostConfig);
       return { props: { post: testPost, mdxSource, preview: false } };
     }
   }
   if (context.preview) {
     const post = await getPost(uid, true);
     if (!post) return { notFound: true };
-    const content = post.content as string;
+    const content = processContent(post.content as string);
     return {
       props: {
         post,
@@ -146,7 +169,7 @@ export const getStaticProps: GetStaticProps<IProps> = async (context) => {
   }
   const post = await getPost(uid);
   if (!post) return { notFound: true };
-  const content = post.content as string;
+  const content = processContent(post.content as string);
   const mdxSource = await serialize(content, mdxPostConfig);
   return { props: { post, mdxSource, preview: false }, revalidate: 9 };
 };

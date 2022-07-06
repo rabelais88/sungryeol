@@ -13,10 +13,10 @@ import {
 } from '@chakra-ui/react';
 import LayoutContact from '@/layout/LayoutContact';
 import NextLink from 'next/link';
-import { shortInternationalTime } from '@sungryeol/lib';
 import IconShare from '@/components/icons/IconShare';
 import copyToClipboard from '@/utils/copyToClipboard';
 import Header from '@/components/Header';
+import DateText from '@/components/DateText';
 
 interface IProps {
   contact: ReturnPromiseType<typeof getContact>;
@@ -164,15 +164,20 @@ const Contact: NextPage<IProps> = ({ contact }) => {
       >
         Copy everything to clipboard
       </Button>
-      <Text textAlign="center" fontWeight="200" mt="40px">
-        last updated at {shortInternationalTime(new Date(contact.publishedAt))}
-      </Text>
+      <DateText
+        value={contact.publishedAt}
+        render={(publishedAt) => (
+          <Text textAlign="center" fontWeight="200" mt="40px">
+            last updated at {publishedAt}
+          </Text>
+        )}
+      />
     </LayoutContact>
   );
 };
 
 export const getStaticProps: GetStaticProps<IProps> = async (context) => {
-  const contact = await getContact();
+  const contact = (await getContact()) || {};
   return { props: { contact }, revalidate: 9 };
 };
 

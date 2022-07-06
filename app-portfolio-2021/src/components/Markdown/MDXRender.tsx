@@ -20,7 +20,7 @@ import {
 } from 'next-mdx-remote';
 import 'katex/dist/katex.min.css';
 import makeShimmerUri from '@/utils/makeShimmerUri';
-import CustomLink from './CustomLink';
+import CustomLink from '@/components/CustomLink';
 import { DetailedHTMLProps, ImgHTMLAttributes } from 'react';
 
 const _Code: React.FC<CodeProps> = ({ children, ...props }) => {
@@ -74,74 +74,32 @@ const Callout: React.FC<ICalloutProps> = ({
 type CustomImgProps = DetailedHTMLProps<
   ImgHTMLAttributes<HTMLImageElement>,
   HTMLImageElement
->;
+> & { caption?: string };
 type BlurProps = Pick<
   ImageProps,
   'width' | 'height' | 'placeholder' | 'blurDataURL'
 >;
-const reOptions = /\[@options:\{(.+)\}\]/;
-const reCaptions = /(.*)\[@options:\{.+\}\](.*)/;
-const optionsParser = (str?: string) => {
-  if (!str) return;
-  const matches = reOptions.exec(str);
-  if (!matches || !matches?.[1]) return;
-  return matches[1].split(',').reduce((ac, cv) => {
-    const [key, value] = cv.split(':');
-    return { ...ac, [key]: value };
-  }, {}) as Partial<CustomImgProps>;
-};
-function captionsParser(str?: string) {
-  try {
-    if (!str) return '';
-    const matches = reCaptions.exec(str);
-    if (!matches || !matches[1]) return str;
-    const captions = matches
-      .slice(1)
-      .filter((t) => t !== '')
-      .join(' ');
-    return captions;
-  } catch (err) {
-    return '';
-  }
-}
 
 const CustomImg: React.FC<CustomImgProps> = ({
   alt,
   src = '',
   placeholder,
   title,
+  caption = '',
   ...props
 }) => {
-  const optionString = title ?? '';
-  let options: ReturnType<typeof optionsParser>;
-  let caption = captionsParser(optionString);
-  try {
-    options = optionsParser(optionString);
-  } catch (err) {
-    // apparently, this replacement does not work
-    // unreachable code
-    return (
-      <img
-        {...props}
-        alt={alt}
-        src={src}
-        placeholder={placeholder}
-        title={title}
-        className="without-options"
-      />
-    );
-  }
   const blurProps: BlurProps = {
-    width: options?.width ?? 500,
-    height: options?.height,
+    width: props?.width ?? 500,
+    height: props?.height ?? 500,
     placeholder: 'blur',
   };
   blurProps.blurDataURL = makeShimmerUri(
     Number(blurProps.width),
     Number(blurProps.height)
   );
+  ``;
 
-  if (!caption || caption === '')
+  if (caption === '')
     return (
       <Image
         src={src}
@@ -231,7 +189,7 @@ const components: MDXRemoteProps['components'] = {
   div: _Div,
   callout: Callout,
   Callout,
-  'custom-img': CustomImg,
+  CustomImg: CustomImg,
   // todo: probably need to use hydrate() with mdx to bypass img issue
   // https://stackoverflow.com/questions/64007838/mdx-blog-just-displays-markdown-content-instead-of-rendering-it-while-using-mdx
   img: CustomImg,

@@ -1,6 +1,7 @@
 import { Box, Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
-const MarqueeBar: React.FC = ({ children }) => {
+import { PropsWithChildren } from 'react';
+const MarqueeBar: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   return (
     <Box className="marquee-bar">
       <NextLink href="https://github.com/rabelais88" passHref>
@@ -12,7 +13,7 @@ const MarqueeBar: React.FC = ({ children }) => {
           maxW="100%"
           overflow="hidden"
           height="30px"
-          bgColor="pink.400"
+          bgColor="bg-pink"
           sx={{
             '.track': {
               position: 'absolute',
