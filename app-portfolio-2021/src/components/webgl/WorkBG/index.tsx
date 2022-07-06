@@ -1,28 +1,30 @@
+import { Box, BoxProps } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import { useRef, useEffect, useCallback } from 'react';
 import GL from './GL';
 
-const WorkBG: React.FC = () => {
+const WorkBG: React.FC<BoxProps> = (props) => {
   const refCanvas = useRef<HTMLCanvasElement>(null);
   const refState = useRef({ gl: new GL() });
+  const refDiv = useRef<HTMLDivElement>(null);
 
   const onResize = useCallback(() => {
-    if (!refCanvas.current) return;
-    console.log('resizing');
+    if (!refCanvas.current || !refDiv.current) return;
     refState.current.gl.resize(
-      refCanvas.current.clientWidth,
-      refCanvas.current.clientHeight
+      refDiv.current.clientWidth,
+      refDiv.current.clientHeight ?? 0
     );
   }, []);
   useEffect(() => {
-    if (!refCanvas.current) return;
+    if (!refCanvas.current || !refDiv.current) return;
     const state = refState.current;
-    console.log('useEffect() triggering init');
     if (state.gl.destroyed) state.gl = new GL();
+
+    console.log('init', window.innerWidth);
     state.gl.init({
       canvas: refCanvas.current,
-      width: refCanvas.current.clientWidth,
-      height: refCanvas.current.clientHeight,
+      width: refDiv.current.clientWidth ?? 0,
+      height: refDiv.current.clientHeight ?? 0,
     });
     window.addEventListener('resize', onResize);
     return () => {
@@ -30,7 +32,11 @@ const WorkBG: React.FC = () => {
       state.gl.destroy();
     };
   }, []);
-  return <canvas ref={refCanvas} className="gl work-bg"></canvas>;
+  return (
+    <Box ref={refDiv} className="work-bg" {...props}>
+      <canvas ref={refCanvas} className="gl"></canvas>
+    </Box>
+  );
 };
 
 export default dynamic(() => Promise.resolve(WorkBG), { ssr: false });

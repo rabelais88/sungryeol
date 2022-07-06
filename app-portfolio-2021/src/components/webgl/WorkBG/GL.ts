@@ -15,6 +15,9 @@ export default class GL {
     this.scene = new T.Scene();
   }
   log(...args: any[]) {
+    const dev =
+      process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test';
+    if (!dev) return;
     console.log('gl:', ...args);
   }
   init({
@@ -36,16 +39,15 @@ export default class GL {
     this.width = width;
     this.height = height;
 
-    this.camera = new T.PerspectiveCamera(70, this.aspect, 0.01, 10);
-    this.camera.position.z = 1.5;
+    this.camera = new T.PerspectiveCamera(70, this.aspect, 0.01, 20);
+    this.camera.position.z = 5;
     this.scene.add(this.camera);
-    this.scene.background = new T.Color('pink');
 
     this.scene.add(new T.AxesHelper(3));
-    this.flowingText = new FlowingText();
+    this.flowingText = new FlowingText(100);
     this.scene.add(this.flowingText.group);
 
-    this.renderer = new T.WebGLRenderer({ ...renderer, canvas });
+    this.renderer = new T.WebGLRenderer({ ...renderer, canvas, alpha: true });
     this.resize(width, height);
 
     this.renderer.setAnimationLoop(this.onLoop);
@@ -57,10 +59,12 @@ export default class GL {
   resize(width: number, height: number) {
     this.log('resize', width, height);
     if (!this.camera || !this.renderer) return;
-    this.camera.aspect = this.aspect;
-    this.camera.updateProjectionMatrix();
+    this.width = width;
+    this.height = height;
     this.renderer.setSize(width, height);
     this.renderer.setPixelRatio(1.5);
+    this.camera.aspect = this.aspect;
+    this.camera.updateProjectionMatrix();
   }
 
   onLoop: XRFrameRequestCallback = (time) => {

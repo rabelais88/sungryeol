@@ -14,26 +14,20 @@ interface IProps {
 
 const Work: NextPage<IProps> = ({ mdxSource }) => {
   return (
-    <Box
-      position="relative"
-      width="100%"
-      sx={{
-        '.work-bg': {
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          zIndex: 0,
-        },
-      }}
-    >
-      <LayoutDefault zIndex="1" position="fixed">
+    <Box position="relative" width="100%">
+      <LayoutDefault zIndex="1" position="absolute">
         <Header title="지식공단 - work" description="browsing works" />
         <Box height="50px" />
         <MDXRender mdxSource={mdxSource} />
       </LayoutDefault>
-      <WorkBG />
+      <WorkBG
+        position="fixed"
+        top="0"
+        left="0"
+        width="100%"
+        height="100vh"
+        overflowX="hidden"
+      />
     </Box>
   );
 };

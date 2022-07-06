@@ -1,16 +1,16 @@
+import { text } from 'stream/consumers';
 import {
   CanvasTexture,
-  MeshBasicMaterial,
+  DoubleSide,
+  FrontSide,
+  LinearFilter,
+  MirroredRepeatWrapping,
   RepeatWrapping,
   ShaderMaterial,
-  Wrapping,
+  UVMapping,
+  Vector2,
 } from 'three';
 
-interface MaterialCanvasArg extends Pick<MaterialCanvas, 'width' | 'height'> {
-  mapping?: CanvasTexture['mapping'];
-  wrapS?: Wrapping;
-  wrapT?: Wrapping;
-}
 const simplexNoise3D = `
 //	Simplex 3D Noise 
 //	by Ian McEwan, Ashima Arts
@@ -90,27 +90,33 @@ float snoise(vec3 v){
 
 export default class MaterialCanvas {
   canvas: HTMLCanvasElement;
-  width: number = 1024;
-  height: number = 1024;
+  width: number = 1;
+  height: number = 1;
   texture: CanvasTexture;
   material: ShaderMaterial;
+  content: string = 'sungryeol';
   constructor() {
     this.canvas = document.createElement('canvas');
-    this.canvas.width = this.width;
-    this.canvas.height = this.height;
-    this.texture = new CanvasTexture(
-      this.canvas,
-      undefined,
-      RepeatWrapping,
-      RepeatWrapping
-    );
+    const { width: textWidth, height: textHeight } = this.setFont(80, 'arial');
+    this.width = textWidth;
+    this.height = textHeight;
+    this.texture = new CanvasTexture(this.canvas);
     this.draw();
+
+    this.texture.offset.set(0, 0);
+    this.texture.wrapS = this.texture.wrapT = RepeatWrapping;
+    this.texture.repeat.set(100, 100);
+    this.texture.mapping = UVMapping;
+    this.texture.minFilter = LinearFilter;
+    this.texture.needsUpdate = true;
     this.material = new ShaderMaterial({
       transparent: true,
+      side: FrontSide,
       uniforms: {
         map: { value: this.texture },
         uTime: { value: 0 },
-        uIntensity: { value: 0.025 },
+        uIntensity: { value: 0.1 },
+        uRepeat: { value: 100 },
       },
       vertexShader: `
       varying vec2 vUv;
@@ -141,8 +147,9 @@ export default class MaterialCanvas {
       fragmentShader: `
       varying vec2 vUv;
       uniform sampler2D map;
+      uniform float uRepeat;
       void main() {
-        gl_FragColor = texture2D(map, vUv);
+        gl_FragColor = texture2D(map, vUv * uRepeat);
       }
       `,
     });
@@ -150,19 +157,24 @@ export default class MaterialCanvas {
   get ctx() {
     return this.canvas.getContext('2d') as CanvasRenderingContext2D;
   }
-  draw() {
-    this.ctx.fillStyle = 'gray';
-    this.ctx.font = '30px arial';
+  setFont(px: number, fontFamily: string) {
     this.ctx.textAlign = 'left';
     this.ctx.textBaseline = 'top';
-    for (let x = 0; x < 30; x++) {
-      for (let y = 0; y < 120; y++) {
-        this.ctx.fillText('sungryeol', x * 150, y * 50);
-      }
-    }
-    console.log(
-      '%c ',
-      `font-size:2048px;background-image:url(${this.canvas.toDataURL()});`
-    );
+    this.ctx.font = `${px}px ${fontFamily}`;
+    const { width } = this.ctx.measureText(this.content);
+    return { width, height: px };
+  }
+  draw() {
+    this.ctx.fillStyle = 'lightgray';
+    this.ctx.fillText(this.content, 0, 0);
+
+    if (
+      process.env.NODE_ENV === 'test' ||
+      process.env.NODE_ENV === 'development'
+    )
+      console.log(
+        '%c   ',
+        `font-size:100px;background-image:url(${this.canvas.toDataURL()});background-size:cover;border:solid 1px red;`
+      );
   }
 }
