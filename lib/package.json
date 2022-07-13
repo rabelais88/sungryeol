@@ -9,7 +9,6 @@
   ],
   "types": "dist/index.d.ts",
   "source": "src/index.ts",
-  "private": false,
   "publishConfig": {
     "access": "public"
   },
