@@ -7,7 +7,6 @@
   ],
   "repository": "https://github.com/rabelais88/sungryeol",
   "license": "MIT",
-  "private": false,
   "publishConfig": {
     "access": "public"
   }

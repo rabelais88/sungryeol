@@ -29,5 +29,8 @@
     "pub": "echo 'for publishing, check readme.md'",
     "build": "oao run-script build"
   },
-  "dependencies": {}
+  "engines": {
+    "yarn": "1.19.0"
+  },
+  "packageManager": "yarn@1.19.0"
 }
