@@ -1,6 +1,4 @@
 import type { AppProps } from 'next/app';
-import { ChakraProvider } from '@chakra-ui/react';
-import theme from '@/styles/theme';
 import { Box } from '@chakra-ui/react';
 import GlobalStyleLoader from '@/styles/GlobalStyleLoader';
 import Menu from '@/components/Menu';
@@ -13,7 +11,6 @@ import {
   motion,
 } from 'framer-motion';
 import * as animVariant from '@/constants/animVariant';
-// import '@/styles/global.css';
 import TopBar from '@/components/TopBar';
 import dynamic from 'next/dynamic';
 import { Chakra } from '@/styles/Chakra';

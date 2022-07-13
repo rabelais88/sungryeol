@@ -22,13 +22,6 @@
     "lib",
     "app-portfolio-2021"
   ],
-  "scripts": {
-    "bootstrap": "npx oao bootstrap",
-    "status": "oao status",
-    "clean": "oao clean",
-    "pub": "echo 'for publishing, check readme.md'",
-    "build": "oao run-script build"
-  },
   "engines": {
     "yarn": "1.19.0"
   },
