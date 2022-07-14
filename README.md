@@ -9,35 +9,42 @@
 
 # Caveat
 
-- 새로운 라이브러리가 추가되면 `.vscode/settings.json` 내부의 `eslint.workingDirectories`에 해당 디렉토리 추가
+- manage workspace folders via `.vsocde/settings.json` -> `eslint.workingDirectories`
 - vercel을 통해 배포할 때에는 반드시 `Root Directory`를 지정하고, `Include source files outside of the Root Directory in the Build Step.`을 체크 해제할 것. yarn workspace와 vercel의 조합이 좋지 않아 소프트링크에 대해서 분명히 파일이 존재하는 데에도 존재하지 않는다는 버그를 일으킨다.
 - 로컬에서는 웹 환경과 달리 yarn workspace 설정에 따라 자동으로 소프트링크된 내용을 사용하게 되므로 주의.
-- cloud services such as vercel, render only supports yarn v1. thus, this project is forced to use yarn v1.
+- cloud services(i.e. vercel, render...) only supports yarn v1. thus, this project is forced to use yarn v1.
+- migrate to yarn v2 when ecosystem is ready
+  - yarn v2, v3(berry) migration fail(due to cloud compatibility disparity): 2022. July
+  - [vscode symlinked multifolder workspace setting](https://code.visualstudio.com/docs/editor/workspaces#_workspace-settings)
 
 # install, bootstrapping
 
 https://yarnpkg.com/getting-started/migration#cli-commands
 
 ```sh
-# it requires minimum of yarn v2
-# yarn run as v1.x in current workspace
-(project root)$ yarn install
+# activate appropriate yarn version before installing
+(system root)$ yarn set version 1.x # check version from package.json
+(project root)$ npx oao bootstrap
 ```
 
 # build & publish libraries
 
 ```sh
-# package management via oao is no longer valid since yarn v2
-(project root)/lib$ yarn build
-(project root)/lib$ yarn npm login
-(project root)/lib$ yarn publish # possibly npm publish if it does not work
+(project root)$ yarn oao run-script build
+(proejct root)$ npm login
+(project root)$ yarn oao publish
+(project root)$ yarn oao status
 ```
 
 # maintenance for libraries
 
 ```sh
 # check all outdated libs
-(project root)$ yarn upgrade-interactive
+(project root)$ yarn oao outdated
+# update libs in all modules
+(proejct root)$ yarn oao bump react react-dom
+# clear all libs
+(proejct root)$ yarn oao clean
 ```
 
 # build skip
