@@ -23,15 +23,6 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[go]": {
-    "editor.insertSpaces": false,
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": true
-    },
-    "editor.suggest.snippetsPreventQuickSuggestions": false
-  },
-  "go.lintTool": "golangci-lint",
   "eslint.workingDirectories": [
     "./app-portfolio-2021",
     "./app-admin-2021",
@@ -39,11 +30,5 @@
     "./typescript-config",
     "./prettier-config",
     "./lib"
-  ],
-  "search.exclude": {
-    "**/.yarn": true,
-    "**/.pnp.*": true
-  },
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  ]
 }
