@@ -1,7 +1,7 @@
 import { shortInternationalTime } from '@sungryeol/lib';
 import { useEffect, useState } from 'react';
 
-interface IDateTextProps {
+interface IDateTextProps   {
   value: string;
   render: (stringDate: string) => JSX.Element;
 }

@@ -2586,6 +2586,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chakra-ui/theme-tools@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "@chakra-ui/theme-tools@npm:2.0.5"
+  dependencies:
+    "@chakra-ui/utils": 2.0.4
+    "@ctrl/tinycolor": ^3.4.0
+  peerDependencies:
+    "@chakra-ui/system": ">=2.0.0-next.0"
+  checksum: f2d8cc7ce06fdb6282bdebbe3e26ba84e806f02b12889136cfcc1f418ff87e5d69bd8b746bdaa6cefd2ba92436f17d49d6ba371ba457765a5318dc4aa344dcef
+  languageName: node
+  linkType: hard
+
 "@chakra-ui/theme@npm:2.1.2":
   version: 2.1.2
   resolution: "@chakra-ui/theme@npm:2.1.2"
@@ -2660,6 +2672,18 @@ __metadata:
     framesync: 5.3.0
     lodash.mergewith: 4.6.2
   checksum: a32592d07a58207d7a82a6493fea82f30a2a00dced0ec34791a6b389e8d15ec4eb2a16b72664ae4bdddefcb2715e4141a13c125bf23b4583ab4d20c19e66179c
+  languageName: node
+  linkType: hard
+
+"@chakra-ui/utils@npm:2.0.4":
+  version: 2.0.4
+  resolution: "@chakra-ui/utils@npm:2.0.4"
+  dependencies:
+    "@types/lodash.mergewith": 4.6.6
+    css-box-model: 1.2.1
+    framesync: 5.3.0
+    lodash.mergewith: 4.6.2
+  checksum: 5e16c78695bef0a026fe0b7cc4158488609a0405bd7e7ab7151d692c38b6b6d238ef5c2639d7fe881e416385701777eac4b48851b25eeda14a87df9084151842
   languageName: node
   linkType: hard
 
@@ -3695,6 +3719,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry/cli@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "@sentry/cli@npm:2.4.0"
+  dependencies:
+    https-proxy-agent: ^5.0.0
+    node-fetch: ^2.6.7
+    npmlog: ^6.0.1
+    progress: ^2.0.3
+    proxy-from-env: ^1.1.0
+    which: ^2.0.2
+  bin:
+    sentry-cli: bin/sentry-cli
+  checksum: 92d95e3a99bd2cf850aaf41af48b7e51fabdae1fe890f0df06a6f23d322aaa0e4769e3e50d21c4ec6a006b336e82ffef036432d1e857f3f266d8331f401a28c9
+  languageName: node
+  linkType: hard
+
 "@sentry/core@npm:7.6.0":
   version: 7.6.0
   resolution: "@sentry/core@npm:7.6.0"
@@ -3730,7 +3770,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/nextjs@npm:^7.4.1":
+"@sentry/nextjs@npm:^7.6.0":
   version: 7.6.0
   resolution: "@sentry/nextjs@npm:7.6.0"
   dependencies:
@@ -5054,9 +5094,11 @@ __metadata:
     "@chakra-ui/icons": ^2.0.2
     "@chakra-ui/react": ^2.2.1
     "@chakra-ui/storybook-addon": ^4.0.1
+    "@chakra-ui/theme-tools": ^2.0.5
     "@emotion/react": ^11
     "@emotion/styled": ^11
-    "@sentry/nextjs": ^7.4.1
+    "@sentry/cli": ^2.4.0
+    "@sentry/nextjs": ^7.6.0
     "@storybook/addon-actions": ^6.5.9
     "@storybook/addon-essentials": ^6.5.9
     "@storybook/addon-links": ^6.5.9
@@ -5083,6 +5125,7 @@ __metadata:
     graphql-request: ^4.3.0
     graphql-typescript-definitions: ^3.2.0
     html-react-parser: ^2.0.0
+    lodash: ^4.17.21
     next: ^12.2.0
     next-mdx-remote: ^4.0.3
     next-sitemap: ^3.1.7
@@ -15721,7 +15764,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npmlog@npm:^6.0.0":
+"npmlog@npm:^6.0.0, npmlog@npm:^6.0.1":
   version: 6.0.2
   resolution: "npmlog@npm:6.0.2"
   dependencies:

@@ -1,0 +1,42 @@
+{
+  "folders": [
+    {
+      "path": "app-portfolio-2021",
+      "name": "@sungryeol/app-portfolio-2021"
+    },
+    {
+      "path": "lib",
+      "name": "@sungryeol/lib"
+    },
+    {
+      "path": "prettier-config",
+      "name": "@sungryeol/prettier-config"
+    },
+    {
+      "path": "typescript-config",
+      "name": "@sungryeol/typescript-config"
+    },
+  ],
+  "extensions": {
+    "recommendations": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+  },
+  "settings": {
+    "eslint.workingDirectories": [
+      "./app-portfolio-2021",
+      "./app-admin-2021",
+      "./eslint-config",
+      "./typescript-config",
+      "./prettier-config",
+      "./lib"
+    ],
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+    "search.exclude": {
+      "**/.yarn": true,
+      "**/.pnp.*": true
+    },
+    "typescript.tsdk": "../.yarn/sdks/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+  }
+}
