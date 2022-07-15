@@ -24,9 +24,9 @@
     "app-portfolio-2021"
   ],
   "engines": {
-    "yarn": "1.22.15"
+    "yarn": "1.22.17"
   },
-  "packageManager": "yarn@1.22.15",
+  "packageManager": "yarn@1.22.17",
   "scripts": {
     "build": "turbo run build",
     "test": "turbo run test",
