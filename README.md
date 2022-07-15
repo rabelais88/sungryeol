@@ -19,7 +19,8 @@
 
 # install, bootstrapping
 
-https://yarnpkg.com/getting-started/migration#cli-commands
+- https://yarnpkg.com/getting-started/migration#cli-commands
+- https://vercel.com/docs/concepts/monorepos/turborepo
 
 ```sh
 # activate appropriate yarn version before installing
@@ -30,7 +31,7 @@ https://yarnpkg.com/getting-started/migration#cli-commands
 # build & publish libraries
 
 ```sh
-(project root)$ yarn oao run-script build
+(project root)$ yarn turbo build 
 (proejct root)$ npm login
 (project root)$ yarn oao publish
 (project root)$ yarn oao status
