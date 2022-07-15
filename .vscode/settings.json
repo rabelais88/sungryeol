@@ -1,37 +1,9 @@
 {
   "editor.formatOnSave": true,
   "editor.renderWhitespace": "all",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   // settings for multiple language is not supported yet
   // these settings are must for auto format & save
-  "[javascript]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[json]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[jsonc]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescript]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[go]": {
-    "editor.insertSpaces": false,
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": true
-    },
-    "editor.suggest.snippetsPreventQuickSuggestions": false
-  },
-  "go.lintTool": "golangci-lint",
   "eslint.workingDirectories": [
     "./app-portfolio-2021",
     "./app-admin-2021",
@@ -39,11 +11,5 @@
     "./typescript-config",
     "./prettier-config",
     "./lib"
-  ],
-  "search.exclude": {
-    "**/.yarn": true,
-    "**/.pnp.*": true
-  },
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  ]
 }
