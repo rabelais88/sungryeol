@@ -17,6 +17,24 @@
   - yarn v2, v3(berry) migration fail(due to cloud compatibility disparity): 2022. July
   - [vscode symlinked multifolder workspace setting](https://code.visualstudio.com/docs/editor/workspaces#_workspace-settings)
 
+# developing inside docker container + vscode
+
+- can be accessed via vscode devcontainer + mutagen
+- https://code.visualstudio.com/docs/remote/attach-container#_attached-container-configuration-files
+
+```
+source mutagen-workspace.sh
+# clearing service
+source mutagen-workspace.sh down
+# rebuilding image(when global node package is updated)
+source mutagen-workspace.sh build
+```
+
+- `Remote-Containers: Attach to Running Container...` to attach to mutagen-compose service
+- after opening up the service in VSCODE,
+  use `Remote-Containers: Open Attached Container Configuration File...` to use user-specific setting.
+  refer to `.devcontainer/config-recommend.json` for recommended container setting.
+
 # install, bootstrapping
 
 - https://yarnpkg.com/getting-started/migration#cli-commands
@@ -31,7 +49,7 @@
 # build & publish libraries
 
 ```sh
-(project root)$ yarn turbo build 
+(project root)$ yarn turbo build
 (proejct root)$ npm login
 (project root)$ yarn oao publish
 (project root)$ yarn oao status

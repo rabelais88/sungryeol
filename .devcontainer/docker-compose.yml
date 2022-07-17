@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  sungryeol-monorepo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Update 'VARIANT' to pick a Node version: 18, 16, 14.
+        # Append -bullseye or -buster to pin to an OS version.
+        # Use -bullseye variants on local on arm64/Apple Silicon.
+        VARIANT: "16-bullseye"
+        SHELL_PATH: "/workspace/sungryeol"
+    volumes:
+      - sungryeol-vol:/workspace/sungryeol:cached
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+volumes:
+  sungryeol-vol:
+
+# https://mutagen.io/documentation/orchestration/compose
+x-mutagen:
+  sync:
+    defaults:
+      ignore:
+        vcs: true
+        paths:
+          # ignore all temporary files
+          # because this docker setting is not for production.
+          - "node_modules"
+          # - ".devcontainer"
+          - ".parcel-cache"
+          - ".next"
+    sungryeol-vol: # same as volumes.code
+      alpha: ".." # mutagen does not know vscode workspace
+      beta: "volume://sungryeol-vol" # volume name
+      mode: "two-way-resolved"

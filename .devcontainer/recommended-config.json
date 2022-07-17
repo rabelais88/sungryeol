@@ -1,0 +1,12 @@
+{
+  "workspaceFolder": "/workspace/sungryeol",
+  "forwardPorts": [3000, 6000],
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "mikestead.dotenv",
+    "Yummygum.city-lights-icon-vsc",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode"
+  ]
+}
