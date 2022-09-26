@@ -67,6 +67,8 @@ export const getPost = async (uid: string, preview?: boolean) => {
           title
           content
           publishedAt
+          updatedAt
+          dateOverride
           tags {
             data {
               attributes {
@@ -99,6 +101,7 @@ interface IGetPostsPost {
     title: string;
     uid: string;
     publishedAt: string;
+    dateOverride: string;
     tags: ITags;
   };
 }

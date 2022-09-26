@@ -52,7 +52,7 @@ const PostItem: React.FC<{ hit: AlgoliaHit<IPostHit> }> = ({ hit }) => {
         className="title-area"
       >
         <DateText
-          value={hit.updatedAt}
+          value={hit.dateOverride || hit.updatedAt}
           render={(updatedAt) => (
             <Text
               w="90px"

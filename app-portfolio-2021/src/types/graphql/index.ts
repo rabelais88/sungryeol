@@ -2,6 +2,7 @@ import { PublicationState } from "./PublicationState";
 export { PublicationState };
 export type JSON = string;
 export type DateTime = string;
+export type Date = string;
 export type Upload = string;
 export interface IDFilterInput {
   and?: (string | null)[] | null;
@@ -112,6 +113,28 @@ export interface FloatFilterInput {
   in?: (number | null)[] | null;
   notIn?: (number | null)[] | null;
   between?: (number | null)[] | null;
+}
+export interface DateFilterInput {
+  and?: (Date | null)[] | null;
+  or?: (Date | null)[] | null;
+  not?: DateFilterInput | null;
+  eq?: Date | null;
+  ne?: Date | null;
+  startsWith?: Date | null;
+  endsWith?: Date | null;
+  contains?: Date | null;
+  notContains?: Date | null;
+  containsi?: Date | null;
+  notContainsi?: Date | null;
+  gt?: Date | null;
+  gte?: Date | null;
+  lt?: Date | null;
+  lte?: Date | null;
+  null?: boolean | null;
+  notNull?: boolean | null;
+  in?: (Date | null)[] | null;
+  notIn?: (Date | null)[] | null;
+  between?: (Date | null)[] | null;
 }
 export interface DateTimeFilterInput {
   and?: (DateTime | null)[] | null;
@@ -279,6 +302,7 @@ export interface PostFiltersInput {
   content?: StringFilterInput | null;
   tags?: TagFiltersInput | null;
   uid?: StringFilterInput | null;
+  dateOverride?: DateFilterInput | null;
   createdAt?: DateTimeFilterInput | null;
   updatedAt?: DateTimeFilterInput | null;
   publishedAt?: DateTimeFilterInput | null;
@@ -291,6 +315,7 @@ export interface PostInput {
   content?: string | null;
   tags?: (string | null)[] | null;
   uid?: string | null;
+  dateOverride?: Date | null;
   publishedAt?: DateTime | null;
 }
 export interface TagFiltersInput {

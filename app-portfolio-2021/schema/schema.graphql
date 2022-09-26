@@ -4,6 +4,9 @@ scalar JSON
 # A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 scalar DateTime
 
+# A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+scalar Date
+
 # The `Upload` scalar type represents a file upload.
 scalar Upload
 
@@ -136,6 +139,29 @@ input FloatFilterInput {
   in: [Float]
   notIn: [Float]
   between: [Float]
+}
+
+input DateFilterInput {
+  and: [Date]
+  or: [Date]
+  not: DateFilterInput
+  eq: Date
+  ne: Date
+  startsWith: Date
+  endsWith: Date
+  contains: Date
+  notContains: Date
+  containsi: Date
+  notContainsi: Date
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  null: Boolean
+  notNull: Boolean
+  in: [Date]
+  notIn: [Date]
+  between: [Date]
 }
 
 input DateTimeFilterInput {
@@ -469,6 +495,7 @@ input PostFiltersInput {
   content: StringFilterInput
   tags: TagFiltersInput
   uid: StringFilterInput
+  dateOverride: DateFilterInput
   createdAt: DateTimeFilterInput
   updatedAt: DateTimeFilterInput
   publishedAt: DateTimeFilterInput
@@ -482,6 +509,7 @@ input PostInput {
   content: String
   tags: [ID]
   uid: String
+  dateOverride: Date
   publishedAt: DateTime
 }
 
@@ -494,6 +522,7 @@ type Post {
     sort: [String] = []
   ): TagRelationResponseCollection
   uid: String
+  dateOverride: Date
   createdAt: DateTime
   updatedAt: DateTime
   publishedAt: DateTime
@@ -758,7 +787,7 @@ type Mutation {
     data: UsersPermissionsUserInput!
   ): UsersPermissionsUserEntityResponse!
 
-  # Update an existing user
+  # Delete an existing user
   deleteUsersPermissionsUser(id: ID!): UsersPermissionsUserEntityResponse!
   login(input: UsersPermissionsLoginInput!): UsersPermissionsLoginPayload!
 

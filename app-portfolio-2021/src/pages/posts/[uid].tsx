@@ -13,6 +13,7 @@ import {
   HStack,
   Link,
   LinkOverlay,
+  Text,
   useToast,
   VStack,
   Wrap,
@@ -31,6 +32,7 @@ import testMarkdowns from '@/constants/testMarkdowns';
 import { processContent } from '@/components/Markdown/mdxUtils';
 import LogoGeometry from '@/components/icons/LogoGeometry';
 import LogoText from '@/components/icons/LogoText';
+import DateText from '@/components/DateText';
 
 interface IProps {
   post: ReturnPromiseType<typeof getPost>;
@@ -101,6 +103,10 @@ const Post: NextPage<IProps> = ({ post, mdxSource, preview }) => {
           </WrapItem>
         ))}
       </Wrap>
+      <DateText
+        value={post.dateOverride || post.updatedAt}
+        render={(stringDate) => <Text color="gray.400">{stringDate}</Text>}
+      />
       <Heading as="h1" fontFamily="Title" mt="10px">
         {post.title}
       </Heading>

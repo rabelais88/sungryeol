@@ -59,7 +59,7 @@ const Result: React.FC<{ hit: AlgoliaHit<IPostHit> }> = ({ hit }) => {
       />
       <DateText
         render={(strDate) => <Text>{strDate}</Text>}
-        value={hit.updatedAt}
+        value={hit.dateOverride || hit.updatedAt}
       />
     </ListItem>
   );

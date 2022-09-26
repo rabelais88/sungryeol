@@ -13,7 +13,10 @@ export interface IGetPostResponse {
   posts: {
     data: [
       {
-        attributes: Pick<PostInput, 'title' | 'content' | 'publishedAt'> & {
+        attributes: Pick<
+          PostInput,
+          'title' | 'content' | 'publishedAt' | 'dateOverride' | 'updatedAt'
+        > & {
           tags: ITags;
         };
       }
@@ -53,6 +56,7 @@ export interface IGetContact {
 
 export interface IPostHit {
   updatedAt: string;
+  dateOverride: string;
   uid: string;
   content: string;
   title: string;
