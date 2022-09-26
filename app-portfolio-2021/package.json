@@ -1,7 +1,7 @@
 {
   "name": "@sungryeol/app-portfolio",
   "private": true,
-  "version": "1.2.0",
+  "version": "1.22.17",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
