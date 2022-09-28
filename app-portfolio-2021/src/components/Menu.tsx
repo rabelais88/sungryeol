@@ -44,7 +44,7 @@ const Menu: React.FC<IProps> = ({ visible = false }) => {
               <LogoGeometry w="160px" h="68px" mx="auto" display="block" />
               <VStack alignItems="flex-start" mt="20px">
                 <MenuTab href="/posts">posts</MenuTab>
-                <MenuTab href="/work">work</MenuTab>
+                <MenuTab href="/works">work</MenuTab>
                 <MenuTab href="/contact">contact</MenuTab>
               </VStack>
             </MotionBox>
@@ -86,7 +86,7 @@ const Menu: React.FC<IProps> = ({ visible = false }) => {
             <LogoGeometry w="160px" h="68px" mx="auto" display="block" />
             <VStack alignItems="flex-start" mt="20px">
               <MenuTab href="/posts">posts</MenuTab>
-              <MenuTab href="/work">work</MenuTab>
+              <MenuTab href="/works">work</MenuTab>
               <MenuTab href="/contact">contact</MenuTab>
             </VStack>
           </MotionBox>

@@ -31,7 +31,7 @@
     "graphql-request": "^4.3.0",
     "html-react-parser": "^2.0.0",
     "next": "^12.2.0",
-    "next-mdx-remote": "^4.0.3",
+    "next-mdx-remote": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-in-viewport": "^1.0.0-alpha.28",

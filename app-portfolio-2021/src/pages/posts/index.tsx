@@ -166,7 +166,7 @@ const Posts: NextPage<IProps> = ({ searchResults, tagsResult }) => {
   return (
     <>
       <Header title="지식공단 - posts" description="browse postings" />
-      <LayoutDefault>
+      <LayoutDefault data-page="posts">
         <Box height="50px" className="margin" />
         <LogoAnimated mx="auto" />
         <SearchBox defaultValue={searchResults.query} />

@@ -12,7 +12,6 @@ import {
   Heading,
   HStack,
   Link,
-  LinkOverlay,
   Text,
   useToast,
   VStack,
@@ -62,7 +61,7 @@ const Post: NextPage<IProps> = ({ post, mdxSource, preview }) => {
   );
 
   return (
-    <LayoutDefault>
+    <LayoutDefault data-page="posts-uid">
       <Header
         title={`지식공단 - ${post.title}`}
         description={shortenedContent}

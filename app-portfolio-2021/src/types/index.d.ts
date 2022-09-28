@@ -72,3 +72,11 @@ export interface IPostHit {
 export interface FrameGL {
   (time: number, delta: number): void;
 }
+
+// export type OptionalKeysOf<T> = {
+//   [K in keyof T]: {} extends Pick<T, K> ? K : never;
+// }[keyof T];
+
+// export type OnlyOptionalKeysToRequired<T> = Required<
+//   Pick<T, OptionalKeysOf<T>>
+// >;

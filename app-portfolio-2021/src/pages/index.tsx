@@ -104,7 +104,7 @@ const Home: NextPage<IProps> = ({ searchResult, tagsResult }) => {
           박성렬 블로그 &amp; 포트폴리오
         </Text>
         <LogoAnimated mx="auto" />
-        <BigLink href="/work">WORK</BigLink>
+        <BigLink href="/works">WORK</BigLink>
         <BigLink href="/contact">CONTACT</BigLink>
         <Box h="50px" />
         <Heading fontFamily="HammerSmith One">RECENT ARTICLES</Heading>
