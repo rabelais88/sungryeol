@@ -24,6 +24,7 @@ const Works: NextPage<IProps> = ({ mdxSourceAPI, mdxSourceLocal }) => {
           <Box height="50px" />
           {/* work page from API */}
           <MDXRender mdxSource={mdxSourceAPI} />
+          <Box height="30px" />
           {/* local work page */}
           <MDXRender mdxSource={mdxSourceLocal} />
         </LayoutDefault>
