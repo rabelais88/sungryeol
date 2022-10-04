@@ -32,5 +32,8 @@
     "test": "turbo run test",
     "lint": "turbo run lint",
     "dev": "turbo run dev"
+  },
+  "dependencies": {
+    "@u-wave/react-vimeo": "^0.9.8"
   }
 }

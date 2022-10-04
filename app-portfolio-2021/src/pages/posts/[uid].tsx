@@ -42,7 +42,7 @@ interface IProps {
 const Post: NextPage<IProps> = ({ post, mdxSource, preview }) => {
   const toast = useToast();
   const onShare = () => {
-    copyToClipboard(window?.location?.href);
+    copyToClipboard(window?.location?.href ?? '');
     toast({ title: 'url copied to clipboard', isClosable: true });
   };
   const shortenedContent = useMemo(

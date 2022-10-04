@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import AppLink from '@/components/AppLink';
 import CustomLink from '@/components/CustomLink';
+import Video from '@/components/Video';
 
 type MarkdownSource = MDXRemoteSerializeResult<Record<string, unknown>>;
 interface IWorkMDXFrontMatter {
@@ -21,6 +22,8 @@ interface IWorkMDXFrontMatter {
   captures?: {
     mobile: string[];
     desktop: string[];
+    /** video embed url from vimeo */
+    video: string[];
   };
   url?: string;
 }
@@ -35,7 +38,7 @@ const WorkImage: React.FC<ImageProps> = ({ src, ...props }) => {
   );
 };
 
-const MockPhone: React.FC<{ images: string[] }> = ({ images }) => {
+const MockPhone: React.FC<{ image: string }> = ({ image }) => {
   return (
     <Box
       className="mock-phone"
@@ -63,12 +66,12 @@ const MockPhone: React.FC<{ images: string[] }> = ({ images }) => {
         },
       }}
     >
-      <WorkImage src={images[0]} />
+      <WorkImage src={image} />
     </Box>
   );
 };
 
-const MockWindow: React.FC<{ images: string[] }> = ({ images }) => {
+const MockWindow: React.FC<{ image: string }> = ({ image }) => {
   return (
     <Box
       className="mock-window"
@@ -108,7 +111,7 @@ const MockWindow: React.FC<{ images: string[] }> = ({ images }) => {
         position="relative"
         overflowY="hidden"
       >
-        <WorkImage src={images[0]} />
+        <WorkImage src={image} />
       </Box>
     </Box>
   );
@@ -119,6 +122,7 @@ const Work: NextPage<IProps> = ({ mdxSource }) => {
   const fm = frontmatter as unknown as IWorkMDXFrontMatter | undefined;
   const mobileCaptures = fm?.captures?.mobile ?? [];
   const desktopCaptures = fm?.captures?.desktop ?? [];
+  const videoCaptures = fm?.captures?.video ?? [];
   const url = fm?.url ?? '';
   return (
     <LayoutDefault data-page="works-uid">
@@ -144,9 +148,18 @@ const Work: NextPage<IProps> = ({ mdxSource }) => {
           ),
         }}
       />
-      <VStack>
-        {mobileCaptures.length >= 1 && <MockPhone images={mobileCaptures} />}
-        {desktopCaptures.length >= 1 && <MockWindow images={desktopCaptures} />}
+      <Box height="50px" />
+      <VStack gap="30px">
+        {mobileCaptures.length >= 1 &&
+          mobileCaptures.map((capture, i) => (
+            <MockPhone image={capture} key={i} />
+          ))}
+        {desktopCaptures.length >= 1 &&
+          desktopCaptures.map((capture, i) => (
+            <MockWindow image={capture} key={i} />
+          ))}
+        {videoCaptures.length >= 1 &&
+          videoCaptures.map((videoUrl, i) => <Video url={videoUrl} key={i} />)}
       </VStack>
     </LayoutDefault>
   );
