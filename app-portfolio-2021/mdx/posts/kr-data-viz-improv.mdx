@@ -1,0 +1,107 @@
+---
+title: 데이터 시각화-분포도 시각화 개선하기
+publishDate: 2021-07-08
+---
+
+안녕하세요, 빅픽처 인터랙티브에서 프론트엔드 및 대회 데이터 시각화를 맡고 있는 박성렬입니다.👋🏼
+
+최근에 에드워드 터프트(Edward Tufte)의 유명한 저작인 [The Visual Display of Quantitative Information(이하 VQ)](https://www.amazon.com/Visual-Display-Quantitative-Information/dp/1930824130)을 읽고 있습니다.
+
+![The Visual Display of Quantitative Information의 책 커버](book-VQ.gif)
+
+에드워드 터프트는 통계학자이자 예일대 명예교수로, 데이터 시각화계에서 상당한 유명인입니다. [위키백과에 별도의 페이지](https://en.wikipedia.org/wiki/Edward_Tufte)가 있을 정도입니다. 터프트의 저작들 역시 그만큼 데이터 시각화에서 중요한 위치를 가지고 있습니다. VQ는 그 중에서도 핵심적인 생각들을 간추려서 표현하고 있는 저작물입니다. 이번에는 책의 내용을 간단히 리뷰하면서, 책에서 소개된 개념을 바탕으로 [dak.gg](https://dak.gg) 게임 통계 사이트에서 제공되는 통계 차트를 개선해 보도록 하겠습니다.
+
+# 개선할 차트 둘러보기
+
+여기 보시는 것이 바로 개선하고자 하는 [차트](https://dak.gg/pubg/statistics/rating/squad)입니다. 사실 전혀 나쁜 차트가 아닙니다. 매우 이해하기 쉽고 간단합니다. 대부분의 독자가 뜻을 바로 이해할 수 있습니다. 만약 데이터시각화보다 순수한 프론트엔드의 관점에서 접근한다면, 굳이 뜯어 고칠 필요(reinventing wheel)가 없는 차트라고 할 수 있습니다. 그러나 데이터 시각화의 관점에서 더 유심히 관찰하면, 개선할만한 점들이 보입니다.
+
+![닥지지의 원본 차트](dakgg-squad-rating-distribution-original.png)
+
+# 자료
+
+일반적인 프론트엔드의 차트와 달리 자료를 확인할 수 있는 API 요청이 없었습니다. SSR 때문인지 데이터가 자바스크립트 코드 안에 숨겨져 있었지만, 추출하기 어렵지는 않았습니다.
+
+<iframe
+  src="https://rabelais.static.observableusercontent.com/worker/embedworker.f4affcf059d56c5f4a7acb63e375a013484125a91b161df8b624df404a0461e7.html?cells=data%2Clabels"
+  sandbox="allow-same-origin allow-scripts allow-downloads allow-popups allow-forms allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
+  allow="geolocation; microphone; camera; midi; encrypted-media; autoplay; accelerometer; magnetometer; gyroscope; vr"
+/>
+
+내용을 확인해 본 결과, 자료에 쓸모 없는 정보가 있습니다. 비어있는 값("0.00")이 너무 많습니다. 차트는 자료를 그대로 반영하고 있어서, x축이 쓸데 없이 길게 표현됩니다. 처음에는 해당 웹페이지가 범용적으로 사용되는 차트 라이브러리를 사용하고 있어서 그것이 문제라고 생각했지만, 자료부터가 잘못되어 있었습니다. rating에 아무도 속하는 사용자가 없는데 굳이 해당 rating을 이름값으로 보여줄 필요는 없습니다. 따라서 비어있는 값들을 우선 제거하여 새로운 자료를 우선 생성했습니다.
+
+| If the statistics are boring, then you've got the wrong numbers - p.80
+| 별로 눈길을 끌지 못하는 통계 자료가 나왔다면, 수치 자체가 잘못된 것일 수 있다.
+
+<iframe
+  src="https://rabelais.static.observableusercontent.com/worker/embedworker.f4affcf059d56c5f4a7acb63e375a013484125a91b161df8b624df404a0461e7.html?cells=reduceds%2CnewData"
+  sandbox="allow-same-origin allow-scripts allow-downloads allow-popups allow-forms allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
+  allow="geolocation; microphone; camera; midi; encrypted-media; autoplay; accelerometer; magnetometer; gyroscope; vr"
+/>
+
+# 재구현
+
+원본 차트에서 사용한 차트 라이브러리를 사용하지 않고, 필요없는 값을 제거한 자료와 D3.js를 사용하여 원본을 최대한 재현해 보았습니다. 자세한 코드는 링크를 클릭하여 Observablehq 페이지에서 확인하실 수 있습니다.
+
+<iframe
+  src="https://rabelais.static.observableusercontent.com/worker/embedworker.f4affcf059d56c5f4a7acb63e375a013484125a91b161df8b624df404a0461e7.html?cells=chartA"
+  sandbox="allow-same-origin allow-scripts allow-downloads allow-popups allow-forms allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
+  allow="geolocation; microphone; camera; midi; encrypted-media; autoplay; accelerometer; magnetometer; gyroscope; vr"
+/>
+
+재현해 보았을 때, 몇 가지 문제점들이 눈에 들어옵니다.
+
+- 쓸모 없는 눈금(grid)이 있습니다.
+- `500~800`과 `3600~3850`은 사실상 값이 보이지 않습니다.
+- 가로 축(x)에 너무 많은 자료가 표기되고 있습니다.
+
+# Data-ink Ratio
+
+VQ에서 에드워드 터프트가 반복하여 주장하는 내용 중에 Data-ink ratio라는 것이 있습니다.
+
+![data-ink ratio의 공식](data-ink-ratio-equation.png)
+
+data-ink ratio를 위와 같이 정의했을 때, data-ink ratio가 1 이하로 수렴할수록 좋은 차트라는 것입니다.
+
+우선 어떤 자료가 실질적인 자료인지 구분하기 위해서 위의 차트에서 사용자가 필요로 하는 데이터를 추측해 보면 아래와 같습니다.
+
+| 특정 이름표(label)의 대략적인 값(원본 차트 기준 y축에서의 상대적 위치)
+
+값의 단위가 퍼센트이므로, 사용자는 정확한 값 보다는 대략적인 값과, 그 상대적인 의미에 관심을 둘 것입니다. 보고자 하는 자료가 상대적으로 낮은지 높은지가 중요하지, 그 값이 4.3인지 4.4인지는 그다지 중요한 자료가 아닙니다. 따라서 data-ink ratio를 줄이기 위해 눈금은 과감히 축소해도 상관 없습니다.
+
+![모아레 효과 애니메이션](moire-effect.gif)
+
+또한 바 그래프가 매우 작은 공간안에 강한 색상으로 표기되어 있어서, 바들이 밀집한 구간에서는 서로를 구별하기가 쉽지 않습니다. 강렬한 색의 대조가 밀집하다보니 모아레 현상이 발생하여 착시에 눈길을 쉽게 빼앗기게 됩니다. 바를 축소하거나, 색상을 옅게 하여 착시 효과를 줄일 수 있습니다. 색상을 옅게/짙게 표기하거나 도형의 굵기를 얇게/두껍게 표기하는 것도 data-ink ratio에 영향을 줍니다.
+
+그 외에도 가로 축(x)의 이름값들은 모두 개별적인 의미가 아니고 50단위로 점차 증가하는 순열을 단순히 구간별로 분리(Binning)한 것이기 때문에, 생략할 여지가 있습니다.
+
+# 수정한 차트
+
+<iframe src="https://rabelais.static.observableusercontent.com/worker/embedworker.f4affcf059d56c5f4a7acb63e375a013484125a91b161df8b624df404a0461e7.html?cells=chartB" />
+
+- 바의 두께를 축소하고, 눈금을 제거했습니다. 대신 음영으로 눈금을 표기했습니다: 모아레 현상이 제거되어 훨씬 읽기 편해졌습니다. 음영으로 자료가 직접 눈금을 품도록 하는 방식은, 에드워드 터프트가 소개한 방식을 사용했습니다.
+- 눈금의 단위를 0.5에서 1 단위로 조절했습니다.
+- 반응형으로 차트를 그릴 수 있도록, 축을 회전시켜 밀도가 더 높은 자료를 세로로 가게 변경했습니다.
+- data-ink ratio를 통하여 확보된 빈 공간을 사용하는 것도 에드워드 터프트의 아이디어입니다. 자료의 세세한 디테일은 사용자가 직접 마우스를 올려 확인할 수 있는 방식으로 변경했습니다. 이 때 디테일은 기존에 눈금이 있던 공간에 표기됩니다.
+  | The space opened up by erasing can be effectively used - p.105
+  | 삭제를 통하여 얻은 공간을 효율적으로 사용할 수 있다.
+- 자료에서 가장 인상적인 부분을 강조했습니다.
+- 자료의 실질적인 좌표에 해당하는 부분에 점을 그려서, 1) 0에 준하는 아주 작은 값을 확인하고, 2) 서로 다른 부분을 쉽게 비교할 수 있도록 했습니다.
+
+# 에드워드 터프트의 다섯가지 덕목
+
+언급한 내용 이외에도 에드워드 터프트가 정리한 다섯가지 덕목을 기초로 했습니다. 이번 작업을 통해 실무적인 관점에서 살펴보기는 했으나, 결국은 모든 데이터시각화를 관통하는 일관된 기준이 있습니다.
+
+- Above all else show the data
+- 무엇보다 자료의 표기를 우선해라
+
+- Maximize the data-ink ratio
+- data-ink ratio를 극대화해라
+
+- Erase non-data ink
+- 자료와 무관한 잉크의 사용을 줄여라
+
+- Erase redundant data-ink
+- 중복되는 자료에 대한 잉크의 사용을 줄여라
+
+- Revise and edit
+- 수정하고 편집하라
