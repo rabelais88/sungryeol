@@ -3,6 +3,7 @@ import { Global } from '@emotion/react';
 // 프리텐다드 사이트에서 제공하는 css 파일의 내용을 그대로 사용.
 function GlobalStyleLoader() {
   const styles = `
+
 @import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap');
 
 @font-face {

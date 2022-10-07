@@ -15,6 +15,7 @@ import {
 import AppLink from '@/components/AppLink';
 import CustomLink from '@/components/CustomLink';
 import Video from '@/components/Video';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 type MarkdownSource = MDXRemoteSerializeResult<Record<string, unknown>>;
 interface IWorkMDXFrontMatter {
@@ -136,7 +137,12 @@ const Work: NextPage<IProps> = ({ mdxSource }) => {
         </AppLink>
       </HStack>
       <Heading fontFamily="Title">{fm?.title ?? ''}</Heading>
-      {url !== '' && <CustomLink href={url}>Visit Page</CustomLink>}
+      {url !== '' && (
+        <CustomLink href={url}>
+          <ExternalLinkIcon />
+          Visit Page
+        </CustomLink>
+      )}
       <Box height="50px" />
       <MDXRemote
         {...mdxSource}

@@ -18,7 +18,16 @@ const Video: React.FC<VideoPropsA | VideoPropsB> = ({
   ...props
 }) => {
   const video = url ?? vimeoId ?? '';
-  return <Vimeo video={video} {...props} />;
+  return (
+    <Vimeo
+      video={video}
+      className="video-embed"
+      height="600"
+      responsive
+      style={{ height: '600px', width: '100%' }}
+      {...props}
+    />
+  );
 };
 
 export default Video;
