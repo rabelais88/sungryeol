@@ -46,8 +46,9 @@ source mutagen-workspace.sh build
 (project root)$ pnpm turbo build
 (project root)$ pnpm login
 # check changeset
-(project root)$ pnpm changeset version
 (project root)$ pnpm changeset status
+# strongly recommended: run below in CI
+(project root)$ pnpm changeset version
 (project root)$ pnpm changeset publish
 ```
 
