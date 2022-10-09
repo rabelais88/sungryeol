@@ -1,10 +1,10 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import Header from '@/components/Header';
+import IconShare from '@/components/icons/IconShare';
+import MDXRender from '@/components/Markdown/MDXRender';
+import LayoutDefault from '@/layout/LayoutDefault';
 import { getPost, getPostIndices } from '@/services/PostService';
 import { ReturnPromiseType } from '@/types';
-import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemoteSerializeResult } from 'next-mdx-remote';
-import LayoutDefault from '@/layout/LayoutDefault';
-import MDXRender from '@/components/Markdown/MDXRender';
+import copyToClipboard from '@/utils/copyToClipboard';
 import {
   Box,
   Button,
@@ -18,20 +18,20 @@ import {
   Wrap,
   WrapItem,
 } from '@chakra-ui/react';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { serialize } from 'next-mdx-remote/serialize';
 import NextLink from 'next/link';
-import IconShare from '@/components/icons/IconShare';
-import copyToClipboard from '@/utils/copyToClipboard';
-import Header from '@/components/Header';
 import { useCallback, useMemo } from 'react';
 
-import { PostTagControl } from '@/components/PostTag';
-import { useRouter } from 'next/router';
-import { mdxPostConfig } from '@/components/Markdown/mdxConfig';
-import testMarkdowns from '@/constants/testMarkdowns';
-import { processContent } from '@/components/Markdown/mdxUtils';
+import DateText from '@/components/DateText';
 import LogoGeometry from '@/components/icons/LogoGeometry';
 import LogoText from '@/components/icons/LogoText';
-import DateText from '@/components/DateText';
+import { mdxPostConfig } from '@/components/Markdown/mdxConfig';
+import { processContent } from '@/components/Markdown/mdxUtils';
+import { PostTagControl } from '@/components/PostTag';
+import testMarkdowns from '@/constants/testMarkdowns';
+import { useRouter } from 'next/router';
 
 interface IProps {
   post: ReturnPromiseType<typeof getPost>;

@@ -1,7 +1,7 @@
 {
   "name": "@sungryeol/app-portfolio",
   "private": true,
-  "version": "1.22.17",
+  "version": "2.0.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -23,6 +23,7 @@
     "@sungryeol/lib": "workspace:*",
     "@sungryeol/prettier-config": "workspace:*",
     "@sungryeol/typescript-config": "workspace:*",
+    "@u-wave/react-vimeo": "^0.9.8",
     "@zeit/next-css": "^1.0.1",
     "algoliasearch": "^4.13.1",
     "dayjs": "^1.11.3",
@@ -42,8 +43,7 @@
     "rehype-toc": "^3.0.2",
     "remark-gfm": "^3.0.1",
     "remark-math": "^5.1.1",
-    "three": "^0.142.0",
-    "@u-wave/react-vimeo": "^0.9.8"
+    "three": "^0.142.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",
@@ -67,7 +67,7 @@
     "prettier": "^2.7.1",
     "storybook-addon-next": "^1.6.7",
     "tsconfig-paths-webpack-plugin": "^3.5.2",
-    "typescript": "^4.7.4",
-    "vercel": "^25.2.2"
+    "typescript": "^4.8.4",
+    "vercel": "^28.4.8"
   }
 }

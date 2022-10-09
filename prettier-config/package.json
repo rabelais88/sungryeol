@@ -1,6 +1,6 @@
 {
   "name": "@sungryeol/prettier-config",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "index.js",
   "repository": "https://github.com/rabelais88/sungryeol",
   "license": "MIT",
