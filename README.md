@@ -14,6 +14,8 @@
 
 # developing inside docker container + vscode
 
+**2022.OCT update: adopted PNPM workspace. vscode devcontainer may not work due to symlink usage in PNPM**
+
 - can be accessed via vscode devcontainer + mutagen
 - https://code.visualstudio.com/docs/remote/attach-container#_attached-container-configuration-files
 
@@ -32,7 +34,6 @@ source mutagen-workspace.sh build
 
 # install, bootstrapping
 
-- https://yarnpkg.com/getting-started/migration#cli-commands
 - https://vercel.com/docs/concepts/monorepos/turborepo
 
 ```sh
