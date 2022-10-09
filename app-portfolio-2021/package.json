@@ -19,10 +19,10 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@sentry/nextjs": "^7.4.1",
-    "@sungryeol/eslint-config": "^1.2.0",
-    "@sungryeol/lib": "^1.2.0",
-    "@sungryeol/prettier-config": "^1.2.0",
-    "@sungryeol/typescript-config": "^1.2.0",
+    "@sungryeol/eslint-config": "workspace:*",
+    "@sungryeol/lib": "workspace:*",
+    "@sungryeol/prettier-config": "workspace:*",
+    "@sungryeol/typescript-config": "workspace:*",
     "@zeit/next-css": "^1.0.1",
     "algoliasearch": "^4.13.1",
     "dayjs": "^1.11.3",
@@ -42,7 +42,8 @@
     "rehype-toc": "^3.0.2",
     "remark-gfm": "^3.0.1",
     "remark-math": "^5.1.1",
-    "three": "^0.142.0"
+    "three": "^0.142.0",
+    "@u-wave/react-vimeo": "^0.9.8"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",

@@ -1,0 +1,6 @@
+packages:
+  - "app-portfolio-2021"
+  - "eslint-config"
+  - "lib"
+  - "prettier-config"
+  - "typescript-config"

@@ -19,9 +19,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "@sungryeol/eslint-config": "^1.2.0",
-    "@sungryeol/prettier-config": "^1.2.0",
-    "@sungryeol/typescript-config": "^1.2.0",
+    "@sungryeol/eslint-config": "workspace:*",
+    "@sungryeol/prettier-config": "workspace:*",
+    "@sungryeol/typescript-config": "workspace:*",
     "dayjs": "^1.11.3"
   },
   "devDependencies": {
