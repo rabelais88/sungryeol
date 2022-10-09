@@ -1,6 +1,6 @@
 {
   "name": "@sungryeol/lib",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "repository": "https://github.com/rabelais88/sungryeol",
   "license": "MIT",
   "main": "dist/index.js",
@@ -19,16 +19,19 @@
     "test": "jest"
   },
   "dependencies": {
-    "@sungryeol/eslint-config": "^1.2.0",
-    "@sungryeol/prettier-config": "^1.2.0",
-    "@sungryeol/typescript-config": "^1.2.0",
+    "@sungryeol/eslint-config": "workspace:*",
+    "@sungryeol/prettier-config": "workspace:*",
+    "@sungryeol/typescript-config": "workspace:*",
     "dayjs": "^1.11.3"
   },
   "devDependencies": {
+    "@parcel/config-default": "^2.7.0",
+    "@parcel/transformer-typescript-tsc": "^2.7.0",
+    "@parcel/transformer-typescript-types": "^2.7.0",
     "@types/jest": "^27.0.3",
     "eslint": "^8.18.0",
     "jest": "^28.1.2",
-    "parcel": "^2.0.1",
+    "parcel": "^2.7.0",
     "prettier": "^2.7.1",
     "ts-jest": "^28.0.5"
   }
