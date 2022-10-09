@@ -1,38 +1,38 @@
-import LayoutDefault from '@/layout/LayoutDefault';
-import { GetServerSideProps, NextPage } from 'next';
-import LogoAnimated from '@/components/LogoAnimated';
+import DateText from '@/components/DateText';
 import Header from '@/components/Header';
+import LogoAnimated from '@/components/LogoAnimated';
+import PostSearchTags from '@/components/PostSearch/Tags';
+import PostTag from '@/components/PostTag';
+import useSearchQuery from '@/hooks/useSearchQuery';
+import LayoutDefault from '@/layout/LayoutDefault';
 import AlgoliaService, {
   AlgoliaHit,
   AlgoliaSearchResponse,
   AlgoliaTags,
 } from '@/services/AlgoliaService';
 import { IPostHit } from '@/types';
+import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import {
   Box,
-  ListItem,
-  Text,
-  Link,
+  Button,
+  Flex,
   HStack,
-  UnorderedList,
+  IconButton,
   Image,
+  Input,
   InputGroup,
   InputLeftElement,
-  Input,
-  Button,
-  IconButton,
-  Flex,
+  Link,
+  ListItem,
+  Text,
+  UnorderedList,
 } from '@chakra-ui/react';
-import NextLink from 'next/link';
-import PostTag from '@/components/PostTag';
 import { toNum, toStr } from '@sungryeol/lib';
 import parse from 'html-react-parser';
-import { ChangeEventHandler, useMemo } from 'react';
 import _debounce from 'lodash/debounce';
-import useSearchQuery from '@/hooks/useSearchQuery';
-import PostSearchTags from '@/components/PostSearch/Tags';
-import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
-import DateText from '@/components/DateText';
+import { GetServerSideProps, NextPage } from 'next';
+import NextLink from 'next/link';
+import { ChangeEventHandler, useMemo } from 'react';
 
 const PostItem: React.FC<{ hit: AlgoliaHit<IPostHit> }> = ({ hit }) => {
   return (

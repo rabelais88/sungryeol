@@ -16,18 +16,9 @@ import AppLink from '@/components/AppLink';
 import CustomLink from '@/components/CustomLink';
 import Video from '@/components/Video';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { IWorkMDXFrontMatter } from '@/types';
 
 type MarkdownSource = MDXRemoteSerializeResult<Record<string, unknown>>;
-interface IWorkMDXFrontMatter {
-  title: string;
-  captures?: {
-    mobile: string[];
-    desktop: string[];
-    /** video embed url from vimeo */
-    video: string[];
-  };
-  url?: string;
-}
 
 interface IProps {
   mdxSource: MarkdownSource;

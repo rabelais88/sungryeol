@@ -80,3 +80,13 @@ export interface FrameGL {
 // export type OnlyOptionalKeysToRequired<T> = Required<
 //   Pick<T, OptionalKeysOf<T>>
 // >;
+export interface IWorkMDXFrontMatter {
+  title: string;
+  captures?: {
+    mobile: string[];
+    desktop: string[];
+    /** video embed url from vimeo */
+    video: string[];
+  };
+  url?: string;
+}
