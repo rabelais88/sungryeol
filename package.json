@@ -27,6 +27,7 @@
     "app-portfolio-2021"
   ],
   "scripts": {
+    "prebuild": "turbo run prebuild --scope=@sungryeol/resume",
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",

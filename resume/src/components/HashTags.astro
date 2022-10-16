@@ -1,0 +1,20 @@
+---
+export interface Props {
+  tags: Record<string, string>;
+}
+const { tags } = Astro.props;
+const getUrl = (url: string, alt: string) => {
+  if (url === '' || !url) return `https://www.google.com/search?q=${alt}`;
+  return url;
+};
+---
+
+<ul class="tags">
+  {
+    Object.entries(tags).map(([k, v]) => (
+      <li class="tag-item">
+        <a href={getUrl(v, k)}>#{k}</a>
+      </li>
+    ))
+  }
+</ul>

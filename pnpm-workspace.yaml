@@ -4,3 +4,4 @@ packages:
   - "lib"
   - "prettier-config"
   - "typescript-config"
+  - "resume"

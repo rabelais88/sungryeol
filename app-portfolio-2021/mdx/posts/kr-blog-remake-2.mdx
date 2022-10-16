@@ -1,0 +1,305 @@
+---
+publishDate: 2022-01-11
+---
+
+# 블로그 사이트 재구성하기 2 - 개발하기
+
+안녕하세요, 빅픽처 인터랙티브 개발본부 프론트엔드(FrontEnd)챕터 소속 개발자 박성렬입니다. 이번에 우연한 기회에 자가격리로 블로그 사이트를 기획부터 디자인, 개발까지 재구성하며 느꼈던 점들을 공유해 보고자 합니다. [기획과 디자인](https://blog-bigpico.tistory.com/117)에 이어서 이번에는 개발을 어떻게 진행했는지 이야기를 나눠보도록 하겠습니다.
+
+![](https://blog.kakaocdn.net/dn/niFyD/btrqsFw2xNR/1O1S9Xev0jYE4cbdYEVKt1/img.png)
+
+# 개발하기
+
+작업에 앞서 미리 지정한 개발 목표는 아래와 같습니다.
+
+- **Server Side Rendering(이하 SSR)을 적용할 것**
+- **monorepo(이하 모노레포)를 완벽히 구현할 것**
+  - 통일된 커맨드로 전체 패키지를 빌드할 수 있을 것
+  - 다른 패키지 간에도 버전 관리를 할 수 있을 것
+  - @xyz/abc 형태의 scoped 패키지로 배포하고 재활용할 수 있을 것
+  - yarn workspace를 사용할 것
+  - CI-CD과정에서 소프트링크(symbolic link)를 품고 있는 yarn workspace가 정상적으로 작동할 것
+- **운영 비용이 매우 저렴하거나, 무료에 수렴할 것**
+- **mdx(마크다운)를 제대로 지원할 것**
+- **full text search를 지원할 것**
+- **자료 덤프 및 추출이 가능한 환경을 구현할 것**
+- **GraphQL**
+- **Headless CMS**
+
+## 개발하기: SSR과 Next.js 그리고 Vercel
+
+[next.js](https://github.com/vercel/next.js/)는 2021년 기준 SSR을 지원하는 가장 인기가 많은 프레임웍입니다. 단순히 github star 뿐만 아니라 이에 관련된 문서와 클라우드 상품들이 매우 많이 출시되어 있습니다. 무엇보다 모회사라고 할 수 있는 클라우드 호스팅 업체인 [vercel](https://vercel.com/dashboard)이 next.js를 매우 잘 지원해주고 있습니다. next.js를 매우 매끄럽게 무료로 호스팅할 수 있을 뿐만 아니라 들여다보면 파격적인 조건이 많습니다.
+
+무료 티어에 대해서도 도메인 서비스와 제법 넉넉한 rate limit을 주고 있는 것은 물론 next.js가 자체 지원하는 기능이라면 임시 저장공간(ephemeral storage)을 마음대로 쓸 수 있습니다. 헤로쿠의 경우는 임시 저장공간을 아주 잠시만 쓸 수 있고, 수 분 또는 수 시간 내에 저장공간이 초기화되어 큰 의미가 없습니다. 물론 제한이 아주 없는 것은 아닌데, 자세한 내용은 바로 뒤이어 후술하겠습니다.
+
+### Incremental Static Generation과 Vercel
+
+[Incremental Static Generation](https://vercel.com/docs/concepts/next.js/incremental-static-regeneration)이란 next.js의 기능으로 필요한 미리 생성해 둔 정적 페이지(Static Page)외에 새로운 정적 페이지를 요청받을 경우, 그 자리에서 새로운 정적 페이지를 생성하는 기능입니다.
+
+현재 우리가 운영하고 있는 Vue.js 기반의 SSR도 마찬가지이지만 일반적으로 SSR에서 정적 페이지는 빌드 과정에서 생성됩니다. next.js는 ISG를 통해서 모든 정적 페이지를 다 만들어 두지 않고, 빌드 없이도 새로운 정적 페이지를 바로 요청만 받으면 생성할 수 있습니다.
+
+![](https://blog.kakaocdn.net/dn/Yu2kB/btrqn9Ysfrv/xFaqR8C95xFwwGtApgQhDK/img.png)
+
+그 뿐만 아니라 SWR이나 서비스워커처럼 기존에 만들어 놓은 결과물을 보여주면서, 새로운 요청이 있을 때마다 기존 내용을 우선 보여준 뒤 내용을 재검토(revalidate) 하여 다음 사용자에게는 새로운 내용으로 보여주는 전략(stale-while-revalidate) 도 사용할 수 있습니다. ISG는 동적 SSR과 정적 페이지 생성(Static Page Generation)의 장점을 모두 합친 기능이라고도 할 수 있습니다.
+
+ISG를 vercel에 호스팅하는 것의 가장 큰 장점은 이때 새롭게 만들어진 정적 페이지를 임시 저장된 파일(ephemeral)로 처리하여 생성된 내용을 삭제하지 않는다는 것입니다. [헤로쿠처럼 지금까지 대부분의 무료 serverless 프론트엔드 호스팅은 빌드 당시의 파일형태만 허용하는 경우가 많습니다](https://stackoverflow.com/questions/12416738/how-to-use-herokus-ephemeral-filesystem). vercel은 배포 이후에도 ISG를 통한 파일 생성은 허용합니다. 이 때문에 메모리 내 임시저장 파일 관리가 어려운 도커는 지원하지 않습니다. 그럼에도 ISG가 워낙 막강해서 무료 티어 서비스로는 매우 매력적입니다.
+
+이 기능 덕분에 포스팅을 수정했을 때, 웹훅(webhook)을 통해 앱 전체를 새롭게 빌드할 필요 없이 새로운 사용자가 페이지에 방문하기만 하면 됩니다. 또한 페이지도 전부 빌드하는 것이 아니고 필요한 페이지만 새롭게 빌드하기 때문에 빌드 시간도 훨씬 짧습니다.
+
+## 개발하기: 모노레포 구성하기
+
+처음 모노레포 구성은 아래와 같이 [yarn workspace](https://classic.yarnpkg.com/lang/en/docs/workspaces/)에 가장 잘 알려진 [lerna](https://github.com/lerna/lerna)를 결합하는 것이었습니다.
+
+- yarn workspace: 패키지를 소프트 링크로 한 번에 관리.
+- lerna: 공통 스크립트 관리, 공통 버전 관리, npm 배포
+
+처음에는 이 조합을 매우 당연하게 생각했는데 놀랍게도 작업을 거듭할수록 미궁에 빠져드는 느낌이었습니다. lerna, yarn, 타입스크립트의 결합이 생각보다 매끄럽지 않았습니다. 설치된 환경 마다 다른 오류가 거듭 발생하여 yarn이 lerna를 정확하게 이해하고 동작하지 않는 느낌을 받았습니다. 또한 이들만의 결합으로는 모든 것을 해결할 수가 없고 별도로 외부 툴을 사용해야할 것들이 제법 있었습니다. 예를 들면 lerna가 패키지 버전 통합관리를 지원하지 않아 이를 위해 [manypkg](https://github.com/Thinkmill/manypkg)같이 또다른 패키지 관리 툴을 사용하거나 직접 스크립트를 작성해야 했습니다. 이 작업을 사전 기획단계에서 조사했는데, 블로그를 본격적으로 다시 만들기 전이었지만 약 1~2개월이 소모되었습니다.
+
+그래서 이를 한 번에 해결할 수 있는 방법이 뭘까 찾아보다가 [oao](https://github.com/guigrpa/oao)라는 모노레포 스크립트 매니저를 발견했습니다. github star는 800개 정도로, 아직 적은 편이지만 빠르게 늘고 있으며 아래와 같이 워낙 편리한 장점들이 있어서 시험삼아 도전해 보았습니다.
+
+- 외부 패키지 버전 관리 도구를 사용하지 않아도 모든 패키지 버전을 균일하게 관리해준다
+- yarn workspace를 매끄럽게 지원한다.
+- 모든 패키지에 대해서 oao가 제대로 이를 이해했는지, 어떤 패키지를 관리중인지 한 눈에 보여주는 상태 기능이 따로 있다.
+- 빌드나 git commit이 되지 않았을 때 publish되는 현상을 막아준다
+- 각종 외부 설정이 필요한 lerna에 비해 별도로 설정할 것이 거의 없다
+- 모노레포 빌드에 대해서 비교적 로그가 디테일하다
+
+그리고 그 결과는 매우 성공적이었습니다. yarn workspace세팅만 해주고 oao status 로 패키지 상태만 확인해서 빠져 있거나 잘못 설정된 패키지를 수정해주기만 하면 되었기 때문에, 매우 매끄럽게 모노레포 개발이 가능했습니다. 또한 버전도 배포시에 균일하게 유지시켜주기 때문에, 배포간 하나의 패키지만 다른 버전으로 나가게 되는 것을 막을 수 있었습니다.
+
+![](https://blog.kakaocdn.net/dn/c0I07t/btrqmONZt6i/V1PP5gOGhOjTiYEnOzZFcK/img.png)
+
+yarn oao status의 결과물
+
+모노레포 구조는 크게 위에서 보이는 yarn oao 리포트와 같이 구성했습니다.
+
+```
+@sungryeol -> namespace-scope
+@sungryeol/eslint-config -> 패키지화된 eslint 설정(.eslintrc)
+@sungryeol/prettier-config -> 패키지화된 prettier 설정
+@sungryeol/typescript-config -> 패키지화된 typescript 설정
+@sungryeol/lib -> 각종 유틸. 블로그 외에 다른 앱에서도 사용 가능하도록 최대한 가볍게 구성
+@sungryeol/app-portfolio -> 실제 블로그 앱
+```
+
+즉 airbnb나 구글에서 하듯 관련 컨벤션과 설정을 우선 패키지화하고, 그 다음 유틸과 컴포넌트를 패키지화합니다. 다른 프로젝트에도 활용될 가능성이 있는 기능만 별도의 패키지(@sungryeol/lib)으로 관리했습니다. 잘 해봐야 블로그 단위의 작업이기 때문에 컴포넌트는 재사용성이 높아보이지 않아 별도의 패키지로 만들지 않았습니다.
+
+폴더를 우선 생성한 뒤 루트 폴더의 **package.json** 에 yarn workspace 구조를 등록합니다. 그리고 vscode에서도 별도의 **working directory**를 등록해서 프로젝트 디렉토리에서 제각기 다른 린트 환경을 보장할 수 있었습니다.
+
+```javascript
+// sungryeol/package.json
+{
+    "workspaces": [
+    "eslint-config",
+    "prettier-config",
+    "typescript-config",
+    "lib",
+    "app-portfolio-2021"
+    ],
+    // ...
+}
+
+// sungryeol/.vscode/settings.json
+{
+    "eslint.workingDirectories": [
+    "./app-portfolio-2021",
+    "./app-admin-2021",
+    "./eslint-config",
+    "./typescript-config",
+    "./prettier-config",
+    "./lib"
+    ]
+    // ...
+}
+```
+
+---
+
+위에서 설명을 안하고 지나간 부분이 있습니다. **@xyz/abc** 형태일 때 **@xyz**를 scope(이하 스코프) 또는 namespace라고 합니다. 규모가 큰 오픈소스를 사용하다 보면 자주 마주하게 되는데, 왜 필요할지 궁금해서 직접 사용해 봤습니다.
+
+![](https://blog.kakaocdn.net/dn/b0QmKu/btrqihKaizk/GpZh0edZgQXAW6fxHjuyi0/img.png)
+
+yarn.lock(package.lock)안에 숨어있는 수많은 scoped 패키지들
+
+패키지 스코프의 사용 방법은 의외로 간단합니다. **package.json**에서 이름을 **@xyz/abc** 의 형태로 짓고, npm 대시보드의 조직(organization) 항목에서 해당 **xyz** 이름으로 미리 조직을 생성해둡니다. 배포한 뒤 다시 돌아가보면 여러 패키지를 하나의 종류로 몰아서 볼 수 있습니다. 처음에는 단순히 장식적인 의미로 생각했는데, 실제로 사용해보니 의외로 쓸모가 있어서 놀랐습니다.
+
+![](https://blog.kakaocdn.net/dn/rI03r/btrqmc2vYep/HkJbHEiVorbkMKXDV7tmd0/img.png)
+
+npm 대시보드에서 @sungryeol scope 아래 등록된 패키지만을 따로 확인한 화면
+
+패키지로 작성된 각종 설정은 확장(**extend**) 옵션을 통해 재활용할 수 있습니다. 대기업들이 코드 컨벤션을 어떻게 관리하는지 알 수 있는 부분이었습니다. 나만의 [eslint rule](https://github.com/rabelais88/sungryeol/tree/main/eslint-config)을 정리해둔 패키지를 배포한 다음 아래와 같이 재활용 했습니다. 이렇게 할 경우 특정 프로젝트에서 필요한 부분만 덮어쓰기(override)할 수 있어서 뼈대 규칙(base rule)처럼 사용이 가능합니다.
+
+```javascript
+    // @sungryeol/app-portfolio-2021/.eslintrc
+    {
+      "extends": [
+        "next/core-web-vitals",
+        "@sungryeol/eslint-config"
+      ],
+      "rules": {
+        // ...여기에 해당 모듈만의 규칙을 추가한다
+      }
+    }
+```
+
+여기서 라이브러리가 아니기 때문에 배포되지 않아야할 앱인 **@sungryeol/app-portfolio-2021** 은 **package.json** 에서 아래와 같이 배포 비공개(**private: true**) 설정을 추가해두면 oao가 자동으로 npm 배포 과정을 건너뜁니다.
+
+```javascript
+    {
+      "name": "@sungryeol/app-portfolio",
+      "private": true,
+      // ...
+    }
+```
+
+모두 세팅을 완료하고 모든 프로젝트마다 build 스크립트를 추가한 다음, 아래와 같이 입력하면 oao가 모든 프로젝트 폴더를 돌아다니면서 해당 스크립트를 실행합니다.
+
+```sh
+$ oao run-script build
+```
+
+![](https://blog.kakaocdn.net/dn/cRjg2E/btrqotJavgF/P69LO8CT9cwZCZzFO4nVZk/img.png)
+
+oao가 lib과 앱을 폴더를 돌아다니면서 빌드 할때의 화면입니다.
+
+작업이 완료되면 npm login 으로 npm 클라이언트에 권한을 주고 아래의 커맨드를 통하여 배포합니다.
+
+    npx oao publish
+
+여기서 재미있는 점은 npm publish 기능 자체는 npm 배포 권한에 접근 가능한 환경에서 실행해야 하기 때문에 모노레포 스크립트 도구 종류를 불문하고 대부분 npx 또는 npm 으로만 실행이 가능했습니다. **따라서 개발환경은 yarn 을 사용하고, 배포만 npx 를 사용하는 형태를 취했습니다.**
+
+![](https://blog.kakaocdn.net/dn/rxa8y/btrqiiWB41G/Gk2pCFKDAaaw1lkLp6877k/img.png)
+
+oao를 통하여 자동화된 배포가 완료된 모습. 동시에 여러개의 패키지가 배포되는 것을 보면 쾌감이 느껴집니다.
+
+## 개발하기: 모노레포 클라우드에 배포하기
+
+yarn workspace는 소프트링크를 사용하여 패키지를 한 곳(project root의 node_modules)에서 관리합니다. 뿐만 아니라 하위 프로젝트에 다른 모노레포 하위 프로젝트와 같은 이름의 패키지가 설치되어 있으면, [자동으로 해당 폴더를 소프트링크 시켜](https://classic.yarnpkg.com/blog/2017/08/02/introducing-workspaces/)줍니다. 그래서 특정 PR 혹은 git commit 에 대해서 버전관리에 대한 걱정을 할 필요가 없습니다. 같은 폴더 내에서 작업하는 프로젝트는 배포하지 않은 상태로 현재 코드 그대로 사용할 수 있습니다. 이처럼 최상위 node_modules에 모든 패키지를 몰아놓고 필요할 때마다 이곳에서 가져오는 것을 hoist(이하 끌어당기기)라고 표현합니다.
+
+![](https://blog.kakaocdn.net/dn/oftHR/btrqmJlpUjN/6yHOmOIL6nyaPBKTs1YJZk/img.png)
+
+프로젝트 스코프의 끌어당기기를 도식으로 나타내 보았습니다.
+
+끌어당기기는 파일이 저장되는 공간을 절약하고 설치시 시간을 절약할 수 있어서 일반적으로 큰 장점입니다. 그러나 이 프로젝트의 개발파트에서 제일 어려웠던 부분은 의외로 모노레포를 실제 CI-CD 클라우드를 통해 배포하는 과정이었습니다. 도커를 비롯하여 리눅스 가상화 컨테이너 파일시스템에서는 소프트 링크 지원에 제약이 있는데, yarn workspace는 기본적으로 소프트링크를 사용하기 때문에 도커를 사용하면 배포 과정에 추가적으로 작업할 것들이 있습니다. 그러나 도커를 사용하지 않는 많은 CI-CD에서도 소프트링크가 제대로 동작하지 않는 모습을 보여주어 당황스러웠습니다.
+
+vercel이라면 별 이슈가 없을 거라고 생각했습니다. [모노레포를 지원한다고 공식적으로 천명](https://vercel.com/blog/monorepos)하고 있기 때문입니다. 막상 빌드를 하고보니 next.js의 최신 버전에서 사용하는 rust 기반 트랜스파일러인 swc가 yarn workspace의 소프트링크를 해석하지 못해서 또 난관에 부딪혔습니다. 이 경우 대부분은 노드 기반의 babel 트랜스파일러를 사용하여 해결하라고 권하고 있는데, 빠른 빌드 속도를 잃는 것이 큰 단점으로 느껴졌기 때문에 배포시에는 해당 폴더만 바라보도록하고 수동으로 끌어당기기를 제거하여 해결했습니다.
+
+모노레포 배포 전략은 크게 아래처럼 정리해볼 수 있습니다.
+
+**1\. 심볼릭 링크를 지원할 때**
+
+- yarn workspace를 이용하여 전체설치(bootstrap)로 패키지 설치 완료
+
+**2\. 심볼릭 링크를 지원하지 않지만, 배포된 패키지를 그대로 이용하여 최종배포할 때**
+
+- 폴더를 물리적으로 복사처리하여 고립(isolate) 시켜 yarn install로 설치 <- 블로그 작업에 사용한 방식
+- workspace 설정을 삭제하여 고립처리하고 yarn install로 설치
+- nohoist 옵션을 package.json에 추가하여 앱에 설정이 빨려들어가지 않게 한 뒤 yarn install로 설치
+- yarn-exclude같은 별도의 yarn 도구를 사용하고 yarn install로 설치
+
+**3\. 심볼릭 링크를 지원하지 않고, 해당 브랜치의 패키지를 이용하고자 할 때**
+
+- 2번 전략을 활용하여 복사처리하여 고립시키고, 라이브러리의 내용을 node_modules안에 수동으로 복사
+
+FE개발회의때도 언급되었던 내용이지만, 여전히 소프트링크 관련하여 이슈가 많음을 알 수 있는 대목이었습니다.
+
+**모노레포는 관리상의 이점은 매우 분명한 반면 생태계가 아직 완전히 성숙하지 않은 느낌이었습니다.**
+
+## 개발하기: 무료로 full text search 구현하기
+
+[full text search](https://en.wikipedia.org/wiki/Full-text_search#:~:text=In%20a%20full%2Dtext%20search,bibliographic%20databases%20in%20the%201990s.)는 키워드 검색이나 SQL 조건 검색과 비교되는 새로운 개념입니다. 아래와 같은 다른 개념을 포함하고 있기 때문입니다.
+
+- Primary Key(이하 PK)가 아닌 텍스트 기준의 tree 인덱싱
+- 빠른 접근을 위한 디스크 접근이 아닌 메모리 접근
+- 스케일 업이 가능
+- SQL에 비해 속성별 조건을 걸 수 없고, 단순히 문자열로 검색하기 때문에 속성 정확도는 낮음
+- 자연어(Natural Language) 검색에 대한 보정 기능
+  - stop word(띄어쓰기, 마침표, 물음표 등)를 자동으로 제외하고 검색
+  - 문자에서 형변환 또는 조사, 부사등을 무시하고 어근 위주로 검색
+
+이번에 새롭게 만드는 블로그에서는 full text search를 구현하는 것이 목적이었습니다. meilisearch 또는 elastic search를 고려하였으나, 무료 티어에서는 사실상 이를 감당할만한 인스턴스를 찾기 어려웠습니다. 일반적인 DB와 달리 본문 내용을 모두 저장장치가 아닌 메모리에 가지고 있어야 하다 보니 일반적인 서버 호스팅보다 훨씬 큰 메모리를 필요로 합니다. 이 같은 대형 메모리 호스팅은 제법 가격이 나가는 편입니다.
+
+그래서 full text search(이하 전체 텍스트 검색) SaaS인 [algolia](https://www.algolia.com/)(이하 알골리아)를 사용했습니다. 무료 티어 서비스를 제공하기 때문입니다. 큰 흐름은 아래와 같습니다.
+
+![](https://blog.kakaocdn.net/dn/vJYji/btrqptI5194/yy1zQ0NHguhuV6Wgg7qUH1/img.png)
+
+2021년 현재 아무런 갱신 작업 없이 무료로 안정성 있게 사용 가능한 인스턴스는 헤로쿠라는 판단이 들었습니다. aws는 무료 티어를 사용하더라도 당장 아이디를 새로 만들어야 하고, 1년마다 다시 인스턴스를 재구축하는 번거로움이 있습니다. 헤로쿠가 훨씬 나아보이지만 단점이 없는 것은 아닙니다. 수 시간동안 접속이 없으면 동면상태로 들어갑니다. 동면 이후 재가동(bootup, warmup)에는 시간이 오래 걸리기 때문(3~5분)에 빠르게 접근이 필요한 사용자 화면에는 적합하지 않습니다.
+
+vercel의 프론트엔드 빌드는 시간 제약에서 훨씬 여유롭습니다. 그래서 필요한 내용을 사전에 빌드하여 프론트로 넘기도록 했습니다. 그래서 정적 렌더를 선택한 것이고 이 때, 알골리아에 db를 인덱싱하는 작업을 함께 진행하여 사용자의 검색 화면에서는 백엔드를 거치지 않고 모두 접근속도가 빠른 알골리아에서 바로 자료를 가져오도록 했습니다.
+
+또한 알골리아는 전체 텍스트 검색 이외에도 필터링(facet) 기능을 함께 지원하기 때문에 태그등을 표현하기에도 적절합니다.
+
+이 과정에서 headless CMS인 strapi(이하 스트래피)가 v4로 버전업이 되어있는 것을 확인했습니다. 기존 알골리아용 스트래피 플러그인은 v3만 지원하여 이 과정에서 수동으로 인덱싱을 진행해 주었습니다.
+
+아래 코드는 [깃헙](https://github.com/rabelais88/portfolio-backend-2021/blob/main/src/index.js)에서도 확인 가능합니다. 알골리아 추상화는 인덱싱 라이브러리가 매우 간단하여 아래 내용에서 생략했습니다.
+
+```javascript
+    // ./src/index.js - strapi v4
+    import algolia from 'algoliaService';
+    // 태그 생성하는 펑션
+    const mapIndex = (post) => ({
+      ...post,
+      // algolia 태그는 라벨과 키를 별도 입력할 수 없고 묶어서 입력해준 뒤 클라이언트에서 쪼개주어야 한다.
+      compositeTags: post.tags.map((tag) => [tag.key, tag.label].join('||')),
+      objectID: post.id,
+    });
+
+    bootstrap() { // 가동(bootup) 시점에만 해당 기능이 실행된다
+    algolia.init({ appId, apiKey });
+    // 인덱싱 옵션이 환경변수에서 활성화 되어있을 때에만 전체 인덱싱을 진행한다
+    if (process.env.INDEXING_ON_BOOT === 'true') {
+    const posts = Array.from(
+      // headless CMS의 db 서비스에 접근한다
+      await strapi.db.query('api::post.post').findMany({
+        where: {
+          publishedAt: {
+    	      $notNull: true, // 초고(draft)가 아닌 내용만 인덱싱한다
+          },
+        },
+    	  populate: {
+          tags: true, // 태그는 관계형으로 저장되어 있어서 populate 처리한다
+        },
+      })
+    ).map(mapIndex);
+
+    await algolia.deleteObjects('posts');
+    // 설정상 compositeTags라는 속성을 필터링 속성(facet)으로 등록해주고 검색 가능한 옵션으로 남겨둔다
+    await algolia.settings('posts', ['searchable(compositeTags)']);
+    algolia.saveObjects('posts', posts);
+    }
+    // 이외에 포스팅 관련 CRUD 작업에서 해당 포스트만 단건으로 인덱싱 해준다
+```
+
+![](https://blog.kakaocdn.net/dn/bkmitR/btrqbFkLwoO/oQZ9mFktt1nWmpiFdn0GKk/img.png)
+
+알골리아는 전체 문자 검색기능과 함께 일치하는 내용에 대한 하이라이트 기능과 리액트도 지원합니다. 리액트 컴포넌트를 활용하여 외형만 확장해 주었습니다.
+
+## 개발하기: 그 외의 것들
+
+이외에도 상기할 사항이 몇 가지 있었습니다.
+
+- 빠른 개발을 위해 [strapi](https://strapi.io/)라는 headless CMS를 사용하여 어드민을 구현
+- 로컬 개발환경에서 도커 postgresql로 헤로쿠 SQL DB를 갈음함
+- graphql(이하 GQL) playground를 통해 [GQL SDL을 덤프](https://github.com/rabelais88/sungryeol/blob/main/app-portfolio-2021/schema/schema.graphql)하고, 이를 가지고 [graphql-typescript-definition](https://www.npmjs.com/package/graphql-typescript-definitions)을 통해 자동으로 [GQL 쿼리 요청 및 응답 타입 데피니션](https://github.com/rabelais88/sungryeol/blob/main/app-portfolio-2021/types/graphql/index.ts)을 생성하고 다시 사용하기
+- GQL에서 가져온 내용을 [mdx-remote](https://github.com/hashicorp/next-mdx-remote)를 통하여 마크다운 렌더
+- [rehype](https://github.com/rehypejs/rehype) 플러그인을 이용해서 마크다운에 목차(Table Of Contents) 자동 구현하기
+- 작업이 거의 끝나간다고 생각했을때 쯤 무료 티어의 한계로 인해 각종 추가작업이 우수수 쏟아졌습니다. 관련 내용은 나중에 별도의 문서로 정리하도록 하겠습니다.
+
+# 마치며
+
+**👉[프론트엔드 깃헙 코드](https://github.com/rabelais88/sungryeol)**
+
+**👉[백엔드 깃헙 코드](https://github.com/rabelais88/portfolio-backend-2021)**
+
+**👉[실제로 만든 사이트](https://sungryeol.com/): [sungryeol.com](http://sungryeol.com)**
+
+[지식공단 - Sungryeol
+
+home of Sungryeol's blog
+
+sungryeol.com](http://sungryeol.com)
+
+---
+
+작업을 모두 끝내고 나니 후련합니다. 길어 봤자라고 생각했던 작업이 2주가 좀 넘게 걸렸습니다. 처음에는 별 것 아닌 블로그를 만들어 보는 일이라고 생각했습니다.
+
+하다보니 가치있고 또 중요한 일이 맞는 것 같습니다. 각기 다른 역할들을 맡아보며 나는 내게 중요한 것들을 소중하게 여기고 있었을 뿐 다른 사람과 팀에게 중요한 게 뭔지 잘 생각해 보지 않은 것 같습니다. 연예인 다이어리를 모으던 그 시절과 별로 변한 것이 없기라도 한 것처럼 말이죠. 세상은 그대로인데 나 혼자 고개를 돌리고 사는 거 같다는 생각도 듭니다. 이제 32절의 공간도 다시 확보했으니 열심히 적어봐야겠습니다. 나이도 1살 더 먹었으니 전보다는 조금 더 열려있는 태도로요.

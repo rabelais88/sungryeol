@@ -11,5 +11,8 @@
     "./typescript-config",
     "./prettier-config",
     "./lib"
-  ]
+  ],
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode"
+  }
 }

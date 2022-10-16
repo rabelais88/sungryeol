@@ -6,7 +6,7 @@
     "outDir": "./dist",
     "declaration": true,
     "declarationMap": true,
-    "types": ["@types/jest", "node"],
+    "types": ["@types/jest"],
     "typeRoots": ["./types"],
     "incremental": false
   }

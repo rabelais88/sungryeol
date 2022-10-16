@@ -1,9 +1,9 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "baseBranch": "origin/main",
   "pipeline": {
+    "prebuild": {},
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["prebuild", "^build"],
       "outputs": [".next/**", "dist/**"]
     },
     "test": {
@@ -14,7 +14,7 @@
       "outputs": []
     },
     "deploy": {
-      "dependsOn": ["build", "lint"],
+      "dependsOn": ["prebuild", "build", "lint"],
       "outputs": []
     },
     "dev": {

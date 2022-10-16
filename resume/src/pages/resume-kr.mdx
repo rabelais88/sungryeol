@@ -1,0 +1,241 @@
+---
+layout: '@/layouts/Layout.astro'
+---
+
+import {
+  email,
+  years,
+  jobs,
+  portfolioUrl,
+  github,
+  stackoverflow,
+  stackExchangeUser,
+  stackExchangeUesrLastDate,
+} from '@/constants/shared';
+import { formatJobDate, formatShortNum, formatDate } from '@/lib';
+import works from '@/constants/works';
+import HashTags from '@/components/HashTags.astro';
+
+# 박성렬
+
+<img src="/images/my-memoji-thumbsup.png" width="200" height="200" />
+
+📫**이메일**: <a href={`mailto:${email}`}>{email}</a>
+
+🏡**블로그 및 포트폴리오**: <a href={portfolioUrl}>{portfolioUrl}</a>
+
+👨‍💻**Github**: <a href={github}>{github}</a>
+
+🙋**Stackoverflow**: <a href={stackoverflow}>{stackoverflow}</a><br/>({formatDate(stackExchangeUesrLastDate)} 평판점수 {formatShortNum(stackExchangeUser.reputation)})
+
+웹, 데이터 시각화 그리고 3D 기반으로 활동하는 {years}+@ 년차 프론트엔드 개발자 입니다.<br/>
+
+- 명확한 목표를 가진 개발
+- 팀과 함께하는 개발
+- 데이터를 기반으로한 생산성 있는 개발
+
+을 하고자 합니다.
+
+---
+
+# 🏆 주요 경력
+
+- _각종 프로젝트의 열람이 원활하지 않을 시, [포트폴리오의 작업물 페이지](https://sungryeol.com/works)에서 영상과 스크린샷을 확인하실 수 있습니다._
+- _저작물의 열람이 원활하지 않을 시에는, [Internet Archive](https://archive.org/web/)를 활용해 주세요._
+
+## {jobs.bigPicture.titleKr}
+
+<p class="separate">
+<span class="job-title">{jobs.bigPicture.jobTitleKr}</span>
+
+<span class="hint">{formatJobDate(jobs.bigPicture.startDate)} - {formatJobDate(jobs.bigPicture.endDate)}</span>
+</p>
+
+[{jobs.bigPicture.website}]({jobs.bigPicture.website})
+
+### 웹앱: LVUP.GG(versus-on)
+
+2018-2022
+
+[https://lvup.gg](https://lvup.gg)
+
+온라인 e스포츠 경기운영 플랫폼입니다. 아마추어 게이머와 프로단체 양측이 모두 자유롭게 리그 규모 이상의 경기를 만들고 참가할 수 있습니다.
+
+- [D3.js](https://d3js.org/)를 활용한 대진표 시각화 및 알고리즘 개발
+  - 싱글 엘리미네이션 대진표
+  - 더브 엘리미네이션 대진표
+  - 라운드 로빈 대진표
+  - 스위스 라운드 대진표
+  - 전체화면 줌 및 드래그
+  - 스크린샷 저장 및 내보내기 기능
+  - 공유 URL
+- 팀 생성과 참가, 팀 홍보
+- [Pusher](https://pusher.com) 및 [센드버드](https://sendbird.com) 을 활용한 실시간 알림과 채팅
+- 가상 재화로 대회 수상시 획득한 포인트로 상품 구매 및 수령 가능
+- 어드민 대시보드
+- 서버 사이드 렌더링(SSR)과 검색 엔진 최적화(SEO)
+- 구글 어널리틱스를 활용한 사이트 유입 분석
+- [Lottie.js](https://lottiefiles.com/)를 활용한 애니메이션 기능
+- [Cypress.io](https://www.cypress.io/)를 활용한 E2E 테스트(BDD)
+- [Jest](https://jestjs.io/)를 활용한 유닛 테스트
+- [Docker](https://www.docker.com/), [Jenkins](https://www.jenkins.io/)를 활용한 배포와 CI 자동화 및 배포 artifact 분석기능 구현
+- [VueI18n](https://kazupon.github.io/vue-i18n/) + [Github Actions](https://github.com/features/actions) + 구글 스프레드시트를 활용한 다국어 지원 및 다국어 관리 시스템 구성
+- [Storybook](https://storybook.js.org/)을 활용한 속도감 있는 CDD, microfrontend 개발
+- CDD와 BDD를 기반으로 한 융통성 있는 애자일 개발과 팀 협력
+- Typescript, Vue, Vite, Webpack, Docker, D3.js, Jenkins, Git, Lottie, Jira, AWS, Cypress.io, Jest, Storybook, Webpack+React(Storybook)
+
+### 웹앱: 게임코치 온라인
+
+2020-2022
+
+[https://online.gamecoach.pro](https://online.gamecoach.pro)
+
+e스포츠 프로게이머가 직접 일반 게이머를 가르치고 수익을 얻을 수 있는 온라인 교육 플랫폼입니다. 일반 게이머는 원하는 강의스타일을 가진 프로게이머를 직접 찾고 추천받을 수 있습니다.
+
+- 수강생 실시간 알람
+- 강사 찾기
+- 고도화된 지식 게시판: 게임 내의 특정 요소들을 지정하여 필터링 및 태그 기능
+- 서버 사이드 렌더링(SSR)과 검색 엔진 최적화(SEO)
+- 구글 어널리틱스를 활용한 사이트 유입 분석
+- [Pusher](https://pusher.com) 및 [센드버드](https://sendbird.com) 을 활용한 실시간 알림과 채팅
+- [Payple](https://www.payple.kr)을 활용하여 고객 결재 및 강사 임금 정산 가능
+- [Lottie.js](https://lottiefiles.com/)를 활용한 애니메이션 기능
+- [Jest](https://jestjs.io/)를 활용한 유닛 테스트
+- [Docker](https://www.docker.com/), [Jenkins](https://www.jenkins.io/)를 활용한 배포와 CI 자동화 및 배포 artifact 분석기능 구현
+- [Storybook](https://storybook.js.org/)을 활용한 속도감 있는 CDD, microfrontend 개발
+- CDD와 BDD를 기반으로 한 융통성 있는 애자일 개발과 팀 협력
+- Typescript, Vue, Vite, Webpack, Docker, Jenkins, Git, Lottie, Jira, AWS, Jest, Storybook, Webpack+React(Storybook)
+
+### 그 외
+
+- 프로젝트 진행간 각종 성과 보고
+  - [레벨업의 테크노트:분포도 시각화 개선하기](https://blog.bigpi.co/12?category=1210926)
+  - [레벨업의 테크노트:닥지지 리더보드 데이터 시각화로 개선하기](https://blog.bigpi.co/49?category=1210926)
+  - [레벨업의 테크노트:디자인이 프론트엔드와 figma로 대화하는 법](https://blog.bigpi.co/124?category=1210926)
+  - [레벨업의 테크노트:Node.js 메모리 누수 탐지하기](https://blog.bigpi.co/125?category=1210926)
+  - [레벨업의 테크노트:구글 시트로 현지화 문자열 업데이트 자동화하기](https://blog.bigpi.co/148?category=1210926)
+- 재직중 진행한 기술공유
+  - [레벨업의 테크노트:블로그 사이트 재구성하기 1 - 기획과 디자인](https://blog.bigpi.co/117?category=1210926)
+  - [레벨업의 테크노트:블로그 사이트 재구성하기 2 - 개발하기](https://blog.bigpi.co/119?category=1210926)
+  - [레벨업의 테크노트:웹 표준 지키기 - 포커스 표시기](https://blog.bigpi.co/121?category=1210926)
+  - [레벨업의 테크노트:3D 웹앱 깊이 빠져보기 1](https://blog.bigpi.co/162?category=1210926)
+  - [레벨업의 테크노트:3D 웹앱 깊이 빠져보기 2](https://blog.bigpi.co/180?category=1210926)
+- 팀의 스크럼 마스터 역할 진행
+  - (...작성중)
+
+---
+
+# 💼 프로젝트
+
+## 외주 프로젝트
+
+- [로렐 피부 진단 앱](https://apps.apple.com/kr/app/%EB%A1%9C%EB%A0%90/id1601570512?l=en)
+- [레버리저스 마케팅 전략 도구](/works/leveragers)
+
+## 주목할만한 프로젝트
+
+- [WebGL 셰이더를 활용한 3D 타이포그래피](https://sungryeol.com/works/3d-text-effects)
+- [3D P2P 멀티플레이어 데모](https://sungryeol.com/works/3d-collab)
+- [한글 박물관 소장품 크기 3D로 비교하기](https://sungryeol.com/works/art-collection-hangeul-museum)
+- [Gamecoach Online 2021 한해 추억하기](https://sungryeol.com/works/gamecoach-online-state-2021)
+- [팀 버크만 테스트 결과 3D 데이터 시각화](https://sungryeol.com/works/3d-team-birkman)
+- [WebGL을 활용한 대규모 데이터 렌더링 기술데모](https://sungryeol.com/works/massive-dataplots)
+
+## D3.js를 활용한 데이터 시각화 프로젝트
+
+- [공적 마스크 구입에 관련된 데이터 시각화](https://observablehq.com/@rabelais/what-would-be-the-best-time-to-buy-face-masks-in-south-korea)
+- [애니메이션으로 코로나와 유명한 국제적 전염병의 확산세 비교하기](https://observablehq.com/@rabelais/novel-coronavirus-2019-vs-other-global-epidemics)
+- [국내 코로나19 초기 확산세 분석](https://observablehq.com/@rabelais/covid-19-ncov-outbreak-in-korea)
+- [D3.js 줌 기능과 미니맵 기능 구현하기](https://observablehq.com/@rabelais/d3-js-zoom-minimap)
+- [한국 정치의 계보도 시각화](https://observablehq.com/@rabelais/genealogy-of-korean-political-parties-svg)
+- [회기별 대한민국 국회의원 당선자 분포 시각화](https://observablehq.com/@rabelais/untitled/2)
+- [회기별 대한민국 국회의원 당선자 분포 시각화 2](https://observablehq.com/@rabelais/untitled/3)
+- [코로나 19 전국 확산 애니메이션](https://observablehq.com/@rabelais/19)
+- [covid-19 spread in South Korea](https://observablehq.com/@rabelais/covid-19-in-s-korea)
+- [지도에서 원형 그래프로 모핑하기](https://observablehq.com/@rabelais/shape-to-circle-morphing-with-map)
+- [web worker를 이용한 fetch와 일반 fetch 비교](https://observablehq.com/@rabelais/web-worker-fetch)
+
+## 주목할만한 Codepen 코드조각
+
+- [How to properly use Lodash debounce in Vue.js](https://codepen.io/rabelais88/pen/yqQpMy) \- 조회수 7천 이상
+- [Visualizing tournament tree with Vue.js and D3.js](https://codepen.io/rabelais88/pen/PXegoa) \- 조회수 2천 이상
+- [Vue.js page transition](https://codepen.io/rabelais88/pen/OoGOrz) \- 조회수 3백 이상
+- [Combining Vue.js and D3.js](https://codepen.io/rabelais88/pen/qYVbOK) \- 조회수 3백 이상
+
+## 관련 저작
+
+- [블로그에서 기타 저작 확인하기](https://sungryeol.com/posts)
+
+---
+
+# 🛠 주요 사용 도구
+
+적응력 있는 개발을 목표로 합니다. 사용 가능한 도구에도 특별히 제약을 두지 않습니다.<br/>
+그러나 필요하신 경우를 대비해, 조금 더 숙달되어 있는 도구들에 대해 알려드립니다.<br/>
+자주 문의되는 것 위주로만 적어두었습니다. 적어놓지 않은 도구가 있을 수 있습니다.
+
+## 언어/기타
+
+<HashTags
+  tags={{
+    typescript: '',
+    go: 'https://go.dev',
+    python: '',
+  }}
+/>
+
+## 프론트엔드
+
+<HashTags
+  tags={{
+    'react.js': '',
+    'vue.js': '',
+    'next.js': '',
+    'nuxt.js': '',
+    'three.js': '',
+    'd3.js': '',
+    'storybook.js': '',
+    'cypress.io': '',
+    'lottie.js': '',
+  }}
+/>
+
+## 모바일 개발
+
+<HashTags tags={{ 'react-native': '', expo: 'expo.dev' }} />
+
+## 백엔드
+
+<HashTags
+  tags={{
+    'express.js': '',
+    'Echo(go)': 'https://echo.labstack.com/',
+    MongoDB: '',
+    PostgreSQL: '',
+  }}
+/>
+
+## DevOps
+
+<HashTags
+  tags={{
+    docker: '',
+    AWS: '',
+    jenkins: '',
+    nginx: '',
+    traefik: '',
+    terraform: '',
+  }}
+/>
+
+## 기타 스택
+
+<HashTags
+  tags={{
+    GraphQL: '',
+    WebGL: '',
+    P2P: 'https://en.wikipedia.org/wiki/Peer-to-peer',
+    dataviz: 'https://en.wikipedia.org/wiki/Data_and_information_visualization',
+    agile: '',
+  }}
+/>

@@ -1,0 +1,26 @@
+{
+  "name": "@sungryeol/resume",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "prebuild": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^0.11.4",
+    "@sungryeol/prettier-config": "workspace:*",
+    "astro": "^1.4.7",
+    "dayjs": "^1.11.3",
+    "dotenv": "^16.0.3",
+    "stackexchange": "^2.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1",
+    "prettier-plugin-astro": "^0.5.5"
+  }
+}
