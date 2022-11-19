@@ -5,6 +5,8 @@ on:
       - main
     paths:
       - "/app-portfolio-2022/content/**"
+  workflow_dispatch:
+
 jobs:
   ts-node-indexing:
     runs-on: ubuntu-latest
