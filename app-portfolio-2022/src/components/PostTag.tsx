@@ -1,5 +1,5 @@
 import { mergeClass } from '@/lib';
-import { Button, chakra, Tag, TagProps } from '@chakra-ui/react';
+import { Button, chakra, Tag, TagProps, useColorMode } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 const PostTag = chakra(Tag, {
   baseStyle: {
@@ -18,11 +18,12 @@ export const PostTagControl: React.FC<PropsWithChildren<IPostTagControl>> = ({
   active,
   ...props
 }) => {
+  const { colorMode } = useColorMode();
   return (
     <Button
       {...mergeClass('post-tag-control', active && 'active')}
       variant="unstyled"
-      fontWeight="200"
+      fontWeight="400"
       cursor="pointer"
       borderRadius="full"
       border="solid 1px #718096"
@@ -34,8 +35,8 @@ export const PostTagControl: React.FC<PropsWithChildren<IPostTagControl>> = ({
       paddingRight="5px"
       sx={{
         '&.active': {
-          bgColor: 'black',
-          color: 'white',
+          bgColor: colorMode === 'light' ? 'black' : 'white',
+          color: colorMode === 'light' ? 'white' : 'black',
           fontWeight: 'bold',
         },
       }}
@@ -45,9 +46,8 @@ export const PostTagControl: React.FC<PropsWithChildren<IPostTagControl>> = ({
         boxShadow: 'inset 0 0 0 2px rgb(0,0,255,.3)',
       }}
       _hover={{
-        bgColor: 'yellow.100',
-        color: 'black',
-        fontWeight: 200,
+        bgColor: colorMode === 'light' ? 'yellow.100' : 'bg-pink',
+        color: colorMode === 'light' ? 'black' : 'white',
       }}
       {...props}
     >

@@ -52,8 +52,13 @@ export const useQueryRoute = () => {
     }
     router.push({ query: mergeObj(router.query, { page: toStr(page) }) });
   };
+
+  const setTag = (tag: string) => {
+    router.push({ query: mergeObj(router.query, { tags: [tag].join(',') }) });
+  };
+
   const addTag = (tag: string) => {
-    const newTags = Array.from(new Set([...tags, tag]));
+    const newTags = Array.from(new Set([...tags, tag])).filter((t) => t !== '');
     router.push({ query: mergeObj(router.query, { tags: newTags.join(',') }) });
   };
 
@@ -83,6 +88,7 @@ export const useQueryRoute = () => {
     removeTag,
     clearTags,
     hasTag,
+    setTag,
     keyword: q,
   };
 };

@@ -41,3 +41,7 @@ export const mergeClassStr = (...classNames: any[]) => {
 export const mergeClass = (...classNames: any[]) => {
   return { className: mergeClassStr(...classNames) };
 };
+
+export const copyToClipboard = (text: string) => {
+  navigator.clipboard.writeText(text);
+};

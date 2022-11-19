@@ -31,7 +31,37 @@ export default defineConfig({
         label: 'Pages',
         path: 'content/pages',
         fields: [
-          { type: 'rich-text', name: 'body', label: 'Body', isBody: true },
+          {
+            type: 'rich-text',
+            name: 'body',
+            label: 'Body',
+            isBody: true,
+            templates: [
+              {
+                name: 'ContactItem',
+                label: 'Contact Link',
+                fields: [
+                  { name: 'link', type: 'string', label: 'Link Url' },
+                  { name: 'label', type: 'string', label: 'Label' },
+                  {
+                    name: 'icon',
+                    type: 'string',
+                    label: 'Icon',
+                    options: [
+                      { label: 'CodePen', value: 'codepen' },
+                      { label: 'Codesandbox', value: 'codesandbox' },
+                      { label: 'Github', value: 'github' },
+                      { label: 'Instagram', value: 'instagram' },
+                      { label: 'LinkedIn', value: 'linkedin' },
+                      { label: 'ObservableHQ', value: 'observable' },
+                      { label: 'Stackoverflow', value: 'stackoverflow' },
+                      { label: 'Link', value: 'link-skewed' },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
         ],
         ui: {
           router: ({ document }) => `/${document._sys.filename}`,
@@ -75,6 +105,56 @@ export default defineConfig({
         ],
         ui: {
           router: ({ document }) => `/posts/${document._sys.filename}`,
+        },
+      },
+      {
+        name: 'work',
+        label: 'Works',
+        path: 'content/works',
+        fields: [
+          {
+            type: 'string',
+            name: 'title',
+            label: 'Title(English)',
+          },
+          {
+            type: 'string',
+            name: 'titleKr',
+            label: 'Title(Korean)',
+          },
+          {
+            type: 'string',
+            name: 'url',
+            label: 'Url',
+          },
+          {
+            type: 'rich-text',
+            name: 'body',
+            label: 'Body',
+            isBody: true,
+            templates: [
+              {
+                name: 'Video',
+                label: 'Video',
+                fields: [
+                  { type: 'string', name: 'url', label: 'Video Url(Vimeo)' },
+                ],
+              },
+              {
+                name: 'MockPhone',
+                label: 'Mobile Screenshot',
+                fields: [{ type: 'image', name: 'image', label: 'image' }],
+              },
+              {
+                name: 'MockWindow',
+                label: 'Desktop Screenshot',
+                fields: [{ type: 'image', name: 'image', label: 'image' }],
+              },
+            ],
+          },
+        ],
+        ui: {
+          router: ({ document }) => `/works/${document._sys.filename}`,
         },
       },
     ],

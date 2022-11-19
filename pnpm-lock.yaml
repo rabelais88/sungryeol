@@ -155,6 +155,7 @@ importers:
       '@types/react': ^18.0.14
       '@types/react-dom': ^18.0.5
       '@types/react-instantsearch-dom': ^6.12.3
+      '@u-wave/react-vimeo': ^0.9.8
       algoliasearch: ^4.13.1
       dotenv: ^16.0.3
       eslint: ^8.18.0
@@ -184,6 +185,7 @@ importers:
       '@types/qs': 6.9.7
       '@types/react': 18.0.21
       '@types/react-dom': 18.0.6
+      '@u-wave/react-vimeo': 0.9.8_react@18.2.0
       algoliasearch: 4.14.2
       eslint: 8.25.0
       eslint-config-next: 12.3.1_z4bbprzjrhnsfa24uvmcbu7f5q
