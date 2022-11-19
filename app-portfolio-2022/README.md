@@ -1,0 +1,1 @@
+- https://stackoverflow.com/questions/69870137/running-a-single-ts-file-in-a-next-js-project-with-ts-node-for-testing
