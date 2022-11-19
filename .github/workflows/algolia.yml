@@ -6,3 +6,14 @@ on:
     paths:
       - "/app-portfolio-2022/content/**"
 jobs:
+  ts-node-indexing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "pnpm"
+          cache-dependency-path: "pnpm-lock.yaml"
+      - run: pnpm run search-index
+        working-directory: ./app-portfolio-2022
