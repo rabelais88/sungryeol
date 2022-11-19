@@ -46,6 +46,8 @@ const {
     console.log(`indexed total of ${algoliaReq.objectIDs.length} posts`);
   } catch (err) {
     console.error(err);
+    // tell CI-CD of its failure
+    process.exit(1);
   }
 })();
 
