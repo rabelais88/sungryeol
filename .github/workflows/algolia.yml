@@ -31,6 +31,8 @@ jobs:
           echo NEXT_PUBLIC_TINA_CLIENT_ID=${{ secrets.NEXT_PUBLIC_TINA_CLIENT_ID }} >> .env
           echo TINA_TOKEN=${{ secrets.TINA_TOKEN }} >> .env
       - run: pnpm run build
-        # working-directory: ./app-portfolio-2022
+        working-directory: ./lib
+      - run: pnpm run build
+        working-directory: ./app-portfolio-2022
       - run: pnpm run search-index
         working-directory: ./app-portfolio-2022
