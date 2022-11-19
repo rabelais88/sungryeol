@@ -1,0 +1,8 @@
+name: "algolia indexing"
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "/app-portfolio-2022/content/**"
+jobs:
