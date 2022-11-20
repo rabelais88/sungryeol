@@ -7,12 +7,26 @@ from { background-position: left 2px bottom 2px; }
 to { background-position: left 500px bottom 2px; }
 `;
 
-const PrettyLink: React.FC<React.PropsWithChildren<AppLinkProps>> = ({
+type PrettyLinkProps = AppLinkProps & {
+  noUnderline?: boolean;
+};
+
+const PrettyLink: React.FC<React.PropsWithChildren<PrettyLinkProps>> = ({
   disabled,
   children,
+  noUnderline,
   ...props
 }) => {
   const { colorMode } = useColorMode();
+  const underLineProps = {
+    bgImg:
+      colorMode === 'light'
+        ? 'url("/images/dot-underline.svg")'
+        : 'url("/images/dot-underline-white.svg")',
+    bgRepeat: 'repeat-x',
+    bgSize: '4px 4px',
+    bgPos: 'bottom 2px left 2px',
+  };
   return (
     <AppLink
       position="relative"
@@ -38,15 +52,8 @@ const PrettyLink: React.FC<React.PropsWithChildren<AppLinkProps>> = ({
         },
       }}
       textDecor="none"
-      bgImg={
-        colorMode === 'light'
-          ? 'url("/images/dot-underline.svg")'
-          : 'url("/images/dot-underline-white.svg")'
-      }
       // boxDecorationBreak="clone"
-      bgRepeat="repeat-x"
-      bgSize="4px 4px"
-      bgPos="bottom 2px left 2px"
+      {...(noUnderline ? {} : underLineProps)}
       paddingBottom="5px"
       {...props}
     >

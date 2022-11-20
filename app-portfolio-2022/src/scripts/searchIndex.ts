@@ -42,6 +42,8 @@ const {
       ALGOLIA_SEARCH_ADMIN_KEY ?? ''
     );
     const index = client.initIndex('post');
+    await index.clearObjects();
+    console.log('indices reset!');
     const algoliaReq = await index.saveObjects(posts);
     console.log(`indexed total of ${algoliaReq.objectIDs.length} posts`);
   } catch (err) {

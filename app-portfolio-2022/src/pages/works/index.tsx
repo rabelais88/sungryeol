@@ -16,7 +16,7 @@ interface WorksPageProps extends PageProps {
 
 export const getStaticProps: GetStaticProps<WorksPageProps> = async () => {
   let data: Partial<PageQuery> = {};
-  const variables = { relativePath: `works.md` };
+  const variables = { relativePath: `works.mdx` };
   let query: string = '';
 
   try {

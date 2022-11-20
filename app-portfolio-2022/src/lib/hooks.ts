@@ -34,7 +34,7 @@ export const useQueryRoute = () => {
   const tags = toStr(router.query.tags).split(',');
 
   const setKeyword = (keyword?: string) => {
-    router.push({ query: mergeObj(router.query, { q: keyword }) });
+    router.push({ query: mergeObj(router.query, { q: keyword, page: '0' }) });
   };
   const setSize = (size?: number) => {
     if (size === undefined) {
@@ -42,7 +42,9 @@ export const useQueryRoute = () => {
       router.push({ query });
       return;
     }
-    router.push({ query: mergeObj(router.query, { size: toStr(size) }) });
+    router.push({
+      query: mergeObj(router.query, { size: toStr(size), page: '0' }),
+    });
   };
   const setPage = (page?: number) => {
     if (page === undefined) {
@@ -54,12 +56,16 @@ export const useQueryRoute = () => {
   };
 
   const setTag = (tag: string) => {
-    router.push({ query: mergeObj(router.query, { tags: [tag].join(',') }) });
+    router.push({
+      query: mergeObj(router.query, { tags: [tag].join(','), page: '0' }),
+    });
   };
 
   const addTag = (tag: string) => {
     const newTags = Array.from(new Set([...tags, tag])).filter((t) => t !== '');
-    router.push({ query: mergeObj(router.query, { tags: newTags.join(',') }) });
+    router.push({
+      query: mergeObj(router.query, { tags: newTags.join(','), page: '0' }),
+    });
   };
 
   const removeTag = (tag: string) => {
@@ -68,11 +74,14 @@ export const useQueryRoute = () => {
       router.push({ query: deleteProperty(router.query, 'tags') });
       return;
     }
-    router.push({ query: mergeObj(router.query, { tags: newTags }) });
+    router.push({
+      query: mergeObj(router.query, { tags: newTags, page: '0' }),
+    });
   };
 
   const clearTags = () => {
     const query = deleteProperty(router.query, 'tags');
+    query.page = '0';
     router.push({ query });
   };
 

@@ -68,7 +68,7 @@ export const getStaticProps: GetStaticProps<WorkPageProps> = async ({
   params,
 }) => {
   let data: Partial<WorkQuery> = {};
-  const variables = { relativePath: `${params?.workid}.md` };
+  const variables = { relativePath: `${params?.workid}.mdx` };
   let query: string = '';
 
   try {

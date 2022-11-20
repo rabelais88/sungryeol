@@ -27,6 +27,7 @@ export default defineConfig({
   schema: {
     collections: [
       {
+        format: 'mdx',
         name: 'page',
         label: 'Pages',
         path: 'content/pages',
@@ -108,6 +109,7 @@ export default defineConfig({
         },
       },
       {
+        format: 'mdx',
         name: 'work',
         label: 'Works',
         path: 'content/works',

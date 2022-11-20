@@ -22,7 +22,7 @@ const components = {
 
 export const getStaticProps: GetStaticProps<ContactPageProps> = async () => {
   let data: Partial<PageQuery> = {};
-  const variables = { relativePath: `contact.md` };
+  const variables = { relativePath: `contact.mdx` };
   let query: string = '';
 
   try {
@@ -49,7 +49,7 @@ export const getStaticProps: GetStaticProps<ContactPageProps> = async () => {
 const ContactPage: MyPage<ContactPageProps> = ({ tinaRequest }) => {
   const { data } = useTina<{ page: Page }>(tinaRequest);
   return (
-    <Box>
+    <Box className="contact-page">
       <Box h="80px" />
       <ProfileVideo />
       <Heading
@@ -86,7 +86,19 @@ const ContactPage: MyPage<ContactPageProps> = ({ tinaRequest }) => {
       <Text fontFamily="Title" fontSize="25px" mb="50px" textAlign="center">
         DEVELOPER
       </Text>
-      <TinaMarkdown content={data?.page?.body} components={components} />
+      <Box
+        className="markdown-area"
+        sx={{
+          '> p + *': {
+            mt: '50px',
+          },
+          p: {
+            textAlign: 'center',
+          },
+        }}
+      >
+        <TinaMarkdown content={data?.page?.body} components={components} />
+      </Box>
     </Box>
   );
 };
