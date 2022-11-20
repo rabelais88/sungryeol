@@ -186,18 +186,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     .split(',')
     .filter((t) => t !== '');
   const page = toNum(context.query.page);
-  const size = toNum(context.query.size, 3);
+  const size = toNum(context.query.size, 5);
   const tagsSize = toNum(context.query.tagsize, 20);
   const searchResults = await postIndex.search(q, {
     page,
     facetFilters: tags.map((t) => `tags:${t}`),
     hitsPerPage: size,
+    attributesToHighlight: ['title'],
+    attributesToSnippet: ['title:15', 'body:80'],
   });
   const searchForFacetValuesResponse = await postIndex.searchForFacetValues(
     'tags',
     '',
     {
       maxFacetHits: tagsSize,
+      attributesToHighlight: [],
     }
   );
   return { props: { searchResults, searchForFacetValuesResponse } };

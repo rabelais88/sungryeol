@@ -17,7 +17,9 @@ const PostItem: React.FC<{ hit: Hit<Post> }> = ({ hit }) => {
           flexDir: 'column-reverse',
           alignItems: 'flex-start',
           '& .dashed-line': { display: 'none' },
-          borderTop: 'solid 1px black',
+          borderColor: colorMode === 'light' ? 'black' : 'white',
+          borderTop: '1px',
+          borderSTyle: 'solid',
         },
       }}
     >

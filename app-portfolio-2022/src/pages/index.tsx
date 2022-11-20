@@ -5,15 +5,7 @@ import PrettyLink from '@/components/PrettyLink';
 import { algoliaClient } from '@/lib/algolia';
 import { MyPage } from '@/types/common';
 import { SearchResponse } from '@algolia/client-search';
-import {
-  Box,
-  Center,
-  Heading,
-  List,
-  ListItem,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Center, Heading, List, Text, VStack } from '@chakra-ui/react';
 import { GetStaticProps } from 'next';
 
 // const BigLink: React.FC<PropsWithChildren<AppLinkProps>> = ({
@@ -72,6 +64,9 @@ const Home: MyPage<HomeProps> = ({ searchResponse }) => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const index = await algoliaClient.initIndex('post');
   const searchResponse = await index.search('', {
+    attributesToRetrieve: ['title', 'datePublish'],
+    attributesToHighlight: [],
+    attributesToSnippet: [],
     hitsPerPage: 7,
     page: 0,
   });
