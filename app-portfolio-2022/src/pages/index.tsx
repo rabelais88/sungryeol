@@ -51,7 +51,11 @@ const Home: MyPage<HomeProps> = ({ searchResponse }) => {
       <Heading textAlign="center" mb="30px" fontFamily="Title">
         RECENT ARTICLES
       </Heading>
-      <List sx={{ '& > * + *': { mt: '15px' } }}>
+      <List
+        sx={{
+          '& .post-item + .post-item': { mt: '15px' },
+        }}
+      >
         {searchResponse?.hits?.map((hit) => (
           <PostItem key={hit.objectID} hit={hit} />
         ))}
@@ -75,5 +79,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return { props: { searchResponse } };
 };
 
-Home.defaultProps = { bodyPortal: <Box>test!</Box> };
+// Home.defaultProps = { bodyPortal: <Box>test!</Box> };
 export default Home;

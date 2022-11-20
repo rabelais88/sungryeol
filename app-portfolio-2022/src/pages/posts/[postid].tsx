@@ -9,6 +9,7 @@ import {
   Button,
   Divider,
   Heading,
+  Image,
   ListItem,
   OrderedList,
   Text,
@@ -28,6 +29,7 @@ import PrettyLink from '@/components/PrettyLink';
 import { copyToClipboard } from '@/lib';
 // @ts-ignore
 import highlightStyle from 'react-syntax-highlighter/dist/cjs/styles/prism/one-light';
+import { url } from 'inspector';
 
 interface PostPageProps extends PageProps {
   tinaRequest: {
@@ -58,6 +60,12 @@ const components: Record<string, React.FC> = {
   p: Text,
   a: (props: any) => <PrettyLink href={props.url}>{props.children}</PrettyLink>,
   code_block: CodeBlock,
+  img: (props: any) => {
+    // props: {alt: string, caption: string, type: 'img', url: string}
+    // const reFullUrl = new RegExp('^([a-z]+://|//)', 'i');
+    // const url = reFullUrl.test(props?.url as string) ? props.url : props.url;
+    return <Image src={props.url} alt={props.alt} />;
+  },
 };
 
 const PostPage: MyPage<PostPageProps> = ({ tinaRequest }) => {

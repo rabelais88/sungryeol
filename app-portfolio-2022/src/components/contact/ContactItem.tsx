@@ -1,4 +1,4 @@
-import { Box, Image, Text } from '@chakra-ui/react';
+import { Box, Image, Text, useColorMode } from '@chakra-ui/react';
 import AppLink from '../AppLink';
 import PrettyLink from '../PrettyLink';
 
@@ -14,6 +14,7 @@ const ContactItem: React.FC<IContactItemProps> = ({
   icon,
   ...props
 }) => {
+  const { colorMode } = useColorMode();
   return (
     <Box
       whiteSpace="nowrap"
@@ -23,7 +24,21 @@ const ContactItem: React.FC<IContactItemProps> = ({
       fontSize="14px"
       mb="5"
     >
-      <Image src={`/icons/icon-${icon}.svg`} display="inline-block" mr="10px" />
+      <Image
+        src={`/icons/icon-${icon}.svg`}
+        display="inline-block"
+        mr="10px"
+        sx={
+          colorMode === 'light'
+            ? {}
+            : {
+                bgColor: 'white',
+                borderRadius: '5px',
+                p: '5px',
+                width: '30px',
+              }
+        }
+      />
       <PrettyLink href={link ?? ''}>
         <Text display="inline-block" fontWeight="bold">
           {label}

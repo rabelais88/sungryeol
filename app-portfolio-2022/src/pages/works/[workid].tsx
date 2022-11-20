@@ -2,6 +2,7 @@ import client from '.tina/__generated__/client';
 import { Work, WorkQuery } from '.tina/__generated__/types';
 import AppLink from '@/components/AppLink';
 import MockPhone from '@/components/mocks/MockPhone';
+import MockWindow from '@/components/mocks/MockWindow';
 import Video from '@/components/Video';
 import { MyPage } from '@/types/common';
 import {
@@ -35,6 +36,7 @@ const components: Record<string, React.FC> = {
   p: Text,
   Video: (props: any) => <Video url={props?.url ?? ''} />,
   MockPhone: (props: any) => <MockPhone image={props.image} />,
+  MockWindow: (props: any) => <MockWindow image={props.image} />,
 };
 
 const WorkPage: MyPage<WorkPageProps> = ({ tinaRequest }) => {
