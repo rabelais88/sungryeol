@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - "/app-portfolio-2022/content/**"
+      - "app-portfolio-2022/content/**"
   workflow_dispatch:
 
 jobs:
