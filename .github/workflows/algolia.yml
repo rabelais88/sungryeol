@@ -12,15 +12,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 6.32.9
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: "pnpm"
-          cache-dependency-path: "pnpm-lock.yaml"
-      - run: pnpm install --frozen-lockfile
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+          run_install: false
+      # https://github.com/pnpm/action-setup
+      # pnpm cache setup
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      # --- end of pnpm cache setup
+      - run: pnpm install
       - name: create env file
         working-directory: ./app-portfolio-2022
         run: |
