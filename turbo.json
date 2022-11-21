@@ -10,12 +10,13 @@
       "dependsOn": ["build"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts", "test/**/*.tsx"]
     },
-    "lint": {
+    "deploy": {
+      "dependsOn": ["prebuild", "build", "sitemap"],
       "outputs": []
     },
-    "deploy": {
-      "dependsOn": ["prebuild", "build", "lint"],
-      "outputs": []
+    "sitemap": {
+      "dependsOn": ["build"],
+      "outputs": ["public/robots.txt", "public/sitemap*.xml"]
     },
     "dev": {
       "cache": false
