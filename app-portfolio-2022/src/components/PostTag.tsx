@@ -1,13 +1,18 @@
 import { mergeClass } from '@/lib';
 import { Button, chakra, Tag, TagProps, useColorMode } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
-const PostTag = chakra(Tag, {
-  baseStyle: {
-    borderRadius: 'full',
-    color: 'black',
-    fontWeight: 200,
-  },
-});
+const PostTag: React.FC<PropsWithChildren<TagProps>> = ({ children }) => {
+  const { colorMode } = useColorMode();
+  return (
+    <Tag
+      borderRadius="full"
+      fontWeight="400"
+      color={colorMode === 'light' ? 'black' : 'white'}
+    >
+      {children}
+    </Tag>
+  );
+};
 
 interface IPostTagControl extends TagProps {
   active?: boolean;
