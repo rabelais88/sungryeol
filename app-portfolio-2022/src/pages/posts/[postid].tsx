@@ -19,6 +19,7 @@ import {
   OrderedList,
   Text,
   UnorderedList,
+  useColorMode,
   VStack,
   Wrap,
 } from '@chakra-ui/react';
@@ -29,6 +30,7 @@ import { useTina } from 'tinacms/dist/react';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
 // @ts-ignore
 import highlightStyle from 'react-syntax-highlighter/dist/cjs/styles/prism/one-light';
+import BlockQuote from '@/components/markdown/BlockQuote';
 
 interface PostPageProps extends PageProps {
   tinaRequest: {
@@ -72,6 +74,7 @@ const components: Record<string, React.FC> = {
     const url = props.url.replace(reDupeTinaUrl, '');
     return <Image src={url} alt={props.alt} />;
   },
+  blockquote: BlockQuote,
 };
 
 const PostPage: MyPage<PostPageProps> = ({ tinaRequest }) => {
@@ -79,6 +82,7 @@ const PostPage: MyPage<PostPageProps> = ({ tinaRequest }) => {
   const onShare = () => {
     copyToClipboard(window?.location?.href ?? '');
   };
+  const { colorMode } = useColorMode();
   return (
     <Box className="post-page">
       <Button
@@ -104,8 +108,12 @@ const PostPage: MyPage<PostPageProps> = ({ tinaRequest }) => {
       <Heading variant="post" mt="9px">
         {data.post.title}
       </Heading>
-      <Divider mt="9px" borderColor="black" />
+      <Divider
+        mt="9px"
+        borderBottomColor={colorMode === 'light' ? 'black' : 'white'}
+      />
       <Box
+        pt="50px"
         sx={{
           'h1,h2,h3,h4,h5': { fontFamily: 'Title' },
           '> * + *': {
@@ -117,7 +125,9 @@ const PostPage: MyPage<PostPageProps> = ({ tinaRequest }) => {
           p: { fontSize: '16px', fontWeight: '400', mt: '50px' },
           div: { fontSize: '16px', fontWeight: '400' },
           'img:not(.with-caption)': { borderRadius: '10px' },
-          blockquote: { borderLeft: 'solid 2px black', pl: '10px' },
+          code: {
+            fontSize: '13px',
+          },
         }}
       >
         <TinaMarkdown content={data?.post?.body} components={components} />
