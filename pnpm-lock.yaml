@@ -165,6 +165,7 @@ importers:
       html-react-parser: ^2.0.0
       lodash: ^4.17.21
       next: ^12.2.0
+      next-sitemap: ^3.1.7
       prettier: ^2.7.1
       qs: ^6.11.0
       react: ^18.2.0
@@ -196,6 +197,7 @@ importers:
       html-react-parser: 2.0.0_react@18.2.0
       lodash: 4.17.21
       next: 12.3.1_biqbaboplfbrettd7655fr4n2y
+      next-sitemap: 3.1.24_next@12.3.1
       qs: 6.11.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -3821,7 +3823,6 @@ packages:
 
   /@corex/deepmerge/4.0.29:
     resolution: {integrity: sha512-q/yVUnqckA8Do+EvAfpy7RLdumnBy9ZsducMUtZTvpdbJC7azEf1hGtnYYxm0QfphYxjwggv6XtH64prvS1W+A==}
-    dev: true
 
   /@cspotcode/source-map-support/0.8.1:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -20126,8 +20127,7 @@ packages:
     dependencies:
       '@corex/deepmerge': 4.0.29
       minimist: 1.2.6
-      next: 12.3.1_6tziyx3dehkoeijunclpkpolha
-    dev: true
+      next: 12.3.1_biqbaboplfbrettd7655fr4n2y
 
   /next/12.3.1_6tziyx3dehkoeijunclpkpolha:
     resolution: {integrity: sha512-l7bvmSeIwX5lp07WtIiP9u2ytZMv7jIeB8iacR28PuUEFG5j0HGAPnMqyG5kbZNBG2H7tRsrQ4HCjuMOPnANZw==}
@@ -20216,7 +20216,6 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
-    dev: false
 
   /nice-try/1.0.5:
     resolution: {integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==}
@@ -24074,7 +24073,6 @@ packages:
         optional: true
     dependencies:
       react: 18.2.0
-    dev: false
 
   /stylis/4.0.13:
     resolution: {integrity: sha512-xGPXiFVl4YED9Jh7Euv2V220mriG9u4B2TA6Ybjc1catrstKD2PpIdU3U0RKpkVBC2EhmL/F0sPCr9vrFTNRag==}

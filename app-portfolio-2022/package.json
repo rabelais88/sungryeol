@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",
     "build": "tinacms build && next build",
+    "postbuild": "next-sitemap",
     "start": "tinacms build  && next start",
     "lint": "next lint",
     "search-index": "ts-node --project ./tsconfig-scripts.json -r tsconfig-paths/register src/scripts/searchIndex.ts"
@@ -29,6 +30,7 @@
     "html-react-parser": "^2.0.0",
     "lodash": "^4.17.21",
     "next": "^12.2.0",
+    "next-sitemap": "^3.1.7",
     "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
