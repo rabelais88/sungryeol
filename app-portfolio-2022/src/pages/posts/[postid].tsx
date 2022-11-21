@@ -62,17 +62,7 @@ const components: Record<string, React.FC> = {
   a: (props: any) => <PrettyLink href={props.url}>{props.children}</PrettyLink>,
   code_block: CodeBlock,
   img: (props: any) => {
-    // props: {alt: string, caption: string, type: 'img', url: string}
-
-    // wrong url example:
-    // https://assets.tina.io/aa7c1bf3-85da-48e1-95b1-62d7df4ca94bhttps://i.imgur.com/OyxJCbz.png
-    // const reImagePathOnly = /^\/.+\.[\w]+/i;
-    // this allows external images to be properly displayed
-    // remove deplicate url due to tinaCMS bug
-    const reDupeTinaUrl =
-      /^(https:\/\/assets\.tina\.io.+)https:\/\/.+|http:\/\/.+/i;
-    const url = props.url.replace(reDupeTinaUrl, '');
-    return <Image src={url} alt={props.alt} />;
+    return <Image src={props.url} alt={props.alt} />;
   },
   blockquote: BlockQuote,
 };
