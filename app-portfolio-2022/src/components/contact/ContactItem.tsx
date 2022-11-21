@@ -1,5 +1,4 @@
 import { Box, Image, Text, useColorMode } from '@chakra-ui/react';
-import AppLink from '../AppLink';
 import PrettyLink from '../PrettyLink';
 
 interface IContactItemProps {
@@ -25,6 +24,7 @@ const ContactItem: React.FC<IContactItemProps> = ({
       mb="5"
     >
       <Image
+        alt={`icon for ${icon}`}
         src={`/icons/icon-${icon}.svg`}
         display="inline-block"
         mr="10px"

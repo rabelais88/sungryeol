@@ -1,9 +1,9 @@
-import { parse } from 'yaml';
-import fs from 'fs/promises';
-import path from 'path';
-import { Post } from '../../.tina/__generated__/types';
 import algoliasearch from 'algoliasearch';
 import dotenv from 'dotenv';
+import fs from 'fs/promises';
+import path from 'path';
+import { parse } from 'yaml';
+import { Post } from '../../.tina/__generated__/types';
 
 dotenv.config();
 const {

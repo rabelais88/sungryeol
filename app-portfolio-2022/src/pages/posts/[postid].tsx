@@ -1,8 +1,13 @@
 import client from '.tina/__generated__/client';
 import { Post, PostQuery } from '.tina/__generated__/types';
 import AppLink from '@/components/AppLink';
+import DateText from '@/components/DateText';
+import IconShare from '@/components/icons/IconShare';
 import LogoGeometry from '@/components/icons/LogoGeometry';
 import LogoText from '@/components/icons/LogoText';
+import PostTag from '@/components/PostTag';
+import PrettyLink from '@/components/PrettyLink';
+import { copyToClipboard } from '@/lib';
 import { MyPage } from '@/types/common';
 import {
   Box,
@@ -22,14 +27,8 @@ import React from 'react';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { useTina } from 'tinacms/dist/react';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
-import DateText from '@/components/DateText';
-import IconShare from '@/components/icons/IconShare';
-import PostTag from '@/components/PostTag';
-import PrettyLink from '@/components/PrettyLink';
-import { copyToClipboard } from '@/lib';
 // @ts-ignore
 import highlightStyle from 'react-syntax-highlighter/dist/cjs/styles/prism/one-light';
-import { url } from 'inspector';
 
 interface PostPageProps extends PageProps {
   tinaRequest: {

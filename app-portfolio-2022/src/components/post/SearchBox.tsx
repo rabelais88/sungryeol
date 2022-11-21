@@ -1,12 +1,12 @@
 import { useQueryRoute } from '@/lib/hooks';
-import { useMemo } from 'react';
-import _debounce from 'lodash/debounce';
 import {
   IconButton,
   Input,
   InputGroup,
   InputRightElement,
 } from '@chakra-ui/react';
+import _debounce from 'lodash/debounce';
+import { useMemo } from 'react';
 import IconSearch from '../icons/IconSearch';
 
 const SearchBox = () => {

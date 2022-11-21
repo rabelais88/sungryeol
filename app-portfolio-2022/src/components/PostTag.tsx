@@ -1,5 +1,5 @@
 import { mergeClass } from '@/lib';
-import { Button, chakra, Tag, TagProps, useColorMode } from '@chakra-ui/react';
+import { Button, Tag, TagProps, useColorMode } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 const PostTag: React.FC<PropsWithChildren<TagProps>> = ({ children }) => {
   const { colorMode } = useColorMode();
