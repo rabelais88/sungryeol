@@ -1,7 +1,3 @@
-# links
-
-- [backend](https://github.com/rabelais88/portfolio-backend-2021)
-
 # Troubleshooting
 
 - `tsconfig.json`내에서 `incremental:true`일 경우 `d.ts`가 텅 빈 상태로 생성되어 `import`가 불가할 수 있음. 앱의 경우는 `incremental:true`로, 유틸은 `incremental:false`로 세팅할 것
@@ -12,7 +8,7 @@
 - manage workspace folders via `.vsocde/settings.json` -> `eslint.workingDirectories`
 - vercel을 통해 배포할 때에는 반드시 `Root Directory`를 지정하고, `Include source files outside of the Root Directory in the Build Step.`을 체크할 것.
 
-# developing inside docker container + vscode
+# Developing inside docker container + vscode
 
 **2022.OCT update: adopted PNPM workspace. vscode devcontainer may not work due to symlink usage in PNPM**
 
@@ -32,7 +28,7 @@ source mutagen-workspace.sh build
   use `Remote-Containers: Open Attached Container Configuration File...` to use user-specific setting.
   refer to `.devcontainer/config-recommend.json` for recommended container setting.
 
-# install, bootstrapping
+# Install, bootstrapping
 
 - https://vercel.com/docs/concepts/monorepos/turborepo
 
@@ -41,7 +37,7 @@ source mutagen-workspace.sh build
 (project root)$pnpm install
 ```
 
-# build & publish libraries
+# Build & publish libraries
 
 ```sh
 (project root)$ pnpm turbo build
@@ -53,13 +49,24 @@ source mutagen-workspace.sh build
 (project root)$ pnpm changeset publish
 ```
 
-# maintenance for libraries
+# Maintenance for libraries
 
 ```sh
 (project root)$ pnpm -r outdated
 (project root)$ pnpm -r update $PACKAGE_NAME --latest
 ```
 
-# build skip
+# Build skip
 
 - add `[skip-build]` to commit message
+
+# Project specific readmes
+
+- [portfolio and blog readme](https://github.com/rabelais88/sungryeol/tree/main/app-portfolio-2022)
+- [resume generator readme](https://github.com/rabelais88/sungryeol/tree/main/resume)
+
+# Legacy
+
+these projects are no longer maintained.
+
+- [backend](https://github.com/rabelais88/portfolio-backend-2021)

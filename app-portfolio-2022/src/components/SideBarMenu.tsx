@@ -2,6 +2,7 @@ import { useStoreContext } from '@/lib/store';
 import { Box, Switch, Text, useColorMode, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import AppLink from './AppLink';
 import LogoGeometry from './icons/LogoGeometry';
 import MenuTab from './MenuTab';
 
@@ -31,7 +32,10 @@ const SideBarMenu: React.FC = () => {
       w={{ sm: '100%', md: '288px' }}
     >
       <VStack>
-        <LogoGeometry w="160px" h="68px" />
+        <Box height="50px" className="margin" />
+        <AppLink href="/">
+          <LogoGeometry w="160px" h="68px" />
+        </AppLink>
         <Text>color mode</Text>
         <Switch
           onChange={(ev) => setColorMode(ev.target.checked ? 'light' : 'dark')}

@@ -15,8 +15,11 @@ The site has been re-implemented in TinaCMS; the previous version used highly cu
 
 # Troubleshooting
 
-## Testing Turbobuild
+## Testing Turbobuild on Local Machine
 
 ```sh
+# testing build
 pnpm turbo build --filter=@sungryeol/app-portfolio-2022
+# testing deploy
+pnpm turbo deploy --filter=@sungryeol/app-portfolio-2022
 ```
