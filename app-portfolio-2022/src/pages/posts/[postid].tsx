@@ -12,7 +12,6 @@ import { MyPage } from '@/types/common';
 import {
   Box,
   Button,
-  Divider,
   Heading,
   Image,
   ListItem,
@@ -31,6 +30,7 @@ import { TinaMarkdown } from 'tinacms/dist/rich-text';
 // @ts-ignore
 import highlightStyle from 'react-syntax-highlighter/dist/cjs/styles/prism/one-light';
 import BlockQuote from '@/components/markdown/BlockQuote';
+import Divider from '@/components/Divider';
 
 interface PostPageProps extends PageProps {
   tinaRequest: {
@@ -108,10 +108,7 @@ const PostPage: MyPage<PostPageProps> = ({ tinaRequest }) => {
       <Heading variant="post" mt="9px">
         {data.post.title}
       </Heading>
-      <Divider
-        mt="9px"
-        borderBottomColor={colorMode === 'light' ? 'black' : 'white'}
-      />
+      <Divider mt="9px" />
       <Box
         pt="50px"
         sx={{

@@ -13,13 +13,13 @@ export const useDetectScrolled = () => {
 
   const handleScroll = _debounce(() => {
     const currentScrollPos = window.pageYOffset;
-    setScrolled(currentScrollPos > 70);
+    if (currentScrollPos !== prevScrollPos)
+      setScrolled(currentScrollPos > prevScrollPos);
     setPrevScrollPos(currentScrollPos);
   }, 100);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [prevScrollPos, scrolled, handleScroll]);

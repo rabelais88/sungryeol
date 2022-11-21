@@ -27,7 +27,9 @@ const TopBarMenu: React.FC<Pick<PageProps, 'forceTopBarHide'>> = ({
     <>
       <Box
         data-scrolled={scrolled && isSmallerThan800}
+        transition="top 1s ease"
         // top={{ sm: scrolled ? '-70px' : 0, md: 0 }}
+        top="0"
         sx={{
           '&[data-scrolled="true"]': {
             top: '-70px',

@@ -1,8 +1,12 @@
 import client from '.tina/__generated__/client';
 import { Work, WorkQuery } from '.tina/__generated__/types';
 import AppLink from '@/components/AppLink';
+import Divider from '@/components/Divider';
+import LogoGeometry from '@/components/icons/LogoGeometry';
+import LogoText from '@/components/icons/LogoText';
 import MockPhone from '@/components/mocks/MockPhone';
 import MockWindow from '@/components/mocks/MockWindow';
+import PrettyLink from '@/components/PrettyLink';
 import Video from '@/components/Video';
 import { MyPage } from '@/types/common';
 import {
@@ -12,6 +16,7 @@ import {
   OrderedList,
   Text,
   UnorderedList,
+  VStack,
 } from '@chakra-ui/react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import React from 'react';
@@ -43,11 +48,15 @@ const WorkPage: MyPage<WorkPageProps> = ({ tinaRequest }) => {
   const { data } = useTina<{ work: Work }>(tinaRequest);
   return (
     <Box className="post-page">
-      <Heading variant="post">{data.work.title}</Heading>
+      <PrettyLink href="/works">Works</PrettyLink>
+      <Heading variant="post" mt="20px">
+        {data.work.title}
+      </Heading>
+      <Divider mt="9px" />
       <Box
         sx={{
           'h1,h2,h3,h4,h5': { fontFamily: 'Title' },
-          '* + h1,* + h2,* + h3,* + h4,* + h5, * + .callout, * + ul, * + ol': {
+          '& > * + *': {
             mt: '40px',
           },
           // 'nav.toc': { 'li + li': { mt: '5px' }, ol: { mt: '5px' } },
@@ -61,7 +70,14 @@ const WorkPage: MyPage<WorkPageProps> = ({ tinaRequest }) => {
       >
         <TinaMarkdown content={data?.work?.body} components={components} />
       </Box>
-      <AppLink href="/works">back to works</AppLink>
+      <VStack className="area-post-bottom" mt="20">
+        <AppLink href="/works">
+          <LogoGeometry w="160px" h="68px" />
+        </AppLink>
+        <AppLink href="/works">
+          <LogoText w="78px" h="18px" />
+        </AppLink>
+      </VStack>
     </Box>
   );
 };
