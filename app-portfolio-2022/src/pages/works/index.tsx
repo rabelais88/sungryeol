@@ -66,9 +66,10 @@ WorksPage.defaultProps = {
           textDecoration: 'none',
         },
       }}
+      w="100%"
     >
       <Marquee gradient={false}>
-        {Array.from({ length: 3 }).map(
+        {Array.from({ length: 20 }).map(
           () => 'check source of this blog at GITHUB - '
         )}
       </Marquee>
