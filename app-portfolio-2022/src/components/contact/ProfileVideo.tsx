@@ -18,6 +18,7 @@ const ProfileVideo = () => {
         loop
         playsInline
         style={{ position: 'absolute', width: '300px' }}
+        poster="/images/video-profile-preview.png"
       >
         <source src="/video-profile.mp4" type="video/mp4" />
       </video>
