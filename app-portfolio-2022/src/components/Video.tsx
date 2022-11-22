@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react';
 import Vimeo, { VimeoProps } from '@u-wave/react-vimeo';
 
 type VideoPropsShared = Pick<VimeoProps, 'className' | 'id'> & {
@@ -18,13 +19,13 @@ const Video: React.FC<VideoPropsA | VideoPropsB> = ({
   ...props
 }) => {
   const video = url ?? vimeoId ?? '';
+  if (video === '') return <Box>Video.tsx - no video provided!</Box>;
   return (
     <Vimeo
       video={video}
       className="video-embed"
-      height="600"
       responsive
-      style={{ height: '600px', width: '100%' }}
+      style={{ width: '100%' }}
       {...props}
     />
   );

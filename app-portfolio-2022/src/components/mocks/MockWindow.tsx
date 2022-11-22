@@ -40,7 +40,14 @@ const MockWindow: React.FC<{ image: string }> = ({ image }) => {
         position="relative"
         overflowY="hidden"
       >
-        <Image src={image} h="100%" w="100%" objectFit="cover" />
+        <Image
+          src={image}
+          h="100%"
+          w="100%"
+          objectFit="cover"
+          borderRadius="0"
+          className="mock-win-img"
+        />
       </Box>
     </Box>
   );

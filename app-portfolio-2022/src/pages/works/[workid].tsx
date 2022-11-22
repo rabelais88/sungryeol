@@ -2,6 +2,7 @@ import client from '.tina/__generated__/client';
 import { Work, WorkQuery } from '.tina/__generated__/types';
 import AppLink from '@/components/AppLink';
 import Divider from '@/components/Divider';
+import IconExternal from '@/components/icons/IconExternal';
 import LogoGeometry from '@/components/icons/LogoGeometry';
 import LogoText from '@/components/icons/LogoText';
 import MockPhone from '@/components/mocks/MockPhone';
@@ -42,6 +43,7 @@ const components: Record<string, React.FC> = {
   Video: (props: any) => <Video url={props?.url ?? ''} />,
   MockPhone: (props: any) => <MockPhone image={props.image} />,
   MockWindow: (props: any) => <MockWindow image={props.image} />,
+  a: (props: any) => <PrettyLink href={props.url}>{props.children}</PrettyLink>,
 };
 
 const WorkPage: MyPage<WorkPageProps> = ({ tinaRequest }) => {
@@ -64,12 +66,23 @@ const WorkPage: MyPage<WorkPageProps> = ({ tinaRequest }) => {
           'li + li': { mt: '20px' },
           p: { fontSize: '16px', fontWeight: '400', mt: '50px' },
           div: { fontSize: '16px', fontWeight: '400' },
-          'img:not(.with-caption)': { borderRadius: '10px' },
+          'img:not(.mock-win-img):not(.mock-phone-img)': {
+            borderRadius: '10px',
+          },
           blockquote: { borderLeft: 'solid 2px black', pl: '10px' },
+          '.mock-window, .mock-phone': {
+            mx: 'auto',
+          },
         }}
       >
         <TinaMarkdown content={data?.work?.body} components={components} />
       </Box>
+      {data?.work?.url && (
+        <Box textAlign="center" mt="25px">
+          <IconExternal w="24px" h="24px" />
+          <PrettyLink href={data?.work?.url}>See Actual Work</PrettyLink>
+        </Box>
+      )}
       <VStack className="area-post-bottom" mt="20">
         <AppLink href="/works">
           <LogoGeometry w="160px" h="68px" />

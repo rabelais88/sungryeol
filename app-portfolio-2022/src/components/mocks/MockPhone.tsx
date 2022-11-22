@@ -28,7 +28,7 @@ const MockPhone: React.FC<{ image: string }> = ({ image }) => {
         },
       }}
     >
-      <Image src={image} h="100%" />
+      <Image src={image} h="100%" className="mock-phone-img" />
     </Box>
   );
 };
