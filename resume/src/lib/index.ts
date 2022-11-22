@@ -10,3 +10,6 @@ export const formatShortNum = (num: number) => {
 export const formatDate = (date: dateArg) => {
   return dayjs(date).format('YYYY-MM-DD');
 };
+export const delimit = (num: number) => {
+  return num.toLocaleString('ko-kr');
+};

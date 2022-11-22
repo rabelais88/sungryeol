@@ -1,5 +1,6 @@
 ---
 layout: '@/layouts/Layout.astro'
+title: '박성렬 국문 이력서'
 ---
 
 import {
@@ -12,7 +13,7 @@ import {
   stackExchangeUser,
   stackExchangeUesrLastDate,
 } from '@/constants/shared';
-import { formatJobDate, formatShortNum, formatDate } from '@/lib';
+import { formatJobDate, delimit, formatDate } from '@/lib';
 import works from '@/constants/works';
 import HashTags from '@/components/HashTags.astro';
 
@@ -26,7 +27,7 @@ import HashTags from '@/components/HashTags.astro';
 
 👨‍💻**Github**: <a href={github}>{github}</a>
 
-🙋**Stackoverflow**: <a href={stackoverflow}>{stackoverflow}</a><br/>({formatDate(stackExchangeUesrLastDate)} 평판점수 {formatShortNum(stackExchangeUser.reputation)})
+🙋**Stackoverflow**: <a href={stackoverflow}>{stackoverflow}</a><br/>({formatDate(stackExchangeUesrLastDate)} 평판점수 {delimit(stackExchangeUser.reputation)})
 
 웹, 데이터 시각화 그리고 3D 기반으로 활동하는 {years}+@ 년차 프론트엔드 개발자 입니다.<br/>
 
