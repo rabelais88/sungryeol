@@ -22,9 +22,9 @@ const MockPhone: React.FC<{ image: string }> = ({ image }) => {
           bgColor: '#000',
           content: '""',
           w: '35px',
-          h: '13px',
+          h: '10px',
           transform: 'translateX(-50%)',
-          borderBottomRadius: '10px',
+          borderBottomRadius: '8px',
         },
       }}
     >

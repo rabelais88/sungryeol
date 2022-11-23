@@ -5,6 +5,7 @@ const MockWindow: React.FC<{ image: string }> = ({ image }) => {
     <Box
       className="mock-window"
       w="400px"
+      maxW="100%"
       boxShadow="0 0 13px rgba(0,0,0,.3)"
       borderRadius="15px"
     >
