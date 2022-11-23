@@ -109,4 +109,9 @@ WorksPage.defaultProps = {
   ),
 };
 
+WorksPage.defaultProps = {
+  pageTitle: 'WORKS',
+  pageDescription: 'explore works and stuffs created by Sungryeol',
+};
+
 export default WorksPage;

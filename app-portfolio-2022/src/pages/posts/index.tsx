@@ -203,7 +203,28 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       attributesToHighlight: [],
     }
   );
+  // This value is considered fresh for x seconds (s-maxage=x).
+  // If a request is repeated within the next x seconds, the previously
+  // cached value will still be fresh. If the request is repeated before x - 1 seconds,
+  // the cached value will be stale but still render (stale-while-revalidate=(x - 1)).
+  //
+  // In the background, a revalidation request will be made to populate the cache
+  // with a fresh value. If you refresh the page, you will see the new value.
+
+  // set swr cache for 7 days
+  // stale-while-revalidate every 1 hour
+  // unit is in second
+  const hour = 60 * 60;
+  context.res.setHeader(
+    'Cache-Control',
+    `public, s-maxage=${hour * 24 * 7}, stale-while-revalidate=${hour}`
+  );
   return { props: { searchResults, searchForFacetValuesResponse } };
+};
+
+PostsPage.defaultProps = {
+  pageTitle: 'POSTS',
+  pageDescription: 'explore available posts',
 };
 
 export default PostsPage;

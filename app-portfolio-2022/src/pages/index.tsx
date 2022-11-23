@@ -8,17 +8,6 @@ import { SearchResponse } from '@algolia/client-search';
 import { Box, Center, Heading, List, Text, VStack } from '@chakra-ui/react';
 import { GetStaticProps } from 'next';
 
-// const BigLink: React.FC<PropsWithChildren<AppLinkProps>> = ({
-//   children,
-//   ...props
-// }) => {
-//   return (
-//     <AppLink fontFamily="Title" fontSize="24px" lineHeight="150%" {...props}>
-//       {children}
-//     </AppLink>
-//   );
-// };
-
 interface HomeProps {
   searchResponse: SearchResponse<Post>;
 }
@@ -75,4 +64,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 // Home.defaultProps = { bodyPortal: <Box>test!</Box> };
+Home.defaultProps = { pageDescription: 'index page of portfolio & weblog' };
 export default Home;

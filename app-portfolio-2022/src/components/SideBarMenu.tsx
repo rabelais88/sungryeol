@@ -1,8 +1,18 @@
 import { useStoreContext } from '@/lib/store';
-import { Box, Switch, Text, useColorMode, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  Switch,
+  Text,
+  useColorMode,
+  VStack,
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import AppLink from './AppLink';
+import IconMoon from './icons/IconMoon';
+import IconSun from './icons/IconSun';
 import LogoGeometry from './icons/LogoGeometry';
 import MenuTab from './MenuTab';
 
@@ -36,11 +46,25 @@ const SideBarMenu: React.FC = () => {
         <AppLink href="/">
           <LogoGeometry w="160px" h="68px" />
         </AppLink>
-        <Text>color mode</Text>
-        <Switch
-          onChange={(ev) => setColorMode(ev.target.checked ? 'light' : 'dark')}
-          isChecked={colorMode === 'light' ? true : false}
-        />
+        <FormControl
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          flexDir="row"
+        >
+          <FormLabel mb="5px" marginInlineEnd="0" mr="8px">
+            <IconMoon />
+          </FormLabel>
+          <Switch
+            onChange={(ev) =>
+              setColorMode(ev.target.checked ? 'light' : 'dark')
+            }
+            isChecked={colorMode === 'light' ? true : false}
+          />
+          <FormLabel mb="5px" marginInlineEnd="0" ml="8px">
+            <IconSun />
+          </FormLabel>
+        </FormControl>
         <MenuTab href="/posts">posts</MenuTab>
         <MenuTab href="/works">works</MenuTab>
         <MenuTab href="/contact">contact</MenuTab>
