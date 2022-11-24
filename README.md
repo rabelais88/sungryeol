@@ -70,3 +70,7 @@ source mutagen-workspace.sh build
 these projects are no longer maintained.
 
 - [backend](https://github.com/rabelais88/portfolio-backend-2021)
+
+# License
+
+The codes are in public domain (alternatively MIT licenced), blog content and writings are protected by CC BY-NC-ND 4.0. Please check [License.md](/LICENSE.md)
