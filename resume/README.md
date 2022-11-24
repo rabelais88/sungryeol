@@ -5,6 +5,6 @@ deploy this with surge.sh
 ```sh
 $ pnpm build
 $ cd dist
-# https://sungryeol.surge.sh/resume-kr
+# https://sungryeol.surge.sh
 $ surge
 ```

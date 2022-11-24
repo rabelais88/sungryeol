@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import _debounce from 'lodash/debounce';
 import { useRouter } from 'next/router';
-import { toNum, toStr } from '@sungryeol/lib';
+import { toStr } from '@sungryeol/lib';
 import { deleteProperty, mergeObj } from '.';
 
 /**

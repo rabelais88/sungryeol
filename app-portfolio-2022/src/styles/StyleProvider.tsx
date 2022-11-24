@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { ChakraProvider, Progress } from '@chakra-ui/react';
+import { ChakraProvider, Progress, useMediaQuery } from '@chakra-ui/react';
 import { theme } from '@/styles';
 import TopBarMenu from '@/components/TopBarMenu';
 import BaseLayout from '@/components/layouts/BaseLayout';
@@ -16,6 +16,11 @@ const StyleProvider: React.FC<PropsWithChildren<PageProps>> = ({
   const CurrentLayout = layout ?? BaseLayout;
   const { routeLoading } = useRouteLoading();
   const scrolled = useDetectScrolled();
+  const [isSmallerThan800] = useMediaQuery('(max-width: 800px)', {
+    ssr: true,
+    fallback: false, // return false on the server, and re-evaluate on the client side
+  });
+
   return (
     <ChakraProvider theme={theme}>
       <TopBarMenu forceTopBarHide={forceTopBarHide} />
@@ -25,7 +30,13 @@ const StyleProvider: React.FC<PropsWithChildren<PageProps>> = ({
           isIndeterminate
           colorScheme="blackAlpha"
           position="fixed"
-          top={scrolled ? '0px' : '50px'}
+          data-scrolled={scrolled && isSmallerThan800}
+          sx={{
+            top: '50px',
+            '&[data-scrolled="true"]': {
+              top: '0px',
+            },
+          }}
           zIndex="menu"
           w="100%"
         />
