@@ -6,5 +6,5 @@ deploy this with surge.sh
 $ pnpm build
 $ cd dist
 # https://sungryeol.surge.sh/resume-kr
-$ surge.sh
+$ surge
 ```
