@@ -3,8 +3,17 @@ layout: '@/layouts/Layout.astro'
 title: 'Resume: Park Sungryeol'
 ---
 
-import { email, years, jobs, portfolioUrl, github } from '@/constants/shared';
-import { formatJobDate } from '@/lib';
+import {
+  email,
+  years,
+  jobs,
+  portfolioUrl,
+  github,
+  stackoverflow,
+  stackExchangeUser,
+  stackExchangeUesrLastDate,
+} from '@/constants/shared';
+import { formatJobDate, delimit, formatDate } from '@/lib';
 import works from '@/constants/works';
 import HashTags from '@/components/HashTags.astro';
 
@@ -31,7 +40,7 @@ What I'd like to do with your team:
 
 ---
 
-# experience
+# Experience
 
 - _In case the provided links of projects do not work, please check the videos and screenshots at ["works" page of my portfolio](https://sungryeol.com/works)._
 - _In case writings are not accessible, please find copy of the article at [Internet Archive](https://archive.org/web/), where most of them are archived._
