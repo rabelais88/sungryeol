@@ -32,7 +32,7 @@ const ContactItem: React.FC<IContactItemProps> = ({
           colorMode === 'light'
             ? {}
             : {
-                bgColor: 'rgba(0,0,0.1)',
+                bgColor: 'rgba(255,255,255,.2)',
                 borderRadius: '5px',
                 p: '5px',
                 width: '30px',

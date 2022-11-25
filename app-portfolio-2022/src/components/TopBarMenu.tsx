@@ -7,6 +7,7 @@ import {
   useColorMode,
   useMediaQuery,
 } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import AppLink from './AppLink';
 import IconMenu from './icons/IconMenu';
 import LogoText from './icons/LogoText';
@@ -17,6 +18,12 @@ const TopBarMenu: React.FC<Pick<PageProps, 'forceTopBarHide'>> = ({
   const { sideBarShow, setSideBarShow } = useStoreContext();
   const { colorMode } = useColorMode();
   const scrolled = useDetectScrolled();
+  const [userShowMenu, setUserShowMenu] = useState(false);
+  useEffect(() => {
+    if (!scrolled) {
+      setUserShowMenu(false);
+    }
+  }, [scrolled]);
   const [isSmallerThan800] = useMediaQuery('(max-width: 800px)', {
     ssr: true,
     fallback: false, // return false on the server, and re-evaluate on the client side
@@ -25,8 +32,29 @@ const TopBarMenu: React.FC<Pick<PageProps, 'forceTopBarHide'>> = ({
 
   return (
     <>
+      <IconButton
+        className="top-bar-menu-hidden"
+        data-scrolled={scrolled && isSmallerThan800 && !userShowMenu}
+        top="-70px"
+        position="fixed"
+        left="10px"
+        sx={{
+          '&[data-scrolled="true"]': {
+            top: '10px',
+          },
+        }}
+        aria-label="show menu"
+        borderRadius="50%"
+        onClick={() => setUserShowMenu(true)}
+        bg="rgba(255,255,255,.2)"
+        backdropFilter="blur(8px)"
+        transition="top 1s ease"
+        color={colorMode === 'light' ? 'black' : 'white'}
+      >
+        <IconMenu />
+      </IconButton>
       <Box
-        data-scrolled={scrolled && isSmallerThan800}
+        data-scrolled={scrolled && isSmallerThan800 && !userShowMenu}
         transition="top 1s ease"
         // top={{ sm: scrolled ? '-70px' : 0, md: 0 }}
         top="0"
