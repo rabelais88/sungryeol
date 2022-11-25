@@ -5,7 +5,7 @@ import LogoGeometry from '@/components/icons/LogoGeometry';
 import SearchBox from '@/components/post/SearchBox';
 import { PostTagControl } from '@/components/PostTag';
 import PrettyLink from '@/components/PrettyLink';
-import { toStr } from '@/lib';
+import { toStr } from '@sungryeol/lib';
 import { algoliaClient } from '@/lib/algolia';
 import { useQueryRoute } from '@/lib/hooks';
 import { MyPage } from '@/types/common';

@@ -1,4 +1,4 @@
-import { mergeClass } from '@/lib';
+import { mergeClass } from '@sungryeol/lib';
 import { Button, Tag, TagProps, useColorMode } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 const PostTag: React.FC<PropsWithChildren<TagProps>> = ({ children }) => {

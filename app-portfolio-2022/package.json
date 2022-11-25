@@ -1,6 +1,6 @@
 {
   "name": "@sungryeol/app-portfolio-2022",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",
@@ -24,7 +24,7 @@
     "@types/react-syntax-highlighter": "^15.5.5",
     "@u-wave/react-vimeo": "^0.9.8",
     "algoliasearch": "^4.13.1",
-    "eslint": "^8.18.0",
+    "eslint": "^8.28.0",
     "eslint-config-next": "^12.2.0",
     "framer-motion": "^6.5.1",
     "html-react-parser": "^2.0.0",
@@ -46,7 +46,7 @@
     "@types/node": "^18.8.3",
     "@types/react-instantsearch-dom": "^6.12.3",
     "dotenv": "^16.0.3",
-    "prettier": "^2.7.1",
+    "prettier": "^2.8.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.0",
     "yaml": "^2.1.3"

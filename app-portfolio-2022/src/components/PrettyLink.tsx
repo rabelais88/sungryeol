@@ -1,4 +1,4 @@
-import { mergeClass } from '@/lib';
+import { mergeClass } from '@sungryeol/lib';
 import { keyframes, useColorMode } from '@chakra-ui/react';
 import AppLink, { AppLinkProps } from './AppLink';
 

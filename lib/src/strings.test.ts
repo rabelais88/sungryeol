@@ -8,11 +8,11 @@ describe('strings/toStr', () => {
     expect(toStr('aaa')).toEqual('aaa');
   });
   it('forced conversion for objects', () => {
-    expect(toStr({}, true)).toEqual('{}');
+    expect(toStr({})).toEqual('{}');
   });
   it('must use fallback properly', () => {
     expect(toStr(undefined)).toEqual('');
-    expect(toStr(undefined, false, 'boink')).toEqual('boink');
-    expect(toStr(null, false, 'dirk')).toEqual('dirk');
+    expect(toStr(undefined, 'boink')).toEqual('boink');
+    expect(toStr(null, 'dirk')).toEqual('dirk');
   });
 });

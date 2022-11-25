@@ -5,7 +5,6 @@ import TopBarMenu from '@/components/TopBarMenu';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import SideBarMenu from '@/components/SideBarMenu';
 import { useDetectScrolled, useRouteLoading } from '@/lib/hooks';
-import { useStoreContext } from '@/lib/store';
 
 const StyleProvider: React.FC<PropsWithChildren<PageProps>> = ({
   children,

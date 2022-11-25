@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import _debounce from 'lodash/debounce';
 import { useRouter } from 'next/router';
 import { toStr } from '@sungryeol/lib';
-import { deleteProperty, mergeObj } from '.';
+import { deleteProperty, mergeObj } from '@sungryeol/lib';
 
 /**
  * @note https://www.devtwins.com/blog/sticky-navbar-hides-scroll

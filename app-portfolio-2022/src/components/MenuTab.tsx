@@ -1,6 +1,6 @@
 import { useColorMode } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { mergeClass } from '@/lib';
+import { mergeClass } from '@sungryeol/lib';
 import AppLink, { AppLinkProps } from './AppLink';
 
 const MenuTab: React.FC<React.PropsWithChildren<AppLinkProps>> = ({
