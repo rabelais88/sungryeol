@@ -1,5 +1,4 @@
 packages:
-  - "app-portfolio-2021"
   - "app-portfolio-2022"
   - "eslint-config"
   - "lib"

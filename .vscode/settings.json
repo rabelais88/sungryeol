@@ -5,12 +5,12 @@
   // settings for multiple language is not supported yet
   // these settings are must for auto format & save
   "eslint.workingDirectories": [
-    "./app-portfolio-2021",
     "./app-portfolio-2022",
     "./eslint-config",
     "./typescript-config",
     "./prettier-config",
-    "./lib"
+    "./lib",
+    "./resume"
   ],
   "[astro]": {
     "editor.defaultFormatter": "astro-build.astro-vscode"
