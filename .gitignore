@@ -247,3 +247,6 @@ $RECYCLE.BIN/
 
 .parcel-cache/
 .vercel
+
+# devcontainer artifact
+.pnpm-store

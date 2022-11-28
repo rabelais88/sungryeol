@@ -1,18 +1,27 @@
+# What is this?
+
+this is a mono-repo collection of...
+
+1. personal libs and configurations that are used frequently, that are published to npm.
+2. personal weblog + its content.
+
 # Troubleshooting
 
 - `tsconfig.json`내에서 `incremental:true`일 경우 `d.ts`가 텅 빈 상태로 생성되어 `import`가 불가할 수 있음. 앱의 경우는 `incremental:true`로, 유틸은 `incremental:false`로 세팅할 것
-- 로컬에서 프로젝트가 동작하지 않을 경우, 반드시 라이브러리를 빌드해줄 것. `/dist`에서 패키지를 가져오기 때문.
+- the project requires `@sungryeol/lib` being built first. otherwise, it would not run. The built package is symlinked to other projects.
 
 # Caveat
 
 - manage workspace folders via `.vsocde/settings.json` -> `eslint.workingDirectories`
-- vercel을 통해 배포할 때에는 반드시 `Root Directory`를 지정하고, `Include source files outside of the Root Directory in the Build Step.`을 체크할 것.
+- when deploying to Vercel, `Include source files outside of the Root Directory in the Build Step.` option should be enabled.
 
 # Developing inside docker container + vscode
 
-**2022.OCT update: adopted PNPM workspace. vscode devcontainer may not work due to symlink usage in PNPM**
+~~**2022.OCT update: adopted PNPM workspace. vscode devcontainer may not work due to symlink usage in PNPM**~~
 
-- can be accessed via vscode devcontainer + mutagen
+- 2022.NOV update: mutagen + devcontainer is now fully supported again.
+
+- this project is OS independent. It can be accessed via vscode devcontainer + mutagen, in any OSs that support docker and mutagen.
 - https://code.visualstudio.com/docs/remote/attach-container#_attached-container-configuration-files
 
 ```
@@ -27,14 +36,19 @@ source mutagen-workspace.sh build
 - after opening up the service in VSCODE,
   use `Remote-Containers: Open Attached Container Configuration File...` to use user-specific setting.
   refer to `.devcontainer/config-recommend.json` for recommended container setting.
+- attach to `sungryeol-monorepo` container. DO NOT attach to `mutagen` container.
 
 # Install, bootstrapping
 
 - https://vercel.com/docs/concepts/monorepos/turborepo
 
 ```sh
-# activate appropriate yarn version before installing
+# bootstrap the whole monorepo
 (project root)$pnpm install
+# build everything inside this monorepo
+(project root)$ pnpm build
+# start all projects in dev mode
+(project root)$pnpm dev
 ```
 
 # Build & publish libraries

@@ -22,4 +22,5 @@ const myIntegration = {
 // https://astro.build/config
 export default defineConfig({
   integrations: [mdx(), myIntegration],
+  server: { port: 8000 },
 });

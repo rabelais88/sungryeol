@@ -9,7 +9,7 @@ services:
         # Update 'VARIANT' to pick a Node version: 18, 16, 14.
         # Append -bullseye or -buster to pin to an OS version.
         # Use -bullseye variants on local on arm64/Apple Silicon.
-        VARIANT: "16-bullseye"
+        VARIANT: "18-bullseye"
         SHELL_PATH: "/workspace/sungryeol"
     volumes:
       - sungryeol-vol:/workspace/sungryeol:cached
