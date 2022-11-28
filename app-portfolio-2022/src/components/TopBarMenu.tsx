@@ -6,6 +6,7 @@ import {
   IconButton,
   useColorMode,
   useMediaQuery,
+  useTheme,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import AppLink from './AppLink';
@@ -50,6 +51,7 @@ const TopBarMenu: React.FC<Pick<PageProps, 'forceTopBarHide'>> = ({
         backdropFilter="blur(8px)"
         transition="top 1s ease"
         color={colorMode === 'light' ? 'black' : 'white'}
+        zIndex="menu"
       >
         <IconMenu />
       </IconButton>
