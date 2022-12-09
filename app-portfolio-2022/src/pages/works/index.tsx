@@ -85,7 +85,7 @@ const WorksPage: MyPage<WorksPageProps> = ({ tinaRequest }) => {
 };
 
 WorksPage.defaultProps = {
-  pageTitle: 'works',
+  pageTitle: 'WORKS',
   bodyPortal: (
     <AppLink
       externalUrl
@@ -107,10 +107,6 @@ WorksPage.defaultProps = {
       </Marquee>
     </AppLink>
   ),
-};
-
-WorksPage.defaultProps = {
-  pageTitle: 'WORKS',
   pageDescription: 'explore works and stuffs created by Sungryeol',
 };
 
