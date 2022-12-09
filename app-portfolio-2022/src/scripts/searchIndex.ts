@@ -27,9 +27,14 @@ const {
     const postId = fileName.replace('.md', '');
 
     const frontmatter = parse(frontmatterStr) as Post;
+    const datePublishTimestamp =
+      new Date(frontmatter?.datePublish).getTime() / 1000;
     console.log(`reading ${fileName}`);
     return {
       ...frontmatter,
+      // https://www.algolia.com/doc/guides/managing-results/refine-results/sorting/how-to/sort-an-index-by-date/#configuring-virtual-replicas
+      // algolia requires timestamp to sort the data by date
+      datePublishTimestamp,
       objectID: postId,
       body: bodyStr,
     };
