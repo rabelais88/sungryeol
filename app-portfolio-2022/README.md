@@ -23,3 +23,13 @@ pnpm turbo build --filter=@sungryeol/app-portfolio-2022
 # testing deploy
 pnpm turbo deploy --filter=@sungryeol/app-portfolio-2022
 ```
+
+## Algolia Search Indexing
+
+```sh
+pnpm search-index
+```
+
+If algolia index does not match, try to import the `algolia-config.json`.\
+Do not forget to export the config after changing settings.\
+![screenshot of algolia config import menu](algolia-config.png)
