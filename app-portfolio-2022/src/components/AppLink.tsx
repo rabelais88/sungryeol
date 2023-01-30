@@ -31,16 +31,16 @@ const AppLink: React.FC<PropsWithChildren<AppLinkProps>> = ({
     );
   }
   return (
-    <NextLink href={href} passHref>
-      <Link
-        {...props}
-        data-component="app-link"
-        data-link-external="false"
-        data-disabled={disabled}
-      >
-        {children}
-      </Link>
-    </NextLink>
+    <Link
+      href={href}
+      as={NextLink}
+      {...props}
+      data-component="app-link"
+      data-link-external="false"
+      data-disabled={disabled}
+    >
+      {children}
+    </Link>
   );
 };
 
