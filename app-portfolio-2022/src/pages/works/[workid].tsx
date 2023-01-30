@@ -55,6 +55,12 @@ const WorkPage: MyPage<WorkPageProps> = ({ tinaRequest }) => {
         {data.work.title}
       </Heading>
       <Divider mt="9px" />
+      {data?.work?.url && (
+        <Box mt="25px">
+          <IconExternal w="24px" h="24px" />
+          <PrettyLink href={data?.work?.url}>See Actual Work</PrettyLink>
+        </Box>
+      )}
       <Box
         sx={{
           'h1,h2,h3,h4,h5': { fontFamily: 'Title' },

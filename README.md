@@ -48,7 +48,7 @@ source mutagen-workspace.sh build
 # build everything inside this monorepo
 (project root)$ pnpm build
 # start all projects in dev mode
-(project root)$pnpm dev
+(project root)$ pnpm dev
 ```
 
 # Build & publish libraries
