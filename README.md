@@ -74,6 +74,13 @@ source mutagen-workspace.sh build
 
 - add `[skip-build]` to commit message
 
+# Deploy
+
+```sh
+# vercel build command to target specific app
+cd .. && npx turbo run deploy --filter=@sungryeol/app-portfolio-2022
+```
+
 # Project specific readmes
 
 - [portfolio and blog readme](https://github.com/rabelais88/sungryeol/tree/main/app-portfolio-2022)
