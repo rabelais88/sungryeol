@@ -1,0 +1,5 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npx turbo run deploy --filter=@sungryeol/app-portfolio-2022",
+  "installCommand": "pnpm install"
+}
