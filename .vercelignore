@@ -1,3 +1,4 @@
 # https://vercel.com/guides/prevent-uploading-sourcepaths-with-vercelignore
-/*
-!app-portfolio-2022
+.github
+.devcontainer
+.vscode
