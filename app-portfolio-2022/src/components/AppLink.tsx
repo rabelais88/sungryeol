@@ -32,12 +32,13 @@ const AppLink: React.FC<PropsWithChildren<AppLinkProps>> = ({
   }
   return (
     <Link
-      href={href}
       as={NextLink}
       {...props}
       data-component="app-link"
       data-link-external="false"
       data-disabled={disabled}
+      // as it becomes NextLink, it also uses href prop from NextLink
+      href={href as string}
     >
       {children}
     </Link>
