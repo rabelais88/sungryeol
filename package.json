@@ -24,8 +24,7 @@
     "prettier-config",
     "typescript-config",
     "lib",
-    "app-portfolio-2021",
-    "app-portfolio-2022"
+    "app-portfolio-2023"
   ],
   "scripts": {
     "prebuild": "turbo run prebuild --scope=@sungryeol/resume",
