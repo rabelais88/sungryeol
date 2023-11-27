@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - "app-portfolio-2022/content/**"
+      - "app-portfolio-2023/src/content/**"
   workflow_dispatch:
 
 jobs:
@@ -37,19 +37,14 @@ jobs:
       # --- end of pnpm cache setup
       - run: pnpm install
       - name: create env file
-        working-directory: ./app-portfolio-2022
+        working-directory: ./app-portfolio-2023
         run: |
           touch .env
           echo ALGOLIA_SEARCH_ADMIN_KEY=${{ secrets.ALGOLIA_SEARCH_ADMIN_KEY }} >> .env
           echo NEXT_PUBLIC_ALGOLIA_APP_ID=${{ secrets.NEXT_PUBLIC_ALGOLIA_APP_ID }} >> .env 
           echo NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY=${{ secrets.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY }} >> .env
-          echo NEXT_PUBLIC_TINA_CLIENT_ID=${{ secrets.NEXT_PUBLIC_TINA_CLIENT_ID }} >> .env
-          echo TINA_TOKEN=${{ secrets.TINA_TOKEN }} >> .env
       - name: "@sungryeol/lib build"
         run: pnpm run build
         working-directory: ./lib
-      - name: "@sungryeol/app-portfolio-2022 build for tinaCMS generated type files"
-        run: pnpm run build
-        working-directory: ./app-portfolio-2022
       - run: pnpm run search-index
-        working-directory: ./app-portfolio-2022
+        working-directory: ./app-portfolio-2023

@@ -1,0 +1,65 @@
+{
+  "settings": {
+    "minWordSizefor1Typo": 4,
+    "minWordSizefor2Typos": 8,
+    "hitsPerPage": 20,
+    "maxValuesPerFacet": 100,
+    "searchableAttributes": [
+      "unordered(title)",
+      "unordered(body)",
+      "unordered(tags)"
+    ],
+    "numericAttributesToIndex": null,
+    "attributesToRetrieve": null,
+    "distinct": true,
+    "unretrievableAttributes": null,
+    "optionalWords": null,
+    "attributesForFaceting": [
+      "afterDistinct(searchable(tags))"
+    ],
+    "attributesToSnippet": [
+      "body:10"
+    ],
+    "attributesToHighlight": [
+      "body",
+      "tags",
+      "title"
+    ],
+    "paginationLimitedTo": 1000,
+    "attributeForDistinct": "slug",
+    "exactOnSingleWordQuery": "attribute",
+    "ranking": [
+      "desc(datePublishTimestamp)",
+      "asc(bodyIndex)",
+      "typo",
+      "geo",
+      "words",
+      "filters",
+      "proximity",
+      "attribute",
+      "exact",
+      "custom"
+    ],
+    "customRanking": null,
+    "separatorsToIndex": "",
+    "removeWordsIfNoResults": "none",
+    "queryType": "prefixLast",
+    "highlightPreTag": "<em>",
+    "highlightPostTag": "</em>",
+    "alternativesAsExact": [
+      "ignorePlurals",
+      "singleWordSynonym"
+    ],
+    "renderingContent": {
+      "facetOrdering": {
+        "facets": {
+          "order": [
+            "tags"
+          ]
+        }
+      }
+    }
+  },
+  "rules": [],
+  "synonyms": []
+}

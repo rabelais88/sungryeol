@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-yellow-base: #fefcbf;
+  --bg-pink-base: #ed64a6;
+  --bg-darknavy-base: #1b202b;
+  --fg-black-base: #433f3f;
+}
+*::selection {
+  background-color: var(--bg-yellow-base);
+}
+
+body {
+  background-color: white;
+  color: var(--fg-black-base);
+}
+
+@media (prefers-color-scheme: dark) {
+  *::selection {
+    background-color: var(--bg-pink-base);
+  }
+  body {
+    color: white;
+    background-color: var(--bg-darknavy-base);
+  }
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee2 {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes underline {
+  from {
+    background-position: left 2px bottom 2px;
+  }
+  to {
+    background-position: left 500px bottom 2px;
+  }
+}

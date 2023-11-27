@@ -1,0 +1,47 @@
+{
+  "name": "sungryeol-2023",
+  "version": "1.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "search-index": "ts-node --project ./tsconfig-scripts.json -r tsconfig-paths/register src/scripts/searchIndex.ts"
+  },
+  "dependencies": {
+    "@algolia/client-search": "^4.20.0",
+    "@keystatic/core": "^0.2.4",
+    "@keystatic/next": "^2.0.0",
+    "@mdx-js/loader": "^3.0.0",
+    "@mdx-js/react": "^3.0.0",
+    "@next/mdx": "^14.0.3",
+    "@types/mdx": "^2.0.10",
+    "@u-wave/react-vimeo": "^0.9.10",
+    "bright": "^0.8.4",
+    "dayjs": "^1.11.10",
+    "jotai": "^2.5.1",
+    "next": "14.0.3",
+    "next-mdx-remote": "^4.4.1",
+    "radash": "^11.0.0",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "algoliasearch": "^4.20.0",
+    "autoprefixer": "^10.0.1",
+    "dotenv": "^16.3.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.3",
+    "postcss": "^8",
+    "prettier": "^3.1.0",
+    "tailwindcss": "^3.3.0",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5",
+    "yaml": "^2.3.4"
+  }
+}
