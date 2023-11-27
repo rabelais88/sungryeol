@@ -19,10 +19,10 @@ importers:
         version: 2.8.0(@parcel/core@2.8.0)
       '@parcel/transformer-typescript-tsc':
         specifier: ^2.8.0
-        version: 2.8.0(@parcel/core@2.8.0)(typescript@4.8.4)
+        version: 2.8.0(@parcel/core@2.8.0)(typescript@5.3.2)
       '@parcel/transformer-typescript-types':
         specifier: ^2.8.0
-        version: 2.8.0(@parcel/core@2.8.0)(typescript@4.8.4)
+        version: 2.8.0(@parcel/core@2.8.0)(typescript@5.3.2)
       parcel:
         specifier: ^2.8.0
         version: 2.8.0
@@ -30,8 +30,8 @@ importers:
         specifier: ^1.10.16
         version: 1.10.16
       typescript:
-        specifier: ^4.8.4
-        version: 4.8.4
+        specifier: ^5.3.2
+        version: 5.3.2
       vercel:
         specifier: ^32.5.6
         version: 32.5.6
@@ -2939,20 +2939,6 @@ packages:
       - '@parcel/core'
     dev: true
 
-  /@parcel/transformer-typescript-tsc@2.8.0(@parcel/core@2.8.0)(typescript@4.8.4):
-    resolution: {integrity: sha512-8FchhXYbwT3QCWTVP0eCSssKlAFWK0lYrHyat52ngyOd43xzdupjcvgiyKL4u9uwN1nf+dqVnA0AqmKPogCibg==}
-    engines: {node: '>= 12.0.0', parcel: ^2.8.0}
-    peerDependencies:
-      typescript: '>=3.0.0'
-    dependencies:
-      '@parcel/plugin': 2.8.0(@parcel/core@2.8.0)
-      '@parcel/source-map': 2.1.1
-      '@parcel/ts-utils': 2.8.0(typescript@4.8.4)
-      typescript: 4.8.4
-    transitivePeerDependencies:
-      - '@parcel/core'
-    dev: true
-
   /@parcel/transformer-typescript-tsc@2.8.0(@parcel/core@2.8.0)(typescript@5.3.2):
     resolution: {integrity: sha512-8FchhXYbwT3QCWTVP0eCSssKlAFWK0lYrHyat52ngyOd43xzdupjcvgiyKL4u9uwN1nf+dqVnA0AqmKPogCibg==}
     engines: {node: '>= 12.0.0', parcel: ^2.8.0}
@@ -2963,23 +2949,6 @@ packages:
       '@parcel/source-map': 2.1.1
       '@parcel/ts-utils': 2.8.0(typescript@5.3.2)
       typescript: 5.3.2
-    transitivePeerDependencies:
-      - '@parcel/core'
-    dev: true
-
-  /@parcel/transformer-typescript-types@2.8.0(@parcel/core@2.8.0)(typescript@4.8.4):
-    resolution: {integrity: sha512-np7HTfEylyJO7Uc6vMTQDhKmIbKyzGi81otpm74t86CUqlSoecXL/IuifTAAaHdhZv7WSNR3AOtmSa8geMVUCA==}
-    engines: {node: '>= 12.0.0', parcel: ^2.8.0}
-    peerDependencies:
-      typescript: '>=3.0.0'
-    dependencies:
-      '@parcel/diagnostic': 2.8.0
-      '@parcel/plugin': 2.8.0(@parcel/core@2.8.0)
-      '@parcel/source-map': 2.1.1
-      '@parcel/ts-utils': 2.8.0(typescript@4.8.4)
-      '@parcel/utils': 2.8.0
-      nullthrows: 1.1.1
-      typescript: 4.8.4
     transitivePeerDependencies:
       - '@parcel/core'
     dev: true
@@ -2999,16 +2968,6 @@ packages:
       typescript: 5.3.2
     transitivePeerDependencies:
       - '@parcel/core'
-    dev: true
-
-  /@parcel/ts-utils@2.8.0(typescript@4.8.4):
-    resolution: {integrity: sha512-DoSpJfckv8JmVAffS95EurbaLtp+bryyJTcXQfEI2fQVQBnXW8K92cxvIj8MtC+xQW22J/3/PZ+d0HRxmbxT1w==}
-    engines: {node: '>= 12.0.0'}
-    peerDependencies:
-      typescript: '>=3.0.0'
-    dependencies:
-      nullthrows: 1.1.1
-      typescript: 4.8.4
     dev: true
 
   /@parcel/ts-utils@2.8.0(typescript@5.3.2):
@@ -5552,7 +5511,7 @@ packages:
       strip-ansi: 7.0.1
       supports-esm: 1.0.0
       tsconfig-resolver: 3.0.1
-      typescript: 4.8.4
+      typescript: 5.3.2
       unist-util-visit: 4.1.1
       vfile: 5.3.5
       vite: 3.1.7
@@ -13572,11 +13531,6 @@ packages:
       is-typed-array: 1.1.12
     dev: true
 
-  /typescript@4.8.4:
-    resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
-
   /typescript@4.9.5:
     resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
     engines: {node: '>=4.2.0'}
@@ -13587,7 +13541,6 @@ packages:
     resolution: {integrity: sha512-6l+RyNy7oAHDfxC4FzSJcz9vnjTKxrLpDG5M2Vu4SHRVNg6xzqZp6LYSR9zjqQTu8DU/f5xwxUdADOkbrIX2gQ==}
     engines: {node: '>=14.17'}
     hasBin: true
-    dev: true
 
   /uid-promise@1.0.0:
     resolution: {integrity: sha512-R8375j0qwXyIu/7R0tjdF06/sElHqbmdmWC9M2qQHpEVbvE4I5+38KJI7LUUmQMp7NVq4tKHiBMkT0NFM453Ig==}
